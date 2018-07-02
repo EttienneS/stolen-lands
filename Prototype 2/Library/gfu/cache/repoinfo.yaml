@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 1
-  lastUpdatedAtString: 2018-07-02T09:22:52.566+02:00
-  initializedAtString: 2018-07-02T09:22:52.566+02:00
+  lastUpdatedAtString: 2018-07-02T13:46:40.666+02:00
+  initializedAtString: 2018-07-02T13:46:40.666+02:00
   currentGitRemote:
     name: origin
     url: https://github.com/EttienneS/stolen-lands.git
@@ -34,4 +34,4 @@ MonoBehaviour:
   currentConfigRemote:
     name: origin
     url: https://github.com/EttienneS/stolen-lands.git
-  currentHead: ec0d7ff
+  currentHead: 8d4a948
