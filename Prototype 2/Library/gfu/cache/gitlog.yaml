@@ -1,0 +1,168 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &1
+MonoBehaviour:
+  m_ObjectHideFlags: 61
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -530159753, guid: 68c7e4565cde54155bb78d8e935f1dd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cacheType: 3
+  lastUpdatedAtString: 2018-07-02T09:24:34.308+02:00
+  initializedAtString: 2018-07-02T09:22:52.594+02:00
+  log:
+  - commitID: ec0d7ffc56a8e46b7c4a20ee0282e6a41e7268bd
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: V1 proptotype
+    description: "V1 proptotype\r\nAdd basic world with locations\r\nAdd screen renderer
+      to display the world in a console window"
+    timeString: 2018-06-06T10:07:59.000+02:00
+    commitTimeString: 2018-06-06T10:07:59.000+02:00
+    changes:
+    - path: .gitattributes
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\.gitattributes
+      projectPath: ..\.gitattributes
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: .gitignore
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\.gitignore
+      projectPath: ..\.gitignore
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype1.sln
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype1.sln
+      projectPath: ..\Prototype1.sln
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype1\Program.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype1\Program.cs
+      projectPath: ..\Prototype1\Program.cs
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype1\Prototype1.csproj
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype1\Prototype1.csproj
+      projectPath: ..\Prototype1\Prototype1.csproj
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype1\Readme.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype1\Readme.md
+      projectPath: ..\Prototype1\Readme.md
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype1\ScreenBuffer.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype1\ScreenBuffer.cs
+      projectPath: ..\Prototype1\ScreenBuffer.cs
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: World.Test\World.Test.csproj
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\World.Test\World.Test.csproj
+      projectPath: ..\World.Test\World.Test.csproj
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: World.Test\WorldServiceTest.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\World.Test\WorldServiceTest.cs
+      projectPath: ..\World.Test\WorldServiceTest.cs
+      originalPath: 
+      status: 4
+      staged: 0
+  - commitID: 29b890857801c623aa46efbef06612097d489c38
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: move some info from design to readme
+    description: move some info from design to readme
+    timeString: 2018-04-18T08:27:10.000+02:00
+    commitTimeString: 2018-04-18T08:27:10.000+02:00
+    changes:
+    - path: Design Documents\Design.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Design Documents\Design.md
+      projectPath: ..\Design Documents\Design.md
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: README.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\README.md
+      projectPath: ..\README.md
+      originalPath: 
+      status: 3
+      staged: 0
+  - commitID: 34376f89b41fab8a4604ea5fb4b59d6888c6223f
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: Add first run design documents
+    description: Add first run design documents
+    timeString: 2018-04-18T08:10:35.000+02:00
+    commitTimeString: 2018-04-18T08:10:35.000+02:00
+    changes:
+    - path: Design Documents\Agent_Design.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Design Documents\Agent_Design.md
+      projectPath: ..\Design Documents\Agent_Design.md
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Design Documents\Context_Design.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Design Documents\Context_Design.md
+      projectPath: ..\Design Documents\Context_Design.md
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Design Documents\Design.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Design Documents\Design.md
+      projectPath: ..\Design Documents\Design.md
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Design Documents\Entity_Design.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Design Documents\Entity_Design.md
+      projectPath: ..\Design Documents\Entity_Design.md
+      originalPath: 
+      status: 4
+      staged: 0
+  - commitID: 946f147070e8b30278d26ff03cbb9d008bb5f4d1
+    mergeA: 
+    mergeB: 
+    authorName: EttienneS
+    authorEmail: raidenets@gmail.com
+    commitEmail: noreply@github.com
+    commitName: GitHub
+    summary: Initial commit
+    description: Initial commit
+    timeString: 2018-04-18T08:06:46.000+02:00
+    commitTimeString: 2018-04-18T08:06:46.000+02:00
+    changes:
+    - path: LICENSE
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\LICENSE
+      projectPath: ..\LICENSE
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: README.md
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\README.md
+      projectPath: ..\README.md
+      originalPath: 
+      status: 4
+      staged: 0
