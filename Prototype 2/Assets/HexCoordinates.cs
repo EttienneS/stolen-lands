@@ -60,7 +60,7 @@ public struct HexCoordinates
 
     public static HexCoordinates FromOffsetCoordinates(int x, int y)
     {
-        return new HexCoordinates(x, y);
+        return new HexCoordinates(x - y / 2, y);
     }
 
     public override string ToString()

@@ -43,7 +43,7 @@ public class HexGrid : MonoBehaviour
         float xpos = x;
         float ypos = y;
 
-        var position = new Vector2((xpos + y * 0.5f) * (HexMetrics.innerRadius * 2f),
+        var position = new Vector2((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
                                    ypos * (HexMetrics.outerRadius * 1.5f));
 
         var cell = cells[i] = Instantiate(cellPrefab);
