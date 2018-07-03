@@ -12,9 +12,45 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 5
-  lastUpdatedAtString: 2018-07-03T08:54:42.778+02:00
-  initializedAtString: 2018-07-03T08:47:58.346+02:00
+  lastUpdatedAtString: 2018-07-03T14:29:05.507+02:00
+  initializedAtString: 2018-07-03T13:54:00.736+02:00
   entries:
+  - path: Prototype 2\Assembly-CSharp.csproj
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Assets\HexCell.cs
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexCell.cs
+    projectPath: Assets\HexCell.cs
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Assets\HexCoordinates.cs
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexCoordinates.cs
+    projectPath: Assets\HexCoordinates.cs
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Assets\HexDirection.cs
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexDirection.cs
+    projectPath: Assets\HexDirection.cs
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Prototype 2\Assets\HexGrid.cs
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexGrid.cs
+    projectPath: Assets\HexGrid.cs
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Assets\HexMapEditor.cs
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexMapEditor.cs
+    projectPath: Assets\HexMapEditor.cs
+    originalPath: 
+    status: 1
+    staged: 0
   - path: Prototype 2\Assets\Scenes\SampleScene.unity
     fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Scenes\SampleScene.unity
     projectPath: Assets\Scenes\SampleScene.unity
@@ -31,11 +67,23 @@ MonoBehaviour:
     fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\CrashedAssetImports.txt
     projectPath: Library\CrashedAssetImports.txt
     originalPath: 
-    status: 1
+    status: 5
+    staged: 0
+  - path: Prototype 2\Library\CurrentLayout.dwlt
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\CurrentLayout.dwlt
+    projectPath: Library\CurrentLayout.dwlt
+    originalPath: 
+    status: 3
     staged: 0
   - path: Prototype 2\Library\EditorInstance.json
     fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\EditorInstance.json
     projectPath: Library\EditorInstance.json
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\gfu\cache\branches.yaml
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\branches.yaml
+    projectPath: Library\gfu\cache\branches.yaml
     originalPath: 
     status: 3
     staged: 0
@@ -66,6 +114,66 @@ MonoBehaviour:
   - path: Prototype 2\Library\gfu\cache\repoinfo.yaml
     fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\repoinfo.yaml
     projectPath: Library\gfu\cache\repoinfo.yaml
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\InspectorExpandedItems.asset
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\InspectorExpandedItems.asset
+    projectPath: Library\InspectorExpandedItems.asset
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\metadata\02\021ec87dc02d0834c9f6977911e9699b
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\02\021ec87dc02d0834c9f6977911e9699b
+    projectPath: Library\metadata\02\021ec87dc02d0834c9f6977911e9699b
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Prototype 2\Library\metadata\02\021ec87dc02d0834c9f6977911e9699b.info
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\02\021ec87dc02d0834c9f6977911e9699b.info
+    projectPath: Library\metadata\02\021ec87dc02d0834c9f6977911e9699b.info
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Prototype 2\Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+    projectPath: Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\metadata\7e\7e503a86f8512ce4c8f37d9bacaca49d
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\7e\7e503a86f8512ce4c8f37d9bacaca49d
+    projectPath: Library\metadata\7e\7e503a86f8512ce4c8f37d9bacaca49d
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+    projectPath: Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe.info
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe.info
+    projectPath: Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe.info
+    originalPath: 
+    status: 1
+    staged: 0
+  - path: Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+    projectPath: Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
+    originalPath: 
+    status: 3
+    staged: 0
+  - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
     originalPath: 
     status: 3
     staged: 0

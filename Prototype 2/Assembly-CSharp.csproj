@@ -64,7 +64,9 @@
     <Compile Include="Assets\CameraController.cs" />
     <Compile Include="Assets\HexCell.cs" />
     <Compile Include="Assets\HexCoordinates.cs" />
+    <Compile Include="Assets\HexDirection.cs" />
     <Compile Include="Assets\HexGrid.cs" />
+    <Compile Include="Assets\HexMapEditor.cs" />
     <Compile Include="Assets\HexMesh.cs" />
     <Compile Include="Assets\HexMetrics.cs" />
     <None Include="Assets\VertexColors.shader" />

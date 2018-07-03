@@ -12,9 +12,75 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 3
-  lastUpdatedAtString: 2018-07-03T08:52:32.452+02:00
+  lastUpdatedAtString: 2018-07-03T08:56:17.153+02:00
   initializedAtString: 2018-07-03T08:47:58.193+02:00
   log:
+  - commitID: 6bb163c6da9059b9b2ff2b7157c84ba1de4b110e
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: Change grid size, and colors for demo
+    description: Change grid size, and colors for demo
+    timeString: 2018-07-03T08:55:54.000+02:00
+    commitTimeString: 2018-07-03T08:55:54.000+02:00
+    changes:
+    - path: Prototype 2\Assets\Scenes\SampleScene.unity
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Scenes\SampleScene.unity
+      projectPath: Assets\Scenes\SampleScene.unity
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\CrashedAssetImports.txt
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\CrashedAssetImports.txt
+      projectPath: Library\CrashedAssetImports.txt
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype 2\Library\EditorInstance.json
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\EditorInstance.json
+      projectPath: Library\EditorInstance.json
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\assetDatabase3
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\assetDatabase3
+      projectPath: Library\assetDatabase3
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlocks.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlocks.yaml
+      projectPath: Library\gfu\cache\gitlocks.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlog.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlog.yaml
+      projectPath: Library\gfu\cache\gitlog.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      projectPath: Library\gfu\cache\gitstatusentries.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      projectPath: Library\gfu\cache\gittrackingstatus.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\repoinfo.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\repoinfo.yaml
+      projectPath: Library\gfu\cache\repoinfo.yaml
+      originalPath: 
+      status: 3
+      staged: 0
   - commitID: b907477753ec1ca8ded565511f042f193f0ebf5d
     mergeA: 
     mergeB: 
