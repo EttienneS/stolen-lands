@@ -255,7 +255,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 30
+  orthographic size: 75
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -387,14 +387,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8196f5ad3867154083203080f805d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 6
-  height: 6
+  width: 30
+  height: 30
   cellPrefab: {fileID: 114824413764255646, guid: 1d17b824720ea3240a26182d890e9f9b,
     type: 2}
   cellLabelPrefab: {fileID: 114632725630112832, guid: 17f157a9b6b74e34cb242c61a0e971dc,
     type: 2}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  touchedColor: {r: 1, g: 0, b: 1, a: 1}
+  defaultColor: {r: 0.09064613, g: 0.7535704, b: 0.9150943, a: 1}
+  touchedColor: {r: 0, g: 0.5283019, b: 0.093654566, a: 1}
 --- !u!4 &1866466218
 Transform:
   m_ObjectHideFlags: 0

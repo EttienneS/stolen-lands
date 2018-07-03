@@ -12,9 +12,99 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 3
-  lastUpdatedAtString: 2018-07-02T15:07:30.109+02:00
-  initializedAtString: 2018-07-02T15:04:06.401+02:00
+  lastUpdatedAtString: 2018-07-03T08:52:32.452+02:00
+  initializedAtString: 2018-07-03T08:47:58.193+02:00
   log:
+  - commitID: b907477753ec1ca8ded565511f042f193f0ebf5d
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: Fix rounding errors, add back grid offset
+    description: Fix rounding errors, add back grid offset
+    timeString: 2018-07-02T15:08:18.000+02:00
+    commitTimeString: 2018-07-02T15:08:18.000+02:00
+    changes:
+    - path: Prototype 2\Assets\HexCoordinates.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexCoordinates.cs
+      projectPath: Assets\HexCoordinates.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\HexGrid.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\HexGrid.cs
+      projectPath: Assets\HexGrid.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\EditorInstance.json
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\EditorInstance.json
+      projectPath: Library\EditorInstance.json
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\assetDatabase3
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\assetDatabase3
+      projectPath: Library\assetDatabase3
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlocks.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlocks.yaml
+      projectPath: Library\gfu\cache\gitlocks.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlog.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlog.yaml
+      projectPath: Library\gfu\cache\gitlog.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      projectPath: Library\gfu\cache\gitstatusentries.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      projectPath: Library\gfu\cache\gittrackingstatus.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\repoinfo.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\repoinfo.yaml
+      projectPath: Library\gfu\cache\repoinfo.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+      projectPath: Library\metadata\73\73947f4bbccc84d4faca1ae6989438af
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      projectPath: Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      originalPath: 
+      status: 3
+      staged: 0
   - commitID: 5143506a1443602ce5c128771c8a981e35fe1f81
     mergeA: 
     mergeB: 
