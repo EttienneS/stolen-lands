@@ -45,7 +45,7 @@ MonoBehaviour:
   m_MinSize: {x: 683, y: 492}
   m_MaxSize: {x: 14004, y: 14042}
   vertical: 0
-  controlID: 50
+  controlID: 103
 --- !u!114 &3
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 492}
   m_MaxSize: {x: 10002, y: 14042}
   vertical: 1
-  controlID: 51
+  controlID: 104
 --- !u!114 &10
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_MinSize: {x: 406, y: 221}
   m_MaxSize: {x: 8006, y: 4021}
   vertical: 0
-  controlID: 52
+  controlID: 105
 --- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -256,13 +256,13 @@ MonoBehaviour:
     height: 681
   m_MinSize: {x: 204, y: 221}
   m_MaxSize: {x: 4004, y: 4021}
-  m_ActualView: {fileID: 19}
+  m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
   - {fileID: 19}
   - {fileID: 14}
-  m_Selected: 1
-  m_LastSelected: 0
+  m_Selected: 0
+  m_LastSelected: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -404,7 +404,7 @@ MonoBehaviour:
     localBranches: []
     remoteBranches: []
   changesView:
-    currentBranchHasUpdate: 0
+    currentBranchHasUpdate: 1
     currentStatusEntriesHasUpdate: 1
     currentLocksHasUpdate: 1
     commitBody: 
@@ -760,13 +760,13 @@ MonoBehaviour:
       staged: 0
     changedFilesText: 6 changed files
     lastCurrentBranchChangedEvent:
-      updatedTimeString: 2018-07-03T08:56:17.120+02:00
+      updatedTimeString: 2018-07-03T13:54:00.768+02:00
       cacheType: 1
     lastStatusEntriesChangedEvent:
-      updatedTimeString: 2018-07-03T09:02:31.350+02:00
+      updatedTimeString: 2018-07-03T16:58:26.470+02:00
       cacheType: 5
     lastLocksChangedEvent:
-      updatedTimeString: 2018-07-03T09:02:31.383+02:00
+      updatedTimeString: 0001-01-01T00:00:00.000+00:00
       cacheType: 6
   historyView:
     currentLogHasUpdate: 0
@@ -14164,9 +14164,9 @@ MonoBehaviour:
   m_PersistentViewDataDictionary: {fileID: 0}
   m_TreeViewState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 
-    m_LastClickedID: 0
-    m_ExpandedIDs: eafbffff00000000
+    m_SelectedIDs: 421ffaff
+    m_LastClickedID: -385214
+    m_ExpandedIDs: 1637ffff8a38ffffea39ffff7e50ffff50beffffe0f6ffffeafbffff000000007e2c0000862c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -14221,9 +14221,9 @@ MonoBehaviour:
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 23.620255, y: 22.540583, z: -1.625}
+    m_Target: {x: 44.214325, y: 29.761389, z: -6.3660135}
     speed: 2
-    m_Value: {x: 23.620255, y: 22.540583, z: -1.625}
+    m_Value: {x: 44.214325, y: 29.761389, z: -6.3660135}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -14255,9 +14255,9 @@ MonoBehaviour:
     speed: 2
     m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 166.62222
+    m_Target: 148.7385
     speed: 2
-    m_Value: 166.62222
+    m_Value: 148.7385
   m_Ortho:
     m_Target: 1
     speed: 2
@@ -14314,7 +14314,7 @@ MonoBehaviour:
     m_HSlider: 0
     m_VSlider: 0
     m_IgnoreScrollWheelUntilClicked: 0
-    m_EnableMouseInput: 1
+    m_EnableMouseInput: 0
     m_EnableSliderZoom: 0
     m_UniformScale: 1
     m_UpDirection: 1

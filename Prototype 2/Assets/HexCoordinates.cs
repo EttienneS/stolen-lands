@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-[System.Serializable]
+[Serializable]
 public struct HexCoordinates
 {
     [SerializeField]
@@ -19,14 +20,6 @@ public struct HexCoordinates
         get
         {
             return y;
-        }
-    }
-
-    public int Z
-    {
-        get
-        {
-            return -X - Y;
         }
     }
 
@@ -49,7 +42,7 @@ public struct HexCoordinates
         int iZ = Mathf.RoundToInt(z);
         int iY = Mathf.RoundToInt(-x - z);
 
-        if (iX + iY + iZ != 0)
+        if (iX + iZ + iY != 0)
         {
             float dX = Mathf.Abs(x - iX);
             float dZ = Mathf.Abs(z - iZ);
@@ -75,11 +68,11 @@ public struct HexCoordinates
 
     public override string ToString()
     {
-        return "(" + X.ToString() + ", " + Y.ToString() + ", " + Z.ToString() + ")";
+        return "(" + X.ToString() + ", " + Y.ToString() + ")";
     }
 
     public string ToStringOnSeparateLines()
     {
-        return X.ToString() + "\n" + Y.ToString() + "\n" + Z.ToString();
+        return X.ToString() + "\n" + Y.ToString();
     }
 }

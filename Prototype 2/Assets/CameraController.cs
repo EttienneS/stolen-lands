@@ -6,8 +6,8 @@ public class CameraController : MonoBehaviour
 
     void Update()
     {
-        float xMove = Input.GetAxis("Horizontal") * Speed;
-        float yMove = Input.GetAxis("Vertical") * Speed;
+        var xMove = Input.GetAxis("Horizontal") * Speed;
+        var yMove = Input.GetAxis("Vertical") * Speed;
 
         transform.position = new Vector3(transform.position.x + xMove, transform.position.y + yMove, -10);
     }
