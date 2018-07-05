@@ -33,7 +33,7 @@ interface ITag
 
 ```
 
-## Implimentation of an enitity and tag:
+## Implementation of an enitity and tag:
 
 ```csharp
 public Rock : IEntity
