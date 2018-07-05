@@ -61,15 +61,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\CameraController.cs" />
-    <Compile Include="Assets\HexCell.cs" />
-    <Compile Include="Assets\HexCoordinates.cs" />
-    <Compile Include="Assets\HexDirection.cs" />
-    <Compile Include="Assets\HexGrid.cs" />
-    <Compile Include="Assets\HexMapEditor.cs" />
-    <Compile Include="Assets\HexMesh.cs" />
-    <Compile Include="Assets\HexMetrics.cs" />
-    <None Include="Assets\VertexColors.shader" />
+    <Compile Include="Assets\Camera\CameraController.cs" />
+    <Compile Include="Assets\Hex\HexCell.cs" />
+    <Compile Include="Assets\Hex\HexController.cs" />
+    <Compile Include="Assets\Hex\HexCoordinates.cs" />
+    <Compile Include="Assets\Hex\HexDirection.cs" />
+    <Compile Include="Assets\Hex\HexGrid.cs" />
+    <Compile Include="Assets\Hex\HexMesh.cs" />
+    <Compile Include="Assets\Hex\HexMetrics.cs" />
+    <Compile Include="Assets\Textures\Noise.cs" />
+    <Compile Include="Assets\Textures\TextureCreator.cs" />
+    <None Include="Assets\Hex\VertexColors.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/ettiennes/Source/Repos/stolen-lands/Prototype 2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>
     </Reference>
