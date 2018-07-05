@@ -12,9 +12,213 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 3
-  lastUpdatedAtString: 2018-07-05T08:23:34.588+02:00
+  lastUpdatedAtString: 2018-07-05T10:33:29.960+02:00
   initializedAtString: 2018-07-04T12:35:19.162+02:00
   log:
+  - commitID: f272785fb94ef4732706f900b165ff5675f80492
+    mergeA: 
+    mergeB: 
+    authorName: Ettienne Scharneck
+    authorEmail: ettiennes@live.co.za
+    commitEmail: ettiennes@live.co.za
+    commitName: Ettienne Scharneck
+    summary: Change camera mode to orthograpic and improve controller to account
+    description: "Change camera mode to orthograpic and improve controller to account\r\nAdd
+      random trees using noise texture"
+    timeString: 2018-07-05T10:33:27.000+02:00
+    commitTimeString: 2018-07-05T10:33:27.000+02:00
+    changes:
+    - path: Prototype 2\Assembly-CSharp.csproj
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assembly-CSharp.csproj
+      projectPath: Assembly-CSharp.csproj
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Camera\CameraController.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Camera\CameraController.cs
+      projectPath: Assets\Camera\CameraController.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Camera\Main Camera.prefab
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Camera\Main
+        Camera.prefab
+      projectPath: Assets\Camera\Main Camera.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Hex\Hex Cell Label.prefab
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\Hex
+        Cell Label.prefab
+      projectPath: Assets\Hex\Hex Cell Label.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Hex\Hex System.prefab
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\Hex
+        System.prefab
+      projectPath: Assets\Hex\Hex System.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Hex\HexController.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\HexController.cs
+      projectPath: Assets\Hex\HexController.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Hex\HexGrid.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\HexGrid.cs
+      projectPath: Assets\Hex\HexGrid.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Scenes\Main.unity
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Scenes\Main.unity
+      projectPath: Assets\Scenes\Main.unity
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Textures\Leaves.preset
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Textures\Leaves.preset
+      projectPath: Assets\Textures\Leaves.preset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\Textures\TextureCreator.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Textures\TextureCreator.cs
+      projectPath: Assets\Textures\TextureCreator.cs
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Assets\World Objects\Tree.cs
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\World
+        Objects\Tree.cs
+      projectPath: Assets\World Objects\Tree.cs
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype 2\Assets\World Objects\Tree.prefab
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\World
+        Objects\Tree.prefab
+      projectPath: Assets\World Objects\Tree.prefab
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\CrashedAssetImports.txt
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\CrashedAssetImports.txt
+      projectPath: Library\CrashedAssetImports.txt
+      originalPath: 
+      status: 5
+      staged: 0
+    - path: Prototype 2\Library\InspectorExpandedItems.asset
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\InspectorExpandedItems.asset
+      projectPath: Library\InspectorExpandedItems.asset
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\assetDatabase3
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\assetDatabase3
+      projectPath: Library\assetDatabase3
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\branches.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\branches.yaml
+      projectPath: Library\gfu\cache\branches.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlocks.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlocks.yaml
+      projectPath: Library\gfu\cache\gitlocks.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitlog.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlog.yaml
+      projectPath: Library\gfu\cache\gitlog.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+      projectPath: Library\gfu\cache\gitstatusentries.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+      projectPath: Library\gfu\cache\gittrackingstatus.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\gfu\cache\repoinfo.yaml
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\repoinfo.yaml
+      projectPath: Library\gfu\cache\repoinfo.yaml
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\34\346b3ce16722bb64ab05fc13591d868d.info
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\34\346b3ce16722bb64ab05fc13591d868d.info
+      projectPath: Library\metadata\34\346b3ce16722bb64ab05fc13591d868d.info
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\8b\8b6aa4814097f1d44b69cef0a5bbc912.info
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\8b\8b6aa4814097f1d44b69cef0a5bbc912.info
+      projectPath: Library\metadata\8b\8b6aa4814097f1d44b69cef0a5bbc912.info
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+      projectPath: Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      projectPath: Library\metadata\b8\b8196f5ad3867154083203080f805d1c
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\ce\ce9cd8814db0d2f4786b486015b62edb
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\ce\ce9cd8814db0d2f4786b486015b62edb
+      projectPath: Library\metadata\ce\ce9cd8814db0d2f4786b486015b62edb
+      originalPath: 
+      status: 3
+      staged: 0
+    - path: Prototype 2\Library\metadata\d7\d7bb02f08b70deb499920713690094f4
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\d7\d7bb02f08b70deb499920713690094f4
+      projectPath: Library\metadata\d7\d7bb02f08b70deb499920713690094f4
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype 2\Library\metadata\d7\d7bb02f08b70deb499920713690094f4.info
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\d7\d7bb02f08b70deb499920713690094f4.info
+      projectPath: Library\metadata\d7\d7bb02f08b70deb499920713690094f4.info
+      originalPath: 
+      status: 4
+      staged: 0
+    - path: Prototype 2\Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
+      fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
+      projectPath: Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
+      originalPath: 
+      status: 3
+      staged: 0
   - commitID: bc81e3004178d3fe1f2c06fa2b5d084d31ffb128
     mergeA: 
     mergeB: 

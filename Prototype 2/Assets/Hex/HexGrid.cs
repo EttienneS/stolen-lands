@@ -16,11 +16,11 @@ public class HexGrid : MonoBehaviour
     private Canvas gridCanvas;
     private HexMesh hexMesh;
 
-    [Range(1, 50)]
-    public int height = 6;
+    [Range(1, 150)]
+    public int height = 20;
 
-    [Range(1, 50)]
-    public int width = 6;
+    [Range(1, 150)]
+    public int width = 20;
 
     private void Awake()
     {
