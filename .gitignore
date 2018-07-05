@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /Prototype 2/Temp
+/Prototype 2/Library/metadata
+/Prototype 2/Library/CrashedAssetImports.txt

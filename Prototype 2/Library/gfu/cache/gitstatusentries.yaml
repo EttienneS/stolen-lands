@@ -12,224 +12,78 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cacheType: 5
-  lastUpdatedAtString: 2018-07-05T14:59:46.694+02:00
-  initializedAtString: 2018-07-05T14:33:49.406+02:00
+  lastUpdatedAtString: 2018-07-05T15:54:55.874+02:00
+  initializedAtString: 2018-07-05T15:21:42.835+02:00
   entries:
-  - path: Prototype 2\Assets\Camera\Main Camera.prefab
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Camera\Main
-      Camera.prefab
-    projectPath: Assets\Camera\Main Camera.prefab
+  - path: .gitignore
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\.gitignore
+    projectPath: ..\.gitignore
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Assets\Hex\HexController.cs
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\HexController.cs
-    projectPath: Assets\Hex\HexController.cs
+  - path: Prototype 2\Assembly-CSharp.csproj
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Assembly-CSharp.csproj
+    projectPath: Assembly-CSharp.csproj
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Assets\Hex\HexGrid.cs
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Hex\HexGrid.cs
-    projectPath: Assets\Hex\HexGrid.cs
+  - path: Prototype 2\Assembly-CSharp-Editor.csproj
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Assembly-CSharp-Editor.csproj
+    projectPath: Assembly-CSharp-Editor.csproj
     originalPath: 
     status: 3
+    staged: 0
+  - path: Prototype 2\Assets\Light\LightControlerBasic.cs
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Assets\Light\LightControlerBasic.cs
+    projectPath: Assets\Light\LightControlerBasic.cs
+    originalPath: 
+    status: 1
     staged: 0
   - path: Prototype 2\Assets\Scenes\Main.unity
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Scenes\Main.unity
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Assets\Scenes\Main.unity
     projectPath: Assets\Scenes\Main.unity
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Assets\Textures\TextureCreator.cs
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\Textures\TextureCreator.cs
-    projectPath: Assets\Textures\TextureCreator.cs
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Assets\World Objects\Tree.prefab
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Assets\World
-      Objects\Tree.prefab
-    projectPath: Assets\World Objects\Tree.prefab
-    originalPath: 
-    status: 3
-    staged: 0
   - path: Prototype 2\Library\assetDatabase3
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\assetDatabase3
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\assetDatabase3
     projectPath: Library\assetDatabase3
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Library\CurrentLayout.dwlt
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\CurrentLayout.dwlt
-    projectPath: Library\CurrentLayout.dwlt
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\EditorInstance.json
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\EditorInstance.json
-    projectPath: Library\EditorInstance.json
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\gfu\cache\branches.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\branches.yaml
-    projectPath: Library\gfu\cache\branches.yaml
-    originalPath: 
-    status: 3
-    staged: 0
   - path: Prototype 2\Library\gfu\cache\gitlocks.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlocks.yaml
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlocks.yaml
     projectPath: Library\gfu\cache\gitlocks.yaml
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Library\gfu\cache\gitlog.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitlog.yaml
-    projectPath: Library\gfu\cache\gitlog.yaml
-    originalPath: 
-    status: 3
-    staged: 0
   - path: Prototype 2\Library\gfu\cache\gitstatusentries.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitstatusentries.yaml
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gitstatusentries.yaml
     projectPath: Library\gfu\cache\gitstatusentries.yaml
     originalPath: 
     status: 3
     staged: 0
   - path: Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gittrackingstatus.yaml
     projectPath: Library\gfu\cache\gittrackingstatus.yaml
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Library\gfu\cache\gituser.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\gituser.yaml
-    projectPath: Library\gfu\cache\gituser.yaml
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\gfu\cache\repoinfo.yaml
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\gfu\cache\repoinfo.yaml
-    projectPath: Library\gfu\cache\repoinfo.yaml
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\InspectorExpandedItems.asset
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\InspectorExpandedItems.asset
-    projectPath: Library\InspectorExpandedItems.asset
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\LastSceneManagerSetup.txt
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\LastSceneManagerSetup.txt
-    projectPath: Library\LastSceneManagerSetup.txt
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
-    projectPath: Library\metadata\a2\a25a35c906f4bf349b51d8b1fe2343fe
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\b8\b8196f5ad3867154083203080f805d1c
-    projectPath: Library\metadata\b8\b8196f5ad3867154083203080f805d1c
-    originalPath: 
-    status: 3
-    staged: 0
-  - path: Prototype 2\Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
-    projectPath: Library\metadata\da\da936250c131a4e87b58e78e22d8d4d3
-    originalPath: 
-    status: 3
-    staged: 0
   - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll
     originalPath: 
     status: 3
     staged: 0
   - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
     projectPath: Library\ScriptAssemblies\Assembly-CSharp.dll.mdb
     originalPath: 
     status: 3
     staged: 0
-  - path: Prototype 2\Library\ShaderCache\1\1ed6bc6b8553af211fe749e8dcc3db56.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\1\1ed6bc6b8553af211fe749e8dcc3db56.bin
-    projectPath: Library\ShaderCache\1\1ed6bc6b8553af211fe749e8dcc3db56.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\1\1f4830b414040b1af504a4ad16e0125d.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\1\1f4830b414040b1af504a4ad16e0125d.bin
-    projectPath: Library\ShaderCache\1\1f4830b414040b1af504a4ad16e0125d.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\2\281b10cf1d87c0002416ef0ec5f33337.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\2\281b10cf1d87c0002416ef0ec5f33337.bin
-    projectPath: Library\ShaderCache\2\281b10cf1d87c0002416ef0ec5f33337.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\3\343fe5a4938dec01cd1c28100bfc9900.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\3\343fe5a4938dec01cd1c28100bfc9900.bin
-    projectPath: Library\ShaderCache\3\343fe5a4938dec01cd1c28100bfc9900.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\3\3acf916f332b317e9927c8438ed33488.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\3\3acf916f332b317e9927c8438ed33488.bin
-    projectPath: Library\ShaderCache\3\3acf916f332b317e9927c8438ed33488.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\5\563b183e9ab0309a37da9909e1e5fdea.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\5\563b183e9ab0309a37da9909e1e5fdea.bin
-    projectPath: Library\ShaderCache\5\563b183e9ab0309a37da9909e1e5fdea.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\5\5d40def0373c23795f1d36e19451dc12.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\5\5d40def0373c23795f1d36e19451dc12.bin
-    projectPath: Library\ShaderCache\5\5d40def0373c23795f1d36e19451dc12.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\6\636fb29d4d45eff9301257d5579f7968.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\6\636fb29d4d45eff9301257d5579f7968.bin
-    projectPath: Library\ShaderCache\6\636fb29d4d45eff9301257d5579f7968.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\9\952b0ca1568f75f88708fa484701e8d8.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\9\952b0ca1568f75f88708fa484701e8d8.bin
-    projectPath: Library\ShaderCache\9\952b0ca1568f75f88708fa484701e8d8.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\9\992f4e8030130fa034c8f02bb0aeed6a.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\9\992f4e8030130fa034c8f02bb0aeed6a.bin
-    projectPath: Library\ShaderCache\9\992f4e8030130fa034c8f02bb0aeed6a.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\b\b98da7a31c9a9fe0fe99de76fe2f4cb9.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\b\b98da7a31c9a9fe0fe99de76fe2f4cb9.bin
-    projectPath: Library\ShaderCache\b\b98da7a31c9a9fe0fe99de76fe2f4cb9.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\Library\ShaderCache\f\f351cb6ae06b0f2dd6468c02ac6154db.bin
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\Library\ShaderCache\f\f351cb6ae06b0f2dd6468c02ac6154db.bin
-    projectPath: Library\ShaderCache\f\f351cb6ae06b0f2dd6468c02ac6154db.bin
-    originalPath: 
-    status: 1
-    staged: 0
-  - path: Prototype 2\ProjectSettings\EditorBuildSettings.asset
-    fullPath: C:\Users\ettiennes\Source\Repos\stolen-lands\Prototype 2\ProjectSettings\EditorBuildSettings.asset
-    projectPath: ProjectSettings\EditorBuildSettings.asset
+  - path: Prototype 2\Library\ScriptAssemblies\Assembly-CSharp-Editor.dll.mdb
+    fullPath: C:\Users\Gerhardm\Source\Repos\stolen-lands\Prototype 2\Library\ScriptAssemblies\Assembly-CSharp-Editor.dll.mdb
+    projectPath: Library\ScriptAssemblies\Assembly-CSharp-Editor.dll.mdb
     originalPath: 
     status: 3
     staged: 0
