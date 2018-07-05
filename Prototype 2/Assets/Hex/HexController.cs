@@ -14,7 +14,7 @@ public class HexController : MonoBehaviour
             if (_selectedCell != null)
             {
                 // revert the previously selected cell to its original state
-                hexGrid.ColorCell(_selectedCell, Color.white);
+                hexGrid.ColorCell(_selectedCell, hexGrid.defaultColor);
             }
             _selectedCell = value;
         }
@@ -45,7 +45,7 @@ public class HexController : MonoBehaviour
             }
 
             SelectedCell = hexGrid.GetCellAtPoint(hit.point);
-            hexGrid.ColorCell(SelectedCell, Color.gray);
+            hexGrid.ColorCell(SelectedCell, Color.red);
         }
         else
         {

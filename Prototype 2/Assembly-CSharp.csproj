@@ -71,6 +71,7 @@
     <Compile Include="Assets\Hex\HexMetrics.cs" />
     <Compile Include="Assets\Textures\Noise.cs" />
     <Compile Include="Assets\Textures\TextureCreator.cs" />
+    <Compile Include="Assets\World Objects\Tree.cs" />
     <None Include="Assets\Hex\VertexColors.shader" />
     <Reference Include="UnityEditor.StandardEvents">
       <HintPath>C:/Users/ettiennes/Source/Repos/stolen-lands/Prototype 2/Library/ScriptAssemblies/UnityEditor.StandardEvents.dll</HintPath>

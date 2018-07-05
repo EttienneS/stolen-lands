@@ -168,7 +168,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1943635213651548}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -258,7 +258,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.08235294}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -395,6 +395,8 @@ MonoBehaviour:
   cellPrefab: {fileID: 114824413764255646, guid: 1d17b824720ea3240a26182d890e9f9b,
     type: 2}
   defaultColor: {r: 0.018838398, g: 0.38679248, b: 0, a: 1}
+  treePrefab: {fileID: 114810050281892726, guid: 8b6aa4814097f1d44b69cef0a5bbc912,
+    type: 2}
   height: 50
   width: 50
 --- !u!114 &114765304820430520

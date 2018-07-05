@@ -30,19 +30,19 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: resolution
-    value: 256
+    value: 64
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: frequency
-    value: 3
+    value: 2
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: octaves
-    value: 6
+    value: 3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: lacunarity
-    value: 2
+    value: 3
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: persistence
@@ -58,15 +58,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key0.r
-    value: 0
+    value: 0.010187775
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key0.g
-    value: 0.5849056
+    value: 0.5365946
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key0.b
-    value: 0.007908205
+    value: 0.010020059
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key0.a
@@ -74,15 +74,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key1.r
-    value: 0.010187775
+    value: 0.26312745
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key1.g
-    value: 0.5365946
+    value: 0.764151
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key1.b
-    value: 0.010020059
+    value: 0.2733524
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key1.a
@@ -106,15 +106,15 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key3.r
-    value: 0.036402408
+    value: 0.005863159
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key3.g
-    value: 0.6320754
+    value: 0.1792453
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key3.b
-    value: 0.02683338
+    value: 0.0042274827
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.key3.a
@@ -186,11 +186,11 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.ctime0
-    value: 0
+    value: 5590
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.ctime1
-    value: 10794
+    value: 13878
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.ctime2
@@ -198,7 +198,7 @@ Preset:
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.ctime3
-    value: 34502
+    value: 34310
     objectReference: {fileID: 0}
   - target: {fileID: 0}
     propertyPath: coloring.ctime4

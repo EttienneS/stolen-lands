@@ -11,9 +11,15 @@ public class HexGrid : MonoBehaviour
 
     public Color defaultColor = Color.green;
 
+    public Tree treePrefab;
+
     private Canvas gridCanvas;
-    public int height = 6;
     private HexMesh hexMesh;
+
+    [Range(1, 50)]
+    public int height = 6;
+
+    [Range(1, 50)]
     public int width = 6;
 
     private void Awake()
@@ -50,6 +56,22 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.color = defaultColor;
+
+        for (var t = 0; t < Random.Range(0, 10); t++)
+        {
+            if (t > 2)
+            {
+                var scale = Random.Range(3, 8);
+                var tree = Instantiate(treePrefab);
+                tree.transform.SetParent(cell.transform);
+
+                tree.transform.localScale = new Vector3(scale, scale, scale);
+                tree.transform.localPosition = new Vector3(Random.Range(-10f, 10f), scale * 0.5f, Random.Range(-10f, 10f));
+                tree.transform.Rotate(0, 0, Random.Range(0, 360));
+
+               
+            }
+        }
 
         if (x > 0)
         {
