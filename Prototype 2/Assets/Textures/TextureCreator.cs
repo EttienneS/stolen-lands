@@ -2,31 +2,25 @@
 
 public class TextureCreator : MonoBehaviour
 {
+    public Gradient coloring;
 
-    [Range(2, 512)]
-    public int resolution = 256;
+    [Range(1, 3)] public int dimensions = 3;
 
     public float frequency = 1f;
 
-    [Range(1, 8)]
-    public int octaves = 1;
+    [Range(1f, 4f)] public float lacunarity = 2f;
 
-    [Range(1f, 4f)]
-    public float lacunarity = 2f;
+    public bool Live = false;
 
-    [Range(0f, 1f)]
-    public float persistence = 0.5f;
+    [Range(1, 8)] public int octaves = 1;
 
-    [Range(1, 3)]
-    public int dimensions = 3;
+    [Range(0f, 1f)] public float persistence = 0.5f;
 
-    public NoiseMethodType type;
-
-    public Gradient coloring;
+    [Range(2, 512)] public int resolution = 256;
 
     private Texture2D texture;
 
-    public bool Live = false;
+    public NoiseMethodType type;
 
     private void OnEnable()
     {
@@ -39,6 +33,7 @@ public class TextureCreator : MonoBehaviour
             texture.anisoLevel = 9;
             GetComponent<MeshRenderer>().material.mainTexture = texture;
         }
+
         FillTexture();
     }
 
@@ -66,7 +61,7 @@ public class TextureCreator : MonoBehaviour
         Vector3 point01 = transform.TransformPoint(new Vector3(-0.5f, 0.5f));
         Vector3 point11 = transform.TransformPoint(new Vector3(0.5f, 0.5f));
 
-        NoiseMethod method = Noise.methods[(int)type][dimensions - 1];
+        NoiseMethod method = Noise.methods[(int) type][dimensions - 1];
         float stepSize = 1f / resolution;
         for (int y = 0; y < resolution; y++)
         {
@@ -80,9 +75,11 @@ public class TextureCreator : MonoBehaviour
                 {
                     sample = sample * 0.5f + 0.5f;
                 }
+
                 texture.SetPixel(x, y, coloring.Evaluate(sample));
             }
         }
+
         texture.Apply();
     }
 }

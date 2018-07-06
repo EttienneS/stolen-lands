@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
@@ -13,16 +13,15 @@ public class HexGrid : MonoBehaviour
 
     public Color defaultColor = Color.green;
 
-    public Tree treePrefab;
-
     private Canvas gridCanvas;
+
+    [Range(1, 150)] public int height = 20;
+
     private HexMesh hexMesh;
 
-    [Range(1, 150)]
-    public int height = 20;
+    public Tree treePrefab;
 
-    [Range(1, 150)]
-    public int width = 20;
+    [Range(1, 150)] public int width = 20;
 
     private void Awake()
     {
@@ -68,7 +67,8 @@ public class HexGrid : MonoBehaviour
                 tree.transform.SetParent(cell.transform);
 
                 tree.transform.localScale = new Vector3(scale, scale, scale);
-                tree.transform.localPosition = new Vector3(Random.Range(-10f, 10f), scale * 0.5f, Random.Range(-10f, 10f));
+                tree.transform.localPosition =
+                    new Vector3(Random.Range(-10f, 10f), scale * 0.5f, Random.Range(-10f, 10f));
                 tree.transform.Rotate(0, 0, Random.Range(0, 360));
             }
         }
@@ -124,7 +124,6 @@ public class HexGrid : MonoBehaviour
 
     public void DeselectCell(HexCell cell)
     {
-
     }
 
     public void SelectCell(HexCell cell)
@@ -168,5 +167,4 @@ public class HexGrid : MonoBehaviour
         // for initial visual, will properly dispose later
         Destroy(selectionIndicator, 1f);
     }
-
 }
