@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -20,60 +21,62 @@ public class HexCell : MonoBehaviour
         cell.neighbors[(int)direction.Opposite()] = this;
     }
 
-    public void DrawBorder(HexDirection[] faces)
+    public GameObject border;
+
+    private void InstantiateBorder()
     {
-        if (faces == null || faces.Length == 0)
+        border = new GameObject("border");
+        border.transform.SetParent(transform);
+    }
+
+    public void DrawBorder(HexDirection faces = HexDirectionExtensions.AllFaces)
+    {
+        Destroy(border, 0f);
+
+        if (faces == 0)
         {
-            faces = new HexDirection[6]
-            {
-                HexDirection.NE, HexDirection.E, HexDirection.SE, HexDirection.SW, HexDirection.W, HexDirection.NW
-            };
+            return;
         }
 
+        InstantiateBorder();
 
-        var start = transform.localPosition + new Vector3(0, 0, -2);
+        var start = transform.localPosition + new Vector3(0, 0, -1);
         var points = new List<KeyValuePair<Vector3, Vector3>>();
-        foreach (var face in faces)
+
+        if ((faces & HexDirection.NE) == HexDirection.NE)
         {
-            var point1 = new Vector3();
-            var point2 = new Vector3();
-
-            switch (face)
-            {
-                case HexDirection.NE:
-                    // north
-                    point1 = start + new Vector3(0f, HexMetrics.outerRadius);
-
-                    // north-east
-                    point2 = start + new Vector3(HexMetrics.innerRadius, 0.5f * HexMetrics.outerRadius);
-                    break;
-                case HexDirection.E:
-                    break;
-                case HexDirection.SE:
-                    break;
-                case HexDirection.SW:
-                    break;
-                case HexDirection.W:
-                    break;
-                case HexDirection.NW:
-                    break;
-
-            }
-
-            points.Add(new KeyValuePair<Vector3, Vector3>(point1, point2));
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[0], HexMetrics.corners[1]));
         }
-
-        var selectionIndicator = new GameObject { name = "Selection" };
+        if ((faces & HexDirection.E) == HexDirection.E)
+        {
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[1], HexMetrics.corners[2]));
+        }
+        if ((faces & HexDirection.SE) == HexDirection.SE)
+        {
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[2], HexMetrics.corners[3]));
+        }
+        if ((faces & HexDirection.NW) == HexDirection.NW)
+        {
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[3], HexMetrics.corners[4]));
+        }
+        if ((faces & HexDirection.W) == HexDirection.W)
+        {
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[4], HexMetrics.corners[5]));
+        }
+        if ((faces & HexDirection.SW) == HexDirection.SW)
+        {
+            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[5], HexMetrics.corners[0]));
+        }
 
         foreach (var point in points)
         {
-            var holder = new GameObject();
+            var borderLine = new GameObject("BorderLine");
 
-            holder.transform.localPosition = transform.position;
-            holder.transform.SetParent(selectionIndicator.transform);
+            borderLine.transform.localPosition = transform.position;
+            borderLine.transform.SetParent(border.transform);
 
-            holder.AddComponent<LineRenderer>();
-            var lr = holder.GetComponent<LineRenderer>();
+            borderLine.AddComponent<LineRenderer>();
+            var lr = borderLine.GetComponent<LineRenderer>();
             lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
             lr.startColor = Color.black;
             lr.endColor = Color.black;
@@ -81,10 +84,8 @@ public class HexCell : MonoBehaviour
             lr.endWidth = 0.5f;
             lr.positionCount = 2;
 
-            lr.SetPosition(0, point.Key);
-            lr.SetPosition(1, point.Value);
+            lr.SetPosition(0, start + point.Key);
+            lr.SetPosition(1, start + point.Value);
         }
-
-        //Destroy(selectionIndicator, 1f);
     }
 }

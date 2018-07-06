@@ -42,10 +42,12 @@ public class HexController : MonoBehaviour
         {
             if (SelectedCell != null)
             {
+                SelectedCell.DrawBorder(0);
                 SelectedCell = null;
             }
 
-            hexGrid.GetCellAtPoint(hit.point).DrawBorder(null);
+            SelectedCell = hexGrid.GetCellAtPoint(hit.point);
+            SelectedCell.DrawBorder();
         }
         else
         {
