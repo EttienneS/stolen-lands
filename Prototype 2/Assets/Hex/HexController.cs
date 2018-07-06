@@ -3,9 +3,9 @@ using UnityEngine.EventSystems;
 
 public class HexController : MonoBehaviour
 {
+    private HexCell _selectedCell;
     public HexGrid hexGrid;
 
-    private HexCell _selectedCell;
     private HexCell SelectedCell
     {
         get { return _selectedCell; }
@@ -16,6 +16,7 @@ public class HexController : MonoBehaviour
                 // revert the previously selected cell to its original state
                 hexGrid.DeselectCell(_selectedCell);
             }
+
             _selectedCell = value;
         }
     }
