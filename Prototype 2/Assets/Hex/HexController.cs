@@ -45,7 +45,7 @@ public class HexController : MonoBehaviour
                 SelectedCell = null;
             }
 
-            hexGrid.SelectCell(hexGrid.GetCellAtPoint(hit.point));
+            hexGrid.GetCellAtPoint(hit.point).DrawBorder(null);
         }
         else
         {

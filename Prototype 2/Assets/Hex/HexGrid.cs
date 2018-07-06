@@ -126,45 +126,5 @@ public class HexGrid : MonoBehaviour
     {
     }
 
-    public void SelectCell(HexCell cell)
-    {
-        var selectionIndicator = new GameObject();
-        selectionIndicator.name = "Selection";
-
-        var line = new GameObject();
-        line.transform.localPosition = cell.transform.position;
-        line.AddComponent<LineRenderer>();
-
-        line.transform.SetParent(selectionIndicator.transform);
-
-        var lr = line.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-        lr.startColor = Color.black;
-        lr.endColor = Color.black;
-        lr.startWidth = 0.5f;
-        lr.endWidth = 0.5f;
-
-        lr.positionCount = HexMetrics.corners.Length;
-
-        var start = line.transform.localPosition + new Vector3(0, 0, -2);
-        var positions = new List<Vector3>();
-
-        for (int i = 0; i < lr.positionCount; i++)
-        {
-            Vector3 last;
-            if (positions.Any())
-            {
-                last = positions.Last();
-            }
-            else
-            {
-                last = start;
-            }
-
-            lr.SetPosition(i, start + new Vector3(HexMetrics.corners[i].x, HexMetrics.corners[i].y));
-        }
-
-        // for initial visual, will properly dispose later
-        Destroy(selectionIndicator, 1f);
-    }
+    
 }
