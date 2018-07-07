@@ -6,7 +6,7 @@ public class HexController : MonoBehaviour
     private HexCell _selectedCell;
     public HexGrid hexGrid;
 
-    private HexCell SelectedCell
+    public HexCell SelectedCell
     {
         get { return _selectedCell; }
         set
@@ -42,10 +42,12 @@ public class HexController : MonoBehaviour
         {
             if (SelectedCell != null)
             {
+                SelectedCell.DrawBorder(0);
                 SelectedCell = null;
             }
 
-            hexGrid.SelectCell(hexGrid.GetCellAtPoint(hit.point));
+            SelectedCell = hexGrid.GetCellAtPoint(hit.point);
+            SelectedCell.DrawBorder();
         }
         else
         {
