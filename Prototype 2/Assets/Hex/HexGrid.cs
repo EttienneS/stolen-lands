@@ -15,11 +15,11 @@ public class HexGrid : MonoBehaviour
 
     private Canvas gridCanvas;
 
-    [Range(1, 150)] public int height = 20;
-
     private HexMesh hexMesh;
 
     public Tree treePrefab;
+
+    [Range(1, 150)] public int height = 20;
 
     [Range(1, 150)] public int width = 20;
 

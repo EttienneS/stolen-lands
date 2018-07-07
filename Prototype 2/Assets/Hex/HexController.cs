@@ -6,7 +6,7 @@ public class HexController : MonoBehaviour
     private HexCell _selectedCell;
     public HexGrid hexGrid;
 
-    private HexCell SelectedCell
+    public HexCell SelectedCell
     {
         get { return _selectedCell; }
         set
