@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
@@ -15,11 +13,11 @@ public class HexGrid : MonoBehaviour
 
     private Canvas gridCanvas;
 
+    [Range(1, 150)] public int height = 20;
+
     private HexMesh hexMesh;
 
     public Tree treePrefab;
-
-    [Range(1, 150)] public int height = 20;
 
     [Range(1, 150)] public int width = 20;
 
@@ -112,7 +110,6 @@ public class HexGrid : MonoBehaviour
         var index = coordinates.X + coordinates.Y * width + coordinates.Y / 2;
         var cell = cells[index];
 
-
         return cell;
     }
 
@@ -121,10 +118,4 @@ public class HexGrid : MonoBehaviour
         cell.color = color;
         hexMesh.Triangulate(cells);
     }
-
-    public void DeselectCell(HexCell cell)
-    {
-    }
-
-    
 }

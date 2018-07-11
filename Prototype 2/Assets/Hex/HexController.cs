@@ -4,27 +4,11 @@ using UnityEngine.EventSystems;
 public class HexController : MonoBehaviour
 {
     private HexCell _selectedCell;
+
+    public ActorController actorController;
     public HexGrid hexGrid;
 
-    public HexCell SelectedCell
-    {
-        get { return _selectedCell; }
-        set
-        {
-            if (_selectedCell != null)
-            {
-                // revert the previously selected cell to its original state
-                hexGrid.DeselectCell(_selectedCell);
-            }
-
-            _selectedCell = value;
-        }
-    }
-
-
-    private void Awake()
-    {
-    }
+    public HexCell SelectedCell { get; set; }
 
     private void Update()
     {
@@ -42,16 +26,26 @@ public class HexController : MonoBehaviour
         {
             if (SelectedCell != null)
             {
-                SelectedCell.DrawBorder(0);
+                // remove border
+                SelectedCell.DrawBorder(Color.clear, 0);
                 SelectedCell = null;
             }
 
             SelectedCell = hexGrid.GetCellAtPoint(hit.point);
-            SelectedCell.DrawBorder();
+            SelectedCell.DrawBorder(Color.black);
+
+            ClaimCell(actorController.Player, SelectedCell);
         }
         else
         {
             SelectedCell = null;
         }
+    }
+
+    public void ClaimCell(Actor owner, HexCell cell)
+    {
+        owner.ControlledCells.Add(cell);
+        cell.Owner = owner;
+        cell.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
     }
 }
