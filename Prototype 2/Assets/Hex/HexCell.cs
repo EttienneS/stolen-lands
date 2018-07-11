@@ -1,12 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class HexCell : MonoBehaviour
 {
+    public enum BorderType
+    {
+        Selection, Control
+    }
+
+    public Dictionary<BorderType, GameObject> borders;
+
     public Color color;
     public HexCoordinates coordinates;
+
+    public Actor Owner { get; set; }
 
     [SerializeField] public HexCell[] neighbors;
 
@@ -15,58 +23,52 @@ public class HexCell : MonoBehaviour
         return neighbors[(int)direction];
     }
 
+    public void Awake()
+    {
+        borders = new Dictionary<BorderType, GameObject>();
+    }
+
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
     }
 
-    public GameObject border;
-
-    private void InstantiateBorder()
+    public void DrawBorder(Color color, HexDirection faces = HexDirectionExtensions.AllFaces, BorderType type = BorderType.Selection)
     {
-        border = new GameObject("border");
-        border.transform.SetParent(transform);
-    }
-
-    public void DrawBorder(HexDirection faces = HexDirectionExtensions.AllFaces)
-    {
-        Destroy(border, 0f);
+        GameObject border;
+        if (borders.ContainsKey(type))
+        {
+            border = borders[type];
+            borders.Remove(type);
+            Destroy(border, 0f);
+        }
 
         if (faces == 0)
         {
             return;
         }
 
-        InstantiateBorder();
+        border = new GameObject("border-" + type.ToString());
+        border.transform.SetParent(transform);
+
+        borders.Add(type, border);
 
         var start = transform.localPosition + new Vector3(0, 0, -1);
         var points = new List<KeyValuePair<Vector3, Vector3>>();
 
-        if ((faces & HexDirection.NE) == HexDirection.NE)
+        // check each possible face if it is included in the list
+        foreach (HexDirection face in Enum.GetValues(typeof(HexDirection)))
         {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[0], HexMetrics.corners[1]));
+            if ((faces & face) == face)
+            {
+                var faceValue = (int)face;
+                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue], HexMetrics.corners[faceValue + 1]));
+            }
         }
-        if ((faces & HexDirection.E) == HexDirection.E)
-        {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[1], HexMetrics.corners[2]));
-        }
-        if ((faces & HexDirection.SE) == HexDirection.SE)
-        {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[2], HexMetrics.corners[3]));
-        }
-        if ((faces & HexDirection.NW) == HexDirection.NW)
-        {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[3], HexMetrics.corners[4]));
-        }
-        if ((faces & HexDirection.W) == HexDirection.W)
-        {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[4], HexMetrics.corners[5]));
-        }
-        if ((faces & HexDirection.SW) == HexDirection.SW)
-        {
-            points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[5], HexMetrics.corners[0]));
-        }
+
+        //var scaleRule = type == BorderType.Selection ? 0.7f : 1f;
+        var scale = new Vector3(0, 0, type == BorderType.Selection ? -0.1f : 0);
 
         foreach (var point in points)
         {
@@ -78,14 +80,14 @@ public class HexCell : MonoBehaviour
             borderLine.AddComponent<LineRenderer>();
             var lr = borderLine.GetComponent<LineRenderer>();
             lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-            lr.startColor = Color.black;
-            lr.endColor = Color.black;
-            lr.startWidth = 0.5f;
-            lr.endWidth = 0.5f;
+            lr.startColor = color;
+            lr.endColor = color;
+            lr.startWidth = type == BorderType.Selection ? 0.3f : 0.7f;
+            lr.endWidth = lr.startWidth;
             lr.positionCount = 2;
-
-            lr.SetPosition(0, start + point.Key);
-            lr.SetPosition(1, start + point.Value);
+            
+            lr.SetPosition(0, start + point.Key + scale);
+            lr.SetPosition(1, start + point.Value + scale);
         }
     }
 }
