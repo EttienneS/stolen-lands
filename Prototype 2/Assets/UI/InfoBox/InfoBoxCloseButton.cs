@@ -5,10 +5,8 @@ using UnityEngine.EventSystems;
 
 public class InfoBoxCloseButton : MonoBehaviour
 {
-
-    public void OnPointerDown(PointerEventData data)
+    public void OnClick()
     {
-        var parent = transform.parent;
-        Destroy(parent);
+        Destroy(transform.parent.gameObject);
     }
 }

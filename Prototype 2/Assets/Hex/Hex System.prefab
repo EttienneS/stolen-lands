@@ -11,6 +11,22 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 1415917567887908}
   m_IsPrefabParent: 1
+--- !u!1 &1096890050637090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 4018934403500356}
+  - component: {fileID: 114015453942915054}
+  m_Layer: 0
+  m_Name: InfoService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!1 &1305426110031142
 GameObject:
   m_ObjectHideFlags: 1
@@ -185,6 +201,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &4018934403500356
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096890050637090}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4021290103656156}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4021290103656156
 Transform:
   m_ObjectHideFlags: 1
@@ -198,6 +227,7 @@ Transform:
   - {fileID: 4740989632786430}
   - {fileID: 224450570684568328}
   - {fileID: 4810313174870408}
+  - {fileID: 4018934403500356}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -325,6 +355,20 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114015453942915054
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1096890050637090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 860d53c86d6ecb444b1cf5ff7c286985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  InfoBoxPrefab: {fileID: 114344135520615756, guid: 812836d4fd593c34487a176920e762c9,
+    type: 2}
+  UICanvas: {fileID: 223752263394141470}
 --- !u!114 &114055059069988100
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -413,7 +457,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a35c906f4bf349b51d8b1fe2343fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actorController: {fileID: 0}
   hexGrid: {fileID: 114711966481067202}
+  InfoController: {fileID: 114015453942915054}
 --- !u!114 &114539447295163042
 MonoBehaviour:
   m_ObjectHideFlags: 1
