@@ -230,7 +230,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: -20, y: 0, z: 0}
---- !u!1001 &738731573
+--- !u!1001 &1379068106
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -274,6 +274,11 @@ Prefab:
       propertyPath: actorController
       value: 
       objectReference: {fileID: 440194457}
+    - target: {fileID: 114015453942915054, guid: 9c90937d2db2bda4eab591a49bfdfce2,
+        type: 2}
+      propertyPath: UICanvas
+      value: 
+      objectReference: {fileID: 2019104177}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9c90937d2db2bda4eab591a49bfdfce2, type: 2}
   m_IsPrefabParent: 0
@@ -319,3 +324,8 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c90372e8c4b568d45aebd23a25d5e4a1, type: 2}
   m_IsPrefabParent: 0
+--- !u!223 &2019104177 stripped
+Canvas:
+  m_PrefabParentObject: {fileID: 223752263394141470, guid: 9c90937d2db2bda4eab591a49bfdfce2,
+    type: 2}
+  m_PrefabInternal: {fileID: 1379068106}

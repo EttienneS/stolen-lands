@@ -2,8 +2,6 @@
 
 public class CameraController : MonoBehaviour
 {
-    private Camera Camera;
-
     [Range(1, 20)] public int Speed = 5;
 
     [Range(50, 500)] public int ZoomMax = 500;
@@ -11,11 +9,6 @@ public class CameraController : MonoBehaviour
     [Range(10, 50)] public int ZoomMin = 10;
 
     [Range(50, 300)] public int ZoomStep = 100;
-
-    public void OnEnable()
-    {
-        Camera = GetComponent<Camera>();
-    }
 
     private void Update()
     {

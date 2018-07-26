@@ -10,6 +10,8 @@ public class HexController : MonoBehaviour
 
     public HexCell SelectedCell { get; set; }
 
+    public InfoController InfoController;
+
     private void Update()
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -29,10 +31,16 @@ public class HexController : MonoBehaviour
                 // remove border
                 SelectedCell.DrawBorder(Color.clear, 0);
                 SelectedCell = null;
+
             }
 
             SelectedCell = hexGrid.GetCellAtPoint(hit.point);
             SelectedCell.DrawBorder(Color.black);
+
+            if (SelectedCell.Owner == null)
+            {
+                InfoController.ShowInfoBox("Hex Claimed!", actorController.Player.Name + " claimed " + SelectedCell.coordinates.ToString());
+            }
 
             ClaimCell(actorController.Player, SelectedCell);
         }
