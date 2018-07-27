@@ -6,29 +6,21 @@ public class Actor : MonoBehaviour
 {
     public Color Color;
 
-    public List<HexCell> ControlledCells;
+    public List<HexCell> ControlledCells = new List<HexCell>();
 
     public string Name;
 
-
-    private Sprite _sprite;
-
-    public Sprite PlayerSprite
+    public Actor(string name, Color color)
     {
-        get
-        {
-            if (_sprite == null)
-            {
-                var resolution = 16;
-                _sprite = Sprite.Create(TextureCreator.GetTexture(transform, resolution), new Rect(new Vector2(), new Vector2(resolution, resolution)), new Vector2());
-            }
+        Name = name;
+        Color = color;
 
-            return _sprite;
-        }
+        // resolution of sprite
+        var res = 16;
+        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, color), new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
     }
 
-    public void Awake()
-    {
-        ControlledCells = new List<HexCell>();
-    }
+    public Sprite Sprite;
+
+
 }

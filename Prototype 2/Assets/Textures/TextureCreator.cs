@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Boo.Lang;
+using UnityEngine;
 
 public class TextureCreator : MonoBehaviour
 {
@@ -58,30 +59,61 @@ public class TextureCreator : MonoBehaviour
              resolution, dimensions, frequency, octaves, lacunarity, persistence);
     }
 
-    public static Texture2D GetTexture(Transform transform, int resolution = 64)
+    public static Texture2D GetTexture(Transform transform = null, int resolution = 64, Color? dominantColor = null)
     {
-        var point00 = transform.TransformPoint(new Vector3(-0.5f, -0.5f));
-        var point10 = transform.TransformPoint(new Vector3(0.5f, -0.5f));
-        var point01 = transform.TransformPoint(new Vector3(-0.5f, 0.5f));
-        var point11 = transform.TransformPoint(new Vector3(0.5f, 0.5f));
+        Vector3 point00, point10, point01, point11;
+
+        if (transform != null)
+        {
+            point00 = transform.TransformPoint(new Vector3(-0.5f, -0.5f));
+            point10 = transform.TransformPoint(new Vector3(0.5f, -0.5f));
+            point01 = transform.TransformPoint(new Vector3(-0.5f, 0.5f));
+            point11 = transform.TransformPoint(new Vector3(0.5f, 0.5f));
+        }
+        else
+        {
+            point00 = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f));
+            point10 = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f));
+            point01 = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f));
+            point11 = new Vector3(Random.Range(-100f, 100f), Random.Range(-100f, 100f));
+        }
 
         var noteGradient = new Gradient();
 
+        var gradient = new List<GradientColorKey>();
 
+        if (dominantColor.HasValue)
+        {
+            // if the dominant color is set use it along with randoms
+            // the dominant color has the widest band so it should be the most pronounced
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0.2f));
+            gradient.Add(new GradientColorKey(dominantColor.Value, 0.5f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0.8f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 1f));
+        }
+        else
+        {
+            // if the dominant color is not set use purely random values
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0.25f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0.5f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 0.75f));
+            gradient.Add(new GradientColorKey(GetRandomColor(), 1));
+        }
 
-        noteGradient.SetKeys(
-            new[]
-            {
-                new GradientColorKey(Random.ColorHSV(0.2f, 0.8f), 0),
-                new GradientColorKey(Random.ColorHSV(0.2f, 0.8f), 0.5f),
-                new GradientColorKey(Random.ColorHSV(0.2f, 0.8f), 1)
-            },
+        noteGradient.SetKeys(gradient.ToArray(),
             new[]
             {
                 new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1)
             });
 
         return FillTexture(CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01, point11, resolution);
+    }
+
+    public static Color GetRandomColor()
+    {
+        return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
     }
 
     private static Texture2D CreateTexture(int resolution)
