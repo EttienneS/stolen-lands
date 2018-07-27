@@ -1,30 +1,12 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System.Collections;
 
 public class DragPanel : MonoBehaviour, IPointerDownHandler, IDragHandler
 {
-
-    private Vector2 pointerOffset;
     private RectTransform canvasRectTransform;
     private RectTransform panelRectTransform;
 
-    void Awake()
-    {
-        Canvas canvas = GetComponentInParent<Canvas>();
-        if (canvas != null)
-        {
-            canvasRectTransform = canvas.transform as RectTransform;
-            panelRectTransform = transform.parent as RectTransform;
-        }
-    }
-
-    public void OnPointerDown(PointerEventData data)
-    {
-        panelRectTransform.SetAsLastSibling();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRectTransform, data.position, data.pressEventCamera, out pointerOffset);
-    }
+    private Vector2 pointerOffset;
 
     public void OnDrag(PointerEventData data)
     {
@@ -42,7 +24,24 @@ public class DragPanel : MonoBehaviour, IPointerDownHandler, IDragHandler
         }
     }
 
-    Vector2 ClampToWindow(PointerEventData data)
+    public void OnPointerDown(PointerEventData data)
+    {
+        panelRectTransform.SetAsLastSibling();
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(panelRectTransform, data.position,
+            data.pressEventCamera, out pointerOffset);
+    }
+
+    private void Awake()
+    {
+        Canvas canvas = GetComponentInParent<Canvas>();
+        if (canvas != null)
+        {
+            canvasRectTransform = canvas.transform as RectTransform;
+            panelRectTransform = transform.parent as RectTransform;
+        }
+    }
+
+    private Vector2 ClampToWindow(PointerEventData data)
     {
         Vector2 rawPointerPosition = data.position;
 

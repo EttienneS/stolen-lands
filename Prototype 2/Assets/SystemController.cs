@@ -1,16 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class HexController : MonoBehaviour
+public class SystemController : MonoBehaviour
 {
     private HexCell _selectedCell;
 
     public ActorController actorController;
+
     public HexGrid hexGrid;
+
+    public InfoController InfoController;
+
+    public TurnController TurnController;
 
     public HexCell SelectedCell { get; set; }
 
-    public InfoController InfoController;
 
     private void Update()
     {
@@ -24,6 +28,9 @@ public class HexController : MonoBehaviour
     {
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
+
+        var activeActor = TurnController.ActiveActor;
+
         if (Physics.Raycast(inputRay, out hit))
         {
             if (SelectedCell != null)
@@ -31,7 +38,6 @@ public class HexController : MonoBehaviour
                 // remove border
                 SelectedCell.DrawBorder(Color.clear, 0);
                 SelectedCell = null;
-
             }
 
             SelectedCell = hexGrid.GetCellAtPoint(hit.point);
@@ -39,10 +45,10 @@ public class HexController : MonoBehaviour
 
             if (SelectedCell.Owner == null)
             {
-                InfoController.ShowInfoBox("Hex Claimed!", actorController.Player.Name + " claimed " + SelectedCell.coordinates.ToString());
+                InfoController.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             }
 
-            ClaimCell(actorController.Player, SelectedCell);
+            ClaimCell(activeActor, SelectedCell);
         }
         else
         {

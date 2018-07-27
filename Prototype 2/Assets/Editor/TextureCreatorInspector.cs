@@ -17,7 +17,7 @@ public class TextureCreatorInspector : Editor {
 
 	private void RefreshCreator () {
 		if (Application.isPlaying) {
-			creator.FillTexture();
+			creator.FillThisTexture();
 		}
 	}
 

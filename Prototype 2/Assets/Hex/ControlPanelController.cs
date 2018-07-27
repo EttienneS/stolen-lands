@@ -1,21 +1,18 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ControlPanelController : MonoBehaviour
 {
     public Text coordinateLabel;
 
-    public HexController hexController;
+    public SystemController hexController;
 
-    void Start()
+    private void Start()
     {
-
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (hexController.SelectedCell != null)
         {

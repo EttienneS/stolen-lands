@@ -6,7 +6,8 @@ public class HexCell : MonoBehaviour
 {
     public enum BorderType
     {
-        Selection, Control
+        Selection,
+        Control
     }
 
     public Dictionary<BorderType, GameObject> borders;
@@ -14,13 +15,13 @@ public class HexCell : MonoBehaviour
     public Color color;
     public HexCoordinates coordinates;
 
-    public Actor Owner { get; set; }
-
     [SerializeField] public HexCell[] neighbors;
+
+    public Actor Owner { get; set; }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int)direction];
+        return neighbors[(int) direction];
     }
 
     public void Awake()
@@ -30,11 +31,12 @@ public class HexCell : MonoBehaviour
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int)direction] = cell;
-        cell.neighbors[(int)direction.Opposite()] = this;
+        neighbors[(int) direction] = cell;
+        cell.neighbors[(int) direction.Opposite()] = this;
     }
 
-    public void DrawBorder(Color color, HexDirection faces = HexDirectionExtensions.AllFaces, BorderType type = BorderType.Selection)
+    public void DrawBorder(Color color, HexDirection faces = HexDirectionExtensions.AllFaces,
+        BorderType type = BorderType.Selection)
     {
         GameObject border;
         if (borders.ContainsKey(type))
@@ -49,7 +51,7 @@ public class HexCell : MonoBehaviour
             return;
         }
 
-        border = new GameObject("border-" + type.ToString());
+        border = new GameObject("border-" + type);
         border.transform.SetParent(transform);
 
         borders.Add(type, border);
@@ -62,8 +64,9 @@ public class HexCell : MonoBehaviour
         {
             if ((faces & face) == face)
             {
-                var faceValue = (int)face;
-                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue], HexMetrics.corners[faceValue + 1]));
+                var faceValue = (int) face;
+                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue],
+                    HexMetrics.corners[faceValue + 1]));
             }
         }
 
@@ -85,7 +88,7 @@ public class HexCell : MonoBehaviour
             lr.startWidth = type == BorderType.Selection ? 0.3f : 0.7f;
             lr.endWidth = lr.startWidth;
             lr.positionCount = 2;
-            
+
             lr.SetPosition(0, start + point.Key + scale);
             lr.SetPosition(1, start + point.Value + scale);
         }
