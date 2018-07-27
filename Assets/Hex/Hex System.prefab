@@ -31,7 +31,7 @@ GameObject:
   m_IsActive: 1
 --- !u!1 &1096890050637090
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
@@ -159,7 +159,6 @@ GameObject:
   - component: {fileID: 223752263394141470}
   - component: {fileID: 114330450080422836}
   - component: {fileID: 114765304820430520}
-  - component: {fileID: 114425423980078320}
   m_Layer: 5
   m_Name: UI
   m_TagString: Untagged
@@ -277,12 +276,12 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1096890050637090}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -559.5, y: -279, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4021290103656156}
-  m_RootOrder: 4
+  m_Father: {fileID: 224450570684568328}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &4021290103656156
 Transform:
@@ -298,7 +297,6 @@ Transform:
   - {fileID: 4740989632786430}
   - {fileID: 224450570684568328}
   - {fileID: 4810313174870408}
-  - {fileID: 4018934403500356}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -452,7 +450,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InfoBoxPrefab: {fileID: 114344135520615756, guid: 812836d4fd593c34487a176920e762c9,
     type: 2}
-  UICanvas: {fileID: 223752263394141470}
 --- !u!114 &114043310311929294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -609,21 +606,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_AllowSwitchOff: 0
---- !u!114 &114425423980078320
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1790427184282190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a25a35c906f4bf349b51d8b1fe2343fe, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actorController: {fileID: 0}
-  hexGrid: {fileID: 0}
-  InfoController: {fileID: 0}
-  TurnController: {fileID: 0}
 --- !u!114 &114492983466550364
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1107,6 +1089,7 @@ RectTransform:
   - {fileID: 224640714777401700}
   - {fileID: 224012222273491082}
   - {fileID: 224045965327253100}
+  - {fileID: 4018934403500356}
   m_Father: {fileID: 4021290103656156}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

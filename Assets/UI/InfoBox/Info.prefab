@@ -199,8 +199,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 456dfda13086cf34f8887969dabf566f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TitleText: My Info Box
   BodyText: This is a test message for my new info box!
+  TitleText: My Info Box
 --- !u!114 &114633593103827218
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,7 +447,7 @@ RectTransform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1946575417772700}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -458,10 +458,10 @@ RectTransform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -455.49997, y: 38.19751}
-  m_SizeDelta: {x: -925, y: -456.39502}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 103.6, y: 309.5}
+  m_SizeDelta: {x: 200, y: 180}
   m_Pivot: {x: 0.49999997, y: 0.5}
 --- !u!224 &224503189030305352
 RectTransform:
