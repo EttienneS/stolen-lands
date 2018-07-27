@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class ActorDisplay : MonoBehaviour
@@ -10,7 +8,7 @@ public class ActorDisplay : MonoBehaviour
     private Image Icon;
     private Text Name;
 
-    void Start()
+    private void Start()
     {
         if (Actor != null)
         {
@@ -31,9 +29,7 @@ public class ActorDisplay : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-
     }
 }
-

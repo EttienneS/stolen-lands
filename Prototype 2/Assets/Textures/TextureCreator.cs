@@ -55,8 +55,8 @@ public class TextureCreator : MonoBehaviour
         var point11 = transform.TransformPoint(new Vector3(0.5f, 0.5f));
 
         texture = FillTexture(texture, type, coloring,
-             point00, point10, point01, point11,
-             resolution, dimensions, frequency, octaves, lacunarity, persistence);
+            point00, point10, point01, point11,
+            resolution, dimensions, frequency, octaves, lacunarity, persistence);
     }
 
     public static Texture2D GetTexture(Transform transform = null, int resolution = 64, Color? dominantColor = null)
@@ -108,7 +108,8 @@ public class TextureCreator : MonoBehaviour
                 new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1)
             });
 
-        return FillTexture(CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01, point11, resolution);
+        return FillTexture(CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01,
+            point11, resolution);
     }
 
     public static Color GetRandomColor()
@@ -132,7 +133,8 @@ public class TextureCreator : MonoBehaviour
 
     private static Texture2D FillTexture(Texture2D texture, NoiseMethodType type, Gradient coloring,
         Vector3 point00, Vector3 point10, Vector3 point01, Vector3 point11,
-        int resolution = 64, int dimensions = 2, float frequency = 2f, int octaves = 3, float lacunarity = 4f, float persistence = 0.5f)
+        int resolution = 64, int dimensions = 2, float frequency = 2f, int octaves = 3, float lacunarity = 4f,
+        float persistence = 0.5f)
     {
         if (texture.width != resolution)
         {
@@ -147,7 +149,8 @@ public class TextureCreator : MonoBehaviour
             for (int x = 0; x < resolution; x++)
             {
                 Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
-                float sample = Noise.Sum(Noise.methods[(int)type][dimensions - 1], point, frequency, octaves, lacunarity, persistence);
+                float sample = Noise.Sum(Noise.methods[(int) type][dimensions - 1], point, frequency, octaves,
+                    lacunarity, persistence);
                 if (type != NoiseMethodType.Value)
                 {
                     sample = sample * 0.5f + 0.5f;

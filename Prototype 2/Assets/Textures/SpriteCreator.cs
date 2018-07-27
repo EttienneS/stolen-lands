@@ -13,6 +13,7 @@ public class SpriteCreator : MonoBehaviour
 
     public static Sprite GetRandomSprite(Transform transform, int resolution)
     {
-        return Sprite.Create(TextureCreator.GetTexture(transform, resolution), new Rect(new Vector2(), new Vector2(resolution, resolution)), new Vector2());
+        return Sprite.Create(TextureCreator.GetTexture(transform, resolution),
+            new Rect(new Vector2(), new Vector2(resolution, resolution)), new Vector2());
     }
 }

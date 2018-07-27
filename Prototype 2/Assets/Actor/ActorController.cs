@@ -1,45 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 
 public class ActorController : MonoBehaviour
 {
+    private List<Actor> _actors;
     private Actor _player;
 
-    private List<Actor> _actors;
-    public List<Actor> Actors
+    public void Awake()
+    {
+        AddActor("Player", Color.red);
+        AddActor("Enemy 1", Color.blue);
+        AddActor("Enemy 2", Color.green);
+        AddActor("Enemy 3", Color.yellow);
+        AddActor("Enemy 4", Color.magenta);
+    }
+
+    public Actor[] Actors
     {
         get
         {
-            if (_actors == null)
-            {
-                _actors = new List<Actor>
-                {
-                    new Actor("Player", Color.red),
-                    new Actor("Enemy 1", Color.blue),
-                    new Actor("Enemy 2", Color.yellow),
-                    new Actor("Enemy 3", Color.green)
-                };
-            }
-
-            return _actors;
+            return GetComponentsInChildren<Actor>();
         }
     }
 
-
-    public Actor Player
+    public void AddActor(string name, Color color)
     {
-        get
-        {
-            if (_player == null)
-            {
-                _player = Actors.First();
-            }
-
-            return _player;
-        }
-
-        set { _player = value; }
+        var actorObject = Instantiate(new GameObject(name), transform);
+        actorObject.AddComponent(typeof(Actor));
+        actorObject.GetComponent<Actor>().Instantiate(name, color);
     }
 }
