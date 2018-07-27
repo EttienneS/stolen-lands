@@ -29,8 +29,6 @@ public class SystemController : MonoBehaviour
         Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        var activeActor = TurnController.ActiveActor;
-
         if (Physics.Raycast(inputRay, out hit))
         {
             if (SelectedCell != null)
@@ -42,6 +40,8 @@ public class SystemController : MonoBehaviour
 
             SelectedCell = hexGrid.GetCellAtPoint(hit.point);
             SelectedCell.DrawBorder(Color.black);
+
+            var activeActor = TurnController.ActiveActor;
 
             if (SelectedCell.Owner == null)
             {
