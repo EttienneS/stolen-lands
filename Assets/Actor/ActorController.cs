@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
-    private List<Actor> _actors;
-    private Actor _player;
-
     public void Awake()
     {
         AddActor("Player", Color.red);
@@ -26,7 +23,8 @@ public class ActorController : MonoBehaviour
 
     public void AddActor(string name, Color color)
     {
-        var actorObject = Instantiate(new GameObject(name), transform);
+        var actorObject = new GameObject(name);
+        actorObject.transform.SetParent(transform);
         actorObject.AddComponent(typeof(Actor));
         actorObject.GetComponent<Actor>().Instantiate(name, color);
     }

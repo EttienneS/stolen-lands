@@ -6,9 +6,11 @@ public class InfoController : MonoBehaviour
     private readonly List<InfoBox> _boxes = new List<InfoBox>();
     public InfoBox InfoBoxPrefab;
 
+    public Canvas UICanvas;
+
     public void ShowInfoBox(string title, string body, Vector2? position = null)
     {
-        var box = Instantiate(InfoBoxPrefab);
+        var box = Instantiate(InfoBoxPrefab, UICanvas.transform);
         box.SetText(title, body);
         box.transform.SetParent(transform, false);
 
