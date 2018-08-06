@@ -12,7 +12,7 @@ This project is an attempt to flesh this part of the game out into a coherent, p
 
 ### Prerequisites
 
-- [Unity 2018.1.6f1](https://unity3d.com/get-unity/download?thank-you=update&download_nid=51513&os=Win)
+- Unity ([Unity hub](https://blogs.unity3d.com/2018/01/24/streamline-your-workflow-introducing-unity-hub-beta/) helps a lot to manage the version used.)
 - Visual Studio
 
 ### Getting Started
