@@ -5,11 +5,7 @@ public class SystemController : MonoBehaviour
 {
     private HexCell _selectedCell;
 
-    public ActorController actorController;
-
     public HexGrid hexGrid;
-
-    public InfoController InfoController;
 
     public TurnController TurnController;
 
@@ -44,7 +40,7 @@ public class SystemController : MonoBehaviour
 
             //if (SelectedCell.Owner == null)
             //{
-            //    InfoController.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
+            //    InfoController.InfoControllerInstance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             //}
 
             ClaimCell(activeActor, SelectedCell);

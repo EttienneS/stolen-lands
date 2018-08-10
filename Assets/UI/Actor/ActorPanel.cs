@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 
-public class ActorDisplay : MonoBehaviour
+public class ActorPanel : MonoBehaviour
 {
     public Actor Actor;
 
@@ -28,7 +28,6 @@ public class ActorDisplay : MonoBehaviour
         Name.text = Actor.Name;
     }
 
-    // Update is called once per frame
     private void Update()
     {
     }

@@ -73,7 +73,7 @@ GameObject:
   - component: {fileID: 4681354807478450}
   - component: {fileID: 114209244862661538}
   m_Layer: 0
-  m_Name: Actor Controller
+  m_Name: ActorController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -331,6 +331,21 @@ GameObject:
   - component: {fileID: 114055059069988100}
   m_Layer: 5
   m_Name: Panel Title
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1858816966157530
+GameObject:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 224813175680159128}
+  m_Layer: 5
+  m_Name: ActorPanelContainer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -598,7 +613,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   InfoBoxPrefab: {fileID: 114344135520615756, guid: 812836d4fd593c34487a176920e762c9,
     type: 2}
-  UICanvas: {fileID: 223752263394141470}
 --- !u!114 &114043310311929294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -725,7 +739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.13333334}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -765,7 +779,7 @@ MonoBehaviour:
   m_Content: {fileID: 224999169773542582}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -793,6 +807,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c61b6a628e7424299cd064571c31d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActorPanelContainer: {fileID: 1858816966157530}
+  ActorPanelPrefab: {fileID: 114851321275246304, guid: c9cc2088bc1b1c74d81c9edf66b8af6d,
+    type: 2}
 --- !u!114 &114245373509843876
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1000,9 +1017,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a35c906f4bf349b51d8b1fe2343fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actorController: {fileID: 114209244862661538}
   hexGrid: {fileID: 114711966481067202}
-  InfoController: {fileID: 114015453942915054}
   TurnController: {fileID: 114990536774098682}
 --- !u!114 &114568323428662672
 MonoBehaviour:
@@ -1311,7 +1326,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3eb5c51774a2c1498efc77d878019e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActorController: {fileID: 114209244862661538}
   PlayerPrefab: {fileID: 1587233067508066, guid: 4b48f954a71ce2a4a8658a7be124fa3c,
     type: 2}
 --- !u!114 &114996538343741836
@@ -1580,8 +1594,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 460.52502, y: 151.4}
-  m_SizeDelta: {x: -921.05005, y: -302.8}
+  m_AnchoredPosition: {x: 570.9, y: 151.4}
+  m_SizeDelta: {x: -1141.8, y: -302.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224205210702944752
 RectTransform:
@@ -1652,6 +1666,7 @@ RectTransform:
   - {fileID: 224045965327253100}
   - {fileID: 4018934403500356}
   - {fileID: 224199394346610974}
+  - {fileID: 224813175680159128}
   m_Father: {fileID: 4021290103656156}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1718,6 +1733,24 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: -20, y: -20}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!224 &224813175680159128
+RectTransform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1858816966157530}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 224450570684568328}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -50}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224862618738704142
 RectTransform:
