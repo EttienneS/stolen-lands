@@ -6,11 +6,10 @@ public class ActorController : MonoBehaviour
 {
     public void Awake()
     {
-        AddActor("Player", Color.red);
-        AddActor("Enemy 1", Color.blue);
-        AddActor("Enemy 2", Color.green);
-        AddActor("Enemy 3", Color.yellow);
-        AddActor("Enemy 4", Color.magenta);
+        for (int i = 0; i < 100; i++)
+        {
+            Person.GetAveragePerson(transform);
+        }
     }
 
     public Actor[] Actors
@@ -21,11 +20,4 @@ public class ActorController : MonoBehaviour
         }
     }
 
-    public void AddActor(string name, Color color)
-    {
-        var actorObject = new GameObject(name);
-        actorObject.transform.SetParent(transform);
-        actorObject.AddComponent(typeof(Actor));
-        actorObject.GetComponent<Actor>().Instantiate(name, color);
-    }
 }

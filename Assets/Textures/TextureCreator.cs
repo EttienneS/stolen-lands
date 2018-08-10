@@ -27,7 +27,7 @@ public class TextureCreator : MonoBehaviour
     {
         if (texture == null)
         {
-            texture = CreateTexture(resolution);
+            texture = TextureHelper.CreateTexture(resolution);
             GetComponent<MeshRenderer>().material.mainTexture = texture;
         }
 
@@ -54,7 +54,7 @@ public class TextureCreator : MonoBehaviour
         var point01 = transform.TransformPoint(new Vector3(-0.5f, 0.5f));
         var point11 = transform.TransformPoint(new Vector3(0.5f, 0.5f));
 
-        texture = FillTexture(texture, type, coloring,
+        texture = TextureHelper.FillTexture(texture, type, coloring,
             point00, point10, point01, point11,
             resolution, dimensions, frequency, octaves, lacunarity, persistence);
     }
@@ -86,20 +86,20 @@ public class TextureCreator : MonoBehaviour
         {
             // if the dominant color is set use it along with randoms
             // the dominant color has the widest band so it should be the most pronounced
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0.2f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0.2f));
             gradient.Add(new GradientColorKey(dominantColor.Value, 0.5f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0.8f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 1f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0.8f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 1f));
         }
         else
         {
             // if the dominant color is not set use purely random values
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0.25f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0.5f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 0.75f));
-            gradient.Add(new GradientColorKey(GetRandomColor(), 1));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0.25f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0.5f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 0.75f));
+            gradient.Add(new GradientColorKey(TextureHelper.GetRandomColor(), 1));
         }
 
         noteGradient.SetKeys(gradient.ToArray(),
@@ -108,16 +108,19 @@ public class TextureCreator : MonoBehaviour
                 new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1)
             });
 
-        return FillTexture(CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01,
+        return TextureHelper.FillTexture(TextureHelper.CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01,
             point11, resolution);
     }
+}
 
+public class TextureHelper
+{
     public static Color GetRandomColor()
     {
         return new Color(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f));
     }
 
-    private static Texture2D CreateTexture(int resolution)
+    public static Texture2D CreateTexture(int resolution)
     {
         var texture = new Texture2D(resolution, resolution, TextureFormat.RGB24, true)
         {
@@ -130,8 +133,7 @@ public class TextureCreator : MonoBehaviour
         return texture;
     }
 
-
-    private static Texture2D FillTexture(Texture2D texture, NoiseMethodType type, Gradient coloring,
+    public static Texture2D FillTexture(Texture2D texture, NoiseMethodType type, Gradient coloring,
         Vector3 point00, Vector3 point10, Vector3 point01, Vector3 point11,
         int resolution = 64, int dimensions = 2, float frequency = 2f, int octaves = 3, float lacunarity = 4f,
         float persistence = 0.5f)

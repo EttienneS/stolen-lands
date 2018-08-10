@@ -11,6 +11,24 @@ public class Actor : MonoBehaviour
 
     public Sprite Sprite;
 
+    [Range(0, 100)]
+    public int Physical;
+
+    [Range(0, 100)]
+    public int Cunning;
+
+    [Range(0, 100)]
+    public int Mental;
+
+    [Range(0, 100)]
+    public int Charisma;
+
+    [Range(-100, 100)]
+    public int Morality;
+
+    [Range(-100, 100)]
+    public int Lawfulness;
+
     public void Instantiate(string name, Color color)
     {
         Name = name;
