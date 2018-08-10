@@ -15,7 +15,6 @@ public class SystemController : MonoBehaviour
 
     public HexCell SelectedCell { get; set; }
 
-
     private void Update()
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
@@ -43,10 +42,10 @@ public class SystemController : MonoBehaviour
 
             var activeActor = TurnController.ActiveActor;
 
-            if (SelectedCell.Owner == null)
-            {
-                InfoController.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
-            }
+            //if (SelectedCell.Owner == null)
+            //{
+            //    InfoController.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
+            //}
 
             ClaimCell(activeActor, SelectedCell);
         }
