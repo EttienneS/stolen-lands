@@ -5,10 +5,6 @@ public class SystemController : MonoBehaviour
 {
     private HexCell _selectedCell;
 
-    public HexGrid hexGrid;
-
-    public TurnController TurnController;
-
     public HexCell SelectedCell { get; set; }
 
     private void Update()
@@ -33,14 +29,14 @@ public class SystemController : MonoBehaviour
                 SelectedCell = null;
             }
 
-            SelectedCell = hexGrid.GetCellAtPoint(hit.point);
+            SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
             SelectedCell.DrawBorder(Color.black);
 
-            var activeActor = TurnController.ActiveActor;
+            var activeActor = TurnController.Instance.ActiveActor;
 
             //if (SelectedCell.Owner == null)
             //{
-            //    InfoController.InfoControllerInstance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
+            //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             //}
 
             ClaimCell(activeActor, SelectedCell);

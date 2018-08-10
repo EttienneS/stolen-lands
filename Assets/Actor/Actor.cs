@@ -29,6 +29,8 @@ public class Actor : MonoBehaviour
     [Range(-100, 100)]
     public int Lawfulness;
 
+    public HexCell Location;
+
     public void Instantiate(string name, Color color)
     {
         Name = name;

@@ -1,8 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Security.Policy;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
+    private static HexGrid _instance;
+
+    public static HexGrid Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("Hex Grid").GetComponent<HexGrid>();
+            }
+
+            return _instance;
+        }
+    }
+
     public Text cellLabelPrefab;
 
     public HexCell cellPrefab;
@@ -16,8 +33,6 @@ public class HexGrid : MonoBehaviour
     [Range(1, 150)] public int height = 20;
 
     private HexMesh hexMesh;
-
-    public Tree treePrefab;
 
     [Range(1, 150)] public int width = 20;
 
@@ -42,6 +57,11 @@ public class HexGrid : MonoBehaviour
         hexMesh.Triangulate(cells);
     }
 
+    public HexCell GetRandomCell()
+    {
+        return cells[Random.Range(0, height * width)];
+    }
+
     private void CreateCell(int x, int y, int i)
     {
         float xpos = x;
@@ -55,21 +75,6 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.color = defaultColor;
-
-        for (var t = 0; t < Random.Range(0, 10); t++)
-        {
-            if (t > 2)
-            {
-                var scale = Random.Range(3, 8);
-                var tree = Instantiate(treePrefab);
-                tree.transform.SetParent(cell.transform);
-
-                tree.transform.localScale = new Vector3(scale, scale, scale);
-                tree.transform.localPosition =
-                    new Vector3(Random.Range(-10f, 10f), scale * 0.5f, Random.Range(-10f, 10f));
-                tree.transform.Rotate(0, 0, Random.Range(0, 360));
-            }
-        }
 
         if (x > 0)
         {

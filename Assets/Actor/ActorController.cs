@@ -2,22 +2,24 @@
 
 public class ActorController : MonoBehaviour
 {
-    private static ActorController _actorControllerInstance;
+    private static ActorController _instance;
 
     public GameObject ActorPanelContainer;
 
     public ActorPanel ActorPanelPrefab;
 
-    public static ActorController ActorControllerInstance
+    public ActorPanel ActivePanel;
+
+    public static ActorController Instance
     {
         get
         {
-            if (_actorControllerInstance == null)
+            if (_instance == null)
             {
-                _actorControllerInstance = GameObject.Find("ActorController").GetComponent<ActorController>();
+                _instance = GameObject.Find("ActorController").GetComponent<ActorController>();
             }
 
-            return _actorControllerInstance;
+            return _instance;
         }
     }
 
@@ -37,8 +39,12 @@ public class ActorController : MonoBehaviour
 
     public void ShowActorPanel(Actor actor)
     {
-        var panel = Instantiate(ActorPanelPrefab, ActorPanelContainer.transform);
-        panel.name = actor.Name + " (Info Panel)";
-        panel.SetActor(actor);
+        if (ActivePanel == null)
+        {
+            ActivePanel = Instantiate(ActorPanelPrefab, ActorPanelContainer.transform);
+        }
+
+        ActivePanel.name = actor.Name + " (Info Panel)";
+        ActivePanel.SetActor(actor);
     }
 }

@@ -27,6 +27,7 @@ public class ActorPanel : MonoBehaviour
         stats.Find("Cunning").GetComponent<Text>().text = Actor.Cunning.ToString();
         stats.Find("Mental").GetComponent<Text>().text = Actor.Mental.ToString();
         stats.Find("Charisma").GetComponent<Text>().text = Actor.Charisma.ToString();
+        //stats.Find("Location").GetComponent<Text>().text = Actor.Location.ToString();
     }
 
     private void Update()

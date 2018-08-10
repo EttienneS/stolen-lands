@@ -11,7 +11,7 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData data)
     {
-        ActorController.ActorControllerInstance.ShowActorPanel(Actor);
+        ActorController.Instance.ShowActorPanel(Actor);
     }
 
     private void Start()

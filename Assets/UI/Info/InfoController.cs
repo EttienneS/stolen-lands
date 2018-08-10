@@ -6,18 +6,18 @@ public class InfoController : MonoBehaviour
     private readonly List<InfoBox> _boxes = new List<InfoBox>();
     public InfoBox InfoBoxPrefab;
 
-    private static InfoController _infoController;
+    private static InfoController _instance;
 
-    public static InfoController InfoControllerInstance
+    public static InfoController Instance
     {
         get
         {
-            if (_infoController == null)
+            if (_instance == null)
             {
-                _infoController = GameObject.Find("InfoService").GetComponent<InfoController>();
+                _instance = GameObject.Find("InfoService").GetComponent<InfoController>();
             }
 
-            return _infoController;
+            return _instance;
         }
     }
 
