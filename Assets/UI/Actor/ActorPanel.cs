@@ -5,8 +5,6 @@ public class ActorPanel : MonoBehaviour
 {
     public Actor Actor;
 
-    private Image Icon;
-    private Text Name;
 
     private void Start()
     {
@@ -20,12 +18,15 @@ public class ActorPanel : MonoBehaviour
     {
         Actor = actor;
 
-        // on init set the values to match the given Actor
-        Icon = transform.Find("Icon").GetComponent<Image>();
-        Name = transform.Find("Name").GetComponent<Text>();
+        transform.Find("Icon").GetComponent<Image>().sprite = Actor.Sprite;
+        transform.Find("Name").GetComponent<Text>().text = Actor.Name;
 
-        Icon.sprite = Actor.Sprite;
-        Name.text = Actor.Name;
+        var stats = transform.Find("Stats").transform;
+
+        stats.Find("Physical").GetComponent<Text>().text = Actor.Physical.ToString();
+        stats.Find("Cunning").GetComponent<Text>().text = Actor.Cunning.ToString();
+        stats.Find("Mental").GetComponent<Text>().text = Actor.Mental.ToString();
+        stats.Find("Charisma").GetComponent<Text>().text = Actor.Charisma.ToString();
     }
 
     private void Update()
