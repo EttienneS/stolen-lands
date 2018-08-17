@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HexCell : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class HexCell : MonoBehaviour
         Selection,
         Control
     }
+
+    public Text Label {get;set;}
 
     public Dictionary<BorderType, GameObject> borders;
 
@@ -92,5 +95,12 @@ public class HexCell : MonoBehaviour
             lr.SetPosition(0, start + point.Key + scale);
             lr.SetPosition(1, start + point.Value + scale);
         }
+    }
+
+    public void Claim(Actor owner)
+    {
+        owner.ControlledCells.Add(this);
+        this.Owner = owner;
+        this.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
     }
 }

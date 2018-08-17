@@ -1,31 +1,63 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
-    public void Awake()
-    {
-        AddActor("Player", Color.red);
-        AddActor("Enemy 1", Color.blue);
-        AddActor("Enemy 2", Color.green);
-        AddActor("Enemy 3", Color.yellow);
-        AddActor("Enemy 4", Color.magenta);
-    }
+    private static ActorController _instance;
 
-    public Actor[] Actors
+    public GameObject ActorPanelContainer;
+
+    public ActorPanel ActorPanelPrefab;
+
+    public ActorDisplay ActorDisplayPrefab;
+
+    public ActorPanel ActivePanel;
+    
+
+    public static ActorController Instance
     {
         get
         {
-            return GetComponentsInChildren<Actor>();
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("ActorController").GetComponent<ActorController>();
+            }
+
+            return _instance;
         }
     }
 
-    public void AddActor(string name, Color color)
+
+    public Actor[] Actors
     {
-        var actorObject = new GameObject(name);
-        actorObject.transform.SetParent(transform);
-        actorObject.AddComponent(typeof(Actor));
-        actorObject.GetComponent<Actor>().Instantiate(name, color);
+        get { return GetComponentsInChildren<Actor>(); }
+    }
+
+    public ActorDisplay GetDisplayForActor(Actor actor)
+    {
+        var display = Instantiate(ActorController.Instance.ActorDisplayPrefab);
+        display.name = actor.Name + " (Display)";
+        display.GetComponent<ActorDisplay>().SetActor(actor);
+        return display;
+    }
+
+    public void Awake()
+    {
+        for (int i = 0; i < 50; i++)
+        {
+            Person.GetAveragePerson(transform);            
+        }
+
+       
+    }
+
+    public void ShowActorPanel(Actor actor)
+    {
+        if (ActivePanel == null)
+        {
+            ActivePanel = Instantiate(ActorPanelPrefab, ActorPanelContainer.transform);
+        }
+
+        ActivePanel.name = actor.Name + " (Info Panel)";
+        ActivePanel.SetActor(actor);
     }
 }

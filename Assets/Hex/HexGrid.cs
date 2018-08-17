@@ -1,8 +1,25 @@
-﻿using UnityEngine;
+﻿using System.Security.Policy;
+using UnityEditor;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
+    private static HexGrid _instance;
+
+    public static HexGrid Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("Hex Grid").GetComponent<HexGrid>();
+            }
+
+            return _instance;
+        }
+    }
+
     public Text cellLabelPrefab;
 
     public HexCell cellPrefab;
@@ -17,9 +34,18 @@ public class HexGrid : MonoBehaviour
 
     private HexMesh hexMesh;
 
-    public Tree treePrefab;
-
     [Range(1, 150)] public int width = 20;
+
+
+    public void AddActorToCanvas(Actor actor, HexCell cell)
+    {
+        var display = ActorController.Instance.GetDisplayForActor(actor);
+        display.transform.localScale = new Vector3(0.05f,0.05f,1f);
+        display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x, cell.Label.transform.localPosition.y, -1f);
+        display.transform.SetParent(cell.Label.transform);       
+
+        cell.Claim(actor);
+    }
 
     private void Awake()
     {
@@ -35,11 +61,22 @@ public class HexGrid : MonoBehaviour
                 CreateCell(x, y, i++);
             }
         }
+
+        foreach (var actor in ActorController.Instance.Actors)
+        {
+            actor.Location = GetRandomCell();
+            AddActorToCanvas(actor, actor.Location);
+        }
     }
 
     private void Start()
     {
         hexMesh.Triangulate(cells);
+    }
+
+    public HexCell GetRandomCell()
+    {
+        return cells[Random.Range(0, height * width)];
     }
 
     private void CreateCell(int x, int y, int i)
@@ -55,21 +92,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.color = defaultColor;
-
-        for (var t = 0; t < Random.Range(0, 10); t++)
-        {
-            if (t > 2)
-            {
-                var scale = Random.Range(3, 8);
-                var tree = Instantiate(treePrefab);
-                tree.transform.SetParent(cell.transform);
-
-                tree.transform.localScale = new Vector3(scale, scale, scale);
-                tree.transform.localPosition =
-                    new Vector3(Random.Range(-10f, 10f), scale * 0.5f, Random.Range(-10f, 10f));
-                tree.transform.Rotate(0, 0, Random.Range(0, 360));
-            }
-        }
+        cell.name = cell.coordinates.ToString() + " Cell";
 
         if (x > 0)
         {
@@ -101,6 +124,9 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = position;
         label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.name = cell.coordinates.ToString() + " Label";
+
+        cell.Label = label;
     }
 
     public HexCell GetCellAtPoint(Vector3 position)

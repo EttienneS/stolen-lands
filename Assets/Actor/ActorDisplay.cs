@@ -1,12 +1,18 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActorDisplay : MonoBehaviour
+public class ActorDisplay : MonoBehaviour, IPointerDownHandler
 {
     public Actor Actor;
 
     private Image Icon;
     private Text Name;
+
+    public void OnPointerDown(PointerEventData data)
+    {
+        ActorController.Instance.ShowActorPanel(Actor);
+    }
 
     private void Start()
     {

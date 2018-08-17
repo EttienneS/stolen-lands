@@ -6,11 +6,24 @@ public class InfoController : MonoBehaviour
     private readonly List<InfoBox> _boxes = new List<InfoBox>();
     public InfoBox InfoBoxPrefab;
 
-    public Canvas UICanvas;
+    private static InfoController _instance;
+
+    public static InfoController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("InfoService").GetComponent<InfoController>();
+            }
+
+            return _instance;
+        }
+    }
 
     public void ShowInfoBox(string title, string body, Vector2? position = null)
     {
-        var box = Instantiate(InfoBoxPrefab, UICanvas.transform);
+        var box = Instantiate(InfoBoxPrefab);
         box.SetText(title, body);
         box.transform.SetParent(transform, false);
 
@@ -20,8 +33,7 @@ public class InfoController : MonoBehaviour
         }
         else
         {
-            box.transform.position =
-                new Vector2(box.transform.position.x, box.transform.position.y - _boxes.Count * 30);
+            box.transform.position = new Vector2(box.transform.position.x, box.transform.position.y - _boxes.Count * 30);
         }
 
         _boxes.Add(box);
