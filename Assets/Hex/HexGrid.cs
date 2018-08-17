@@ -36,6 +36,17 @@ public class HexGrid : MonoBehaviour
 
     [Range(1, 150)] public int width = 20;
 
+
+    public void AddActorToCanvas(Actor actor, HexCell cell)
+    {
+        var display = ActorController.Instance.GetDisplayForActor(actor);
+        display.transform.localScale = new Vector3(0.05f,0.05f,1f);
+        display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x, cell.Label.transform.localPosition.y, -1f);
+        display.transform.SetParent(cell.Label.transform);       
+
+        cell.Claim(actor);
+    }
+
     private void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
@@ -49,6 +60,12 @@ public class HexGrid : MonoBehaviour
             {
                 CreateCell(x, y, i++);
             }
+        }
+
+        foreach (var actor in ActorController.Instance.Actors)
+        {
+            actor.Location = GetRandomCell();
+            AddActorToCanvas(actor, actor.Location);
         }
     }
 
@@ -75,6 +92,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.color = defaultColor;
+        cell.name = cell.coordinates.ToString() + " Cell";
 
         if (x > 0)
         {
@@ -106,6 +124,9 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = position;
         label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.name = cell.coordinates.ToString() + " Label";
+
+        cell.Label = label;
     }
 
     public HexCell GetCellAtPoint(Vector3 position)

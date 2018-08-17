@@ -38,8 +38,7 @@ public class SystemController : MonoBehaviour
             //{
             //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             //}
-
-            ClaimCell(activeActor, SelectedCell);
+            SelectedCell.Claim(activeActor);
         }
         else
         {
@@ -47,10 +46,5 @@ public class SystemController : MonoBehaviour
         }
     }
 
-    public void ClaimCell(Actor owner, HexCell cell)
-    {
-        owner.ControlledCells.Add(cell);
-        cell.Owner = owner;
-        cell.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
-    }
+  
 }

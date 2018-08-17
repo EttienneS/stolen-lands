@@ -1204,6 +1204,8 @@ MonoBehaviour:
   ActorPanelContainer: {fileID: 1976077550939868}
   ActorPanelPrefab: {fileID: 114851321275246304, guid: c9cc2088bc1b1c74d81c9edf66b8af6d,
     type: 2}
+  ActorDisplayPrefab: {fileID: 114059860745770926, guid: 4b48f954a71ce2a4a8658a7be124fa3c,
+    type: 2}
   ActivePanel: {fileID: 0}
 --- !u!114 &114810507896149958
 MonoBehaviour:
@@ -1647,8 +1649,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 730.8, y: 151.4}
-  m_SizeDelta: {x: -1461.6, y: -302.8}
+  m_AnchoredPosition: {x: 590.5, y: 151.4}
+  m_SizeDelta: {x: -1181, y: -302.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224810423250247752
 RectTransform:

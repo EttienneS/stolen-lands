@@ -6,7 +6,6 @@ public class TurnController : MonoBehaviour
     private readonly Color ActiveColor = new Color(0.7f, 0.02f, 0.02f, 0.5f);
     private readonly Color InactiveColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
-    public GameObject ActorIndicatorPrefab;
     public GameObject ScrollContentContainer;
 
     public static TurnController _instance;
@@ -24,7 +23,6 @@ public class TurnController : MonoBehaviour
         }
     }
 
-
     public int ActiveActorIndex { get; set; }
 
     public Actor ActiveActor
@@ -36,14 +34,14 @@ public class TurnController : MonoBehaviour
     {
         foreach (var actor in ActorController.Instance.Actors)
         {
-            var display = Instantiate(ActorIndicatorPrefab);
-            display.name = actor.Name + " (Turn Display)";
+            var display = ActorController.Instance.GetDisplayForActor(actor);           
             display.transform.SetParent(ScrollContentContainer.transform, false);
-            display.GetComponent<ActorDisplay>().SetActor(actor);
         }
 
         ActiveActorIndex = 0;
         ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
+
+        InvokeRepeating("EndCurrentTurn", 0, 0.01f);
     }
 
     private void Update()
@@ -58,6 +56,9 @@ public class TurnController : MonoBehaviour
 
     public void EndCurrentTurn()
     {
+        var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
+        activeActor.TakeTurn();
+
         ActiveActorIndex++;
 
         if (ActiveActorIndex >= ActorController.Instance.Actors.Length)
