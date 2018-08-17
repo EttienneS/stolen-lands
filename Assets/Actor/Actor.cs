@@ -32,11 +32,22 @@ public class Actor : MonoBehaviour
 
     public HexCell Location;
 
-    public List<Action> AvailableActions = new List<Action>();
+    public List<ActorAction> AvailableActions = new List<ActorAction>();
 
     public void Instantiate(string name, Color color)
     {
-        // AvailableActions.Add(SystemController.ClaimCell);            
+        if (Cunning > 60)
+        {
+            AvailableActions.Add(ClaimCell.Agressive);            
+        }
+        else if (Cunning < 40)
+        {
+            AvailableActions.Add(ClaimCell.Cautious);            
+        }
+        else
+        {
+            AvailableActions.Add(ClaimCell.Default);            
+        }
 
         Name = name;
         Color = color;
@@ -48,22 +59,9 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
-        var potentialCells = new List<HexCell>();
-       
-        foreach (var controlledCell in ControlledCells)
+        if (AvailableActions.Any())
         {
-            foreach (var cell in controlledCell.neighbors)
-            {
-                if (cell != null && cell.Owner == null)
-                {
-                    potentialCells.Add(cell);
-                }
-            }
-        }
-
-        if (potentialCells.Any())
-        {
-            potentialCells[Random.Range(0, potentialCells.Count -1)].Claim(this);
+            AvailableActions[Random.Range(0, AvailableActions.Count - 1)].Execute(this);
         }
     }
 }

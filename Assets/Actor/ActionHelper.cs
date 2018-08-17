@@ -1,9 +1,9 @@
-
-public delegate void Action(Actor source, object target);
-
-public class ActionHelper
+using UnityEngine;
+using System.Collections.Generic;
+using System.Linq;
+public static class ActionHelper
 {
+    
 
-
-
+    
 }

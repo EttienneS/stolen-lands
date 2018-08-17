@@ -53,20 +53,32 @@ public class TurnController : MonoBehaviour
                 ? ActiveColor
                 : InactiveColor;
         }
+
+        TakeTurn();
     }
+
+    bool TakeTurns = false;
 
     public void EndCurrentTurn()
     {
-        var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
-        activeActor.TakeTurn();
+        TakeTurns = !TakeTurns;
+    }
 
-        ActiveActorIndex++;
-
-        if (ActiveActorIndex >= ActorController.Instance.Actors.Length)
+    public void TakeTurn()
+    {
+        if (TakeTurns)
         {
-            ActiveActorIndex = 0;
-        }
+            var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
+            activeActor.TakeTurn();
 
-        ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
+            ActiveActorIndex++;
+
+            if (ActiveActorIndex >= ActorController.Instance.Actors.Length)
+            {
+                ActiveActorIndex = 0;
+            }
+
+            // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
+        }
     }
 }

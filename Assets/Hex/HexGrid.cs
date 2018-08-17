@@ -26,8 +26,6 @@ public class HexGrid : MonoBehaviour
 
     private HexCell[] cells;
 
-    public Color defaultColor = Color.green;
-
     private Canvas gridCanvas;
 
     [Range(1, 150)] public int height = 20;
@@ -43,8 +41,6 @@ public class HexGrid : MonoBehaviour
         display.transform.localScale = new Vector3(0.05f,0.05f,1f);
         display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x, cell.Label.transform.localPosition.y, -1f);
         display.transform.SetParent(cell.Label.transform);       
-
-        cell.Claim(actor);
     }
 
     private void Awake()
@@ -65,7 +61,14 @@ public class HexGrid : MonoBehaviour
         foreach (var actor in ActorController.Instance.Actors)
         {
             actor.Location = GetRandomCell();
+            actor.Location.Claim(actor);
             AddActorToCanvas(actor, actor.Location);
+                
+            // take a few turns quickly to establish actors
+            for (int i = 0; i < actor.Mental/10; i++)
+            {
+                actor.TakeTurn();
+            }
         }
     }
 
@@ -91,7 +94,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
-        cell.color = defaultColor;
+        cell.color = Color.gray;
         cell.name = cell.coordinates.ToString() + " Cell";
 
         if (x > 0)
