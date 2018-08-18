@@ -39,7 +39,7 @@ public class TurnController : MonoBehaviour
         }
 
         ActiveActorIndex = 0;
-        ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
+        // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
 
         // uncomment the next line to spam the endturn button 100 times per second
         // InvokeRepeating("EndCurrentTurn", 0, 0.01f);

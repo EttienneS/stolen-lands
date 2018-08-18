@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SystemController : MonoBehaviour
@@ -6,6 +7,26 @@ public class SystemController : MonoBehaviour
     private HexCell _selectedCell;
 
     public HexCell SelectedCell { get; set; }
+
+    public Canvas UICanvas;
+
+    public Canvas GridCanvas;
+
+    private static SystemController _instance;
+
+    public static SystemController Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("System").GetComponent<SystemController>();
+            }
+
+            return _instance;
+        }
+    }
+
 
     private void Update()
     {
@@ -25,12 +46,12 @@ public class SystemController : MonoBehaviour
             if (SelectedCell != null)
             {
                 // remove border
-                SelectedCell.DrawBorder(Color.clear, 0);
+                // SelectedCell.DrawBorder(Color.clear, 0);
                 SelectedCell = null;
             }
 
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
-            SelectedCell.DrawBorder(Color.black);
+            //SelectedCell.DrawBorder(Color.black);
 
             var activeActor = TurnController.Instance.ActiveActor;
 

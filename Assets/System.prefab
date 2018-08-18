@@ -702,6 +702,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a35c906f4bf349b51d8b1fe2343fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UICanvas: {fileID: 223448247803282882}
+  GridCanvas: {fileID: 223169924361851798}
 --- !u!114 &114256455567536826
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1007,7 +1009,6 @@ MonoBehaviour:
     type: 2}
   cellPrefab: {fileID: 114824413764255646, guid: 1d17b824720ea3240a26182d890e9f9b,
     type: 2}
-  defaultColor: {r: 0, g: 0.33962262, b: 0, a: 1}
   height: 50
   width: 50
 --- !u!114 &114660546594293440
@@ -1338,8 +1339,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3eb5c51774a2c1498efc77d878019e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ActorIndicatorPrefab: {fileID: 1587233067508066, guid: 4b48f954a71ce2a4a8658a7be124fa3c,
-    type: 2}
   ScrollContentContainer: {fileID: 1389316247801474}
 --- !u!222 &222067700846036250
 CanvasRenderer:
@@ -1649,8 +1648,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 590.5, y: 151.4}
-  m_SizeDelta: {x: -1181, y: -302.8}
+  m_AnchoredPosition: {x: 612.5, y: 151.4}
+  m_SizeDelta: {x: -1225, y: -302.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224810423250247752
 RectTransform:

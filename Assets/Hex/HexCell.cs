@@ -62,14 +62,12 @@ public class HexCell : MonoBehaviour
         var start = transform.localPosition + new Vector3(0, 0, -1);
         var points = new List<KeyValuePair<Vector3, Vector3>>();
 
-        // check each possible face if it is included in the list
         foreach (HexDirection face in Enum.GetValues(typeof(HexDirection)))
         {
             if ((faces & face) == face)
             {
                 var faceValue = (int) face;
-                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue],
-                    HexMetrics.corners[faceValue + 1]));
+                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue], HexMetrics.corners[faceValue + 1]));
             }
         }
 
@@ -101,6 +99,7 @@ public class HexCell : MonoBehaviour
     {
         owner.ControlledCells.Add(this);
         this.Owner = owner;
-        this.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
+        owner.UpdateBorder();
+        //this.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
     }
 }
