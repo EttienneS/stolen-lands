@@ -34,24 +34,15 @@ public class Actor : MonoBehaviour
 
     public HexCell Location;
 
-    public List<ActorAction> AvailableActions = new List<ActorAction>();
+    public List<Trait> Traits = new List<Trait>();
+
+    public List<ActorAction> ActorActions = new List<ActorAction>();
 
     private GameObject _border;
 
     public void Instantiate(string name, Color color)
     {
-        if (Cunning > 60)
-        {
-            AvailableActions.Add(ClaimCell.Agressive);            
-        }
-        else if (Cunning < 40)
-        {
-            AvailableActions.Add(ClaimCell.Cautious);            
-        }
-        else
-        {
-            AvailableActions.Add(ClaimCell.Default);            
-        }
+        Traits.Add(AllTraits.DefaultFaction);
 
         Name = name;
         Color = color;
@@ -63,9 +54,16 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
-        if (AvailableActions.Any())
+        var allActions = ActorActions;
+
+        foreach (var trait in Traits)
         {
-            AvailableActions[UnityEngine.Random.Range(0, AvailableActions.Count - 1)].Execute(this);
+            allActions.AddRange(trait.Actions);
+        }
+
+        if (allActions.Any())
+        {
+            allActions[UnityEngine.Random.Range(0, allActions.Count - 1)].Execute(this);
         }
     }
 
