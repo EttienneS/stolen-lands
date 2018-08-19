@@ -9,8 +9,8 @@ public class Actor : MonoBehaviour
     private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
     public List<ActorAction> ActorActions = new List<ActorAction>();
-    public Color Color;
 
+    public Color Color;
 
     public HexCell Location;
 
@@ -55,7 +55,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // only ever have one trait of a type
-            return (T) TraitCache[type];
+            return (T)TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();

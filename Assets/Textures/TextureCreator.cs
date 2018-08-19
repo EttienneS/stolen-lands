@@ -152,7 +152,7 @@ public class TextureHelper
             for (int x = 0; x < resolution; x++)
             {
                 Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
-                float sample = Noise.Sum(Noise.methods[(int) type][dimensions - 1], point, frequency, octaves,
+                float sample = Noise.Sum(Noise.methods[(int)type][dimensions - 1], point, frequency, octaves,
                     lacunarity, persistence);
                 if (type != NoiseMethodType.Value)
                 {

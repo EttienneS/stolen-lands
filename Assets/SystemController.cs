@@ -25,7 +25,6 @@ public class SystemController : MonoBehaviour
         }
     }
 
-
     private void Update()
     {
         if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())

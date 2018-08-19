@@ -12,7 +12,6 @@ public class ActorController : MonoBehaviour
 
     public ActorPanel ActorPanelPrefab;
 
-
     public static ActorController Instance
     {
         get
@@ -25,7 +24,6 @@ public class ActorController : MonoBehaviour
             return _instance;
         }
     }
-
 
     public Actor[] Actors
     {

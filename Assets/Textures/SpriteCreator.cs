@@ -10,7 +10,6 @@ public class SpriteCreator : MonoBehaviour
         GetComponent<Image>().sprite = GetRandomSprite(transform, resolution);
     }
 
-
     public static Sprite GetRandomSprite(Transform transform, int resolution)
     {
         return Sprite.Create(TextureCreator.GetTexture(transform, resolution),

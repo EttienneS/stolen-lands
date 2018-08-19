@@ -4,6 +4,7 @@ public class Trait
 {
     public Trait(Actor owner)
     {
+        // just a linkback to the original trait owner (access parent traits in child and vice versa)
         Owner = owner;
     }
 

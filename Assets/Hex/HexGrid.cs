@@ -32,7 +32,6 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-
     public void AddActorToCanvas(Actor actor, HexCell cell)
     {
         var display = ActorController.Instance.GetDisplayForActor(actor);

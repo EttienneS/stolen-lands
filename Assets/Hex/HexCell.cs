@@ -24,7 +24,7 @@ public class HexCell : MonoBehaviour
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int) direction];
+        return neighbors[(int)direction];
     }
 
     public void Awake()
@@ -34,8 +34,8 @@ public class HexCell : MonoBehaviour
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int) direction] = cell;
-        cell.neighbors[(int) direction.Opposite()] = this;
+        neighbors[(int)direction] = cell;
+        cell.neighbors[(int)direction.Opposite()] = this;
     }
 
     public void DrawBorder(Color color, HexDirection faces = HexDirectionExtensions.AllFaces,
@@ -66,7 +66,7 @@ public class HexCell : MonoBehaviour
         {
             if ((faces & face) == face)
             {
-                var faceValue = (int) face;
+                var faceValue = (int)face;
                 points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue],
                     HexMetrics.corners[faceValue + 1]));
             }

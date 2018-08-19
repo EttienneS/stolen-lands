@@ -18,7 +18,6 @@ public class HexClaimer : Trait
         };
     }
 
-
     public void Claim(HexCell cell)
     {
         ControlledCells.Add(cell);
@@ -34,7 +33,6 @@ public class HexClaimer : Trait
             actor.GetTrait<HexClaimer>().Claim(potentialCells[Random.Range(0, potentialCells.Count - 1)]);
         }
     }
-
 
     public static Dictionary<int, List<HexCell>> GetHexesByThreat(Actor actor)
     {

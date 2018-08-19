@@ -32,6 +32,6 @@
 		o.Alpha = c.a;
 	}
 	ENDCG
-	}
-		FallBack "Diffuse"
+		}
+			FallBack "Diffuse"
 }

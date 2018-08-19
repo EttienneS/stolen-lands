@@ -5,7 +5,6 @@ public class ActorPanel : MonoBehaviour
 {
     public Actor Actor;
 
-
     private void Start()
     {
         if (Actor != null)
