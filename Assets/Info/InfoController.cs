@@ -3,10 +3,9 @@ using UnityEngine;
 
 public class InfoController : MonoBehaviour
 {
+    private static InfoController _instance;
     private readonly List<InfoBox> _boxes = new List<InfoBox>();
     public InfoBox InfoBoxPrefab;
-
-    private static InfoController _instance;
 
     public static InfoController Instance
     {
@@ -33,7 +32,8 @@ public class InfoController : MonoBehaviour
         }
         else
         {
-            box.transform.position = new Vector2(box.transform.position.x, box.transform.position.y - _boxes.Count * 30);
+            box.transform.position =
+                new Vector2(box.transform.position.x, box.transform.position.y - _boxes.Count * 30);
         }
 
         _boxes.Add(box);

@@ -95,6 +95,4 @@ public class HexCell : MonoBehaviour
             lr.SetPosition(1, start + point.Value + scale);
         }
     }
-
-  
 }

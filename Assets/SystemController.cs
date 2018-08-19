@@ -1,18 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 public class SystemController : MonoBehaviour
 {
+    private static SystemController _instance;
     private HexCell _selectedCell;
-
-    public HexCell SelectedCell { get; set; }
-
-    public Canvas UICanvas;
 
     public Canvas GridCanvas;
 
-    private static SystemController _instance;
+    public Canvas UICanvas;
+
+    public HexCell SelectedCell { get; set; }
 
     public static SystemController Instance
     {
@@ -59,13 +57,11 @@ public class SystemController : MonoBehaviour
             //{
             //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             //}
-           // SelectedCell.Claim(activeActor);
+            // SelectedCell.Claim(activeActor);
         }
         else
         {
             SelectedCell = null;
         }
     }
-
-  
 }

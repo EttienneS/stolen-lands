@@ -108,7 +108,8 @@ public class TextureCreator : MonoBehaviour
                 new GradientAlphaKey(1, 0), new GradientAlphaKey(1, 1)
             });
 
-        return TextureHelper.FillTexture(TextureHelper.CreateTexture(resolution), NoiseMethodType.Value, noteGradient, point00, point10, point01,
+        return TextureHelper.FillTexture(TextureHelper.CreateTexture(resolution), NoiseMethodType.Value, noteGradient,
+            point00, point10, point01,
             point11, resolution);
     }
 }

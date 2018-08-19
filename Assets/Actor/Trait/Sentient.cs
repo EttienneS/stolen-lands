@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 public class Sentient : Trait
 {
     public int Charisma;
@@ -9,6 +7,7 @@ public class Sentient : Trait
     public int Morality;
     public int Physical;
 
-    public Sentient(Actor owner) : base(owner) { }
-
+    public Sentient(Actor owner) : base(owner)
+    {
+    }
 }

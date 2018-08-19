@@ -27,7 +27,6 @@ public class ActorPanel : MonoBehaviour
 
         if (sentience != null)
         {
-
             stats.Find("Physical").GetComponent<Text>().text = sentience.Physical.ToString();
             stats.Find("Cunning").GetComponent<Text>().text = sentience.Cunning.ToString();
             stats.Find("Mental").GetComponent<Text>().text = sentience.Mental.ToString();

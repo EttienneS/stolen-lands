@@ -4,14 +4,14 @@ public class ActorController : MonoBehaviour
 {
     private static ActorController _instance;
 
+    public ActorPanel ActivePanel;
+
+    public ActorDisplay ActorDisplayPrefab;
+
     public GameObject ActorPanelContainer;
 
     public ActorPanel ActorPanelPrefab;
 
-    public ActorDisplay ActorDisplayPrefab;
-
-    public ActorPanel ActivePanel;
-    
 
     public static ActorController Instance
     {
@@ -34,7 +34,7 @@ public class ActorController : MonoBehaviour
 
     public ActorDisplay GetDisplayForActor(Actor actor)
     {
-        var display = Instantiate(ActorController.Instance.ActorDisplayPrefab);
+        var display = Instantiate(Instance.ActorDisplayPrefab);
         display.name = actor.Name + " (Display)";
         display.GetComponent<ActorDisplay>().SetActor(actor);
         return display;
@@ -44,10 +44,8 @@ public class ActorController : MonoBehaviour
     {
         for (int i = 0; i < 50; i++)
         {
-            Person.GetAveragePerson(transform);            
+            Person.GetAveragePerson(transform);
         }
-
-       
     }
 
     public void ShowActorPanel(Actor actor)
