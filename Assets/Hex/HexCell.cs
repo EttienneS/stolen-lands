@@ -11,14 +11,14 @@ public class HexCell : MonoBehaviour
         Control
     }
 
-    public Text Label {get;set;}
-
     public Dictionary<BorderType, GameObject> borders;
 
     public Color color;
     public HexCoordinates coordinates;
 
     [SerializeField] public HexCell[] neighbors;
+
+    public Text Label { get; set; }
 
     public Actor Owner { get; set; }
 
@@ -67,7 +67,8 @@ public class HexCell : MonoBehaviour
             if ((faces & face) == face)
             {
                 var faceValue = (int) face;
-                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue], HexMetrics.corners[faceValue + 1]));
+                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue],
+                    HexMetrics.corners[faceValue + 1]));
             }
         }
 
@@ -95,11 +96,5 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public void Claim(Actor owner)
-    {
-        owner.ControlledCells.Add(this);
-        this.Owner = owner;
-        owner.UpdateBorder();
-        //this.DrawBorder(owner.Color, HexDirectionExtensions.AllFaces, HexCell.BorderType.Control);
-    }
+  
 }

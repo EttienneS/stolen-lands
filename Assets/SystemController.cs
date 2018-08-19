@@ -59,7 +59,7 @@ public class SystemController : MonoBehaviour
             //{
             //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
             //}
-            SelectedCell.Claim(activeActor);
+           // SelectedCell.Claim(activeActor);
         }
         else
         {

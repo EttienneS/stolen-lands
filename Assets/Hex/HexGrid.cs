@@ -1,24 +1,9 @@
-﻿using System.Security.Policy;
-using UnityEditor;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
     private static HexGrid _instance;
-
-    public static HexGrid Instance
-    {
-        get
-        {
-            if (_instance == null)
-            {
-                _instance = GameObject.Find("Hex Grid").GetComponent<HexGrid>();
-            }
-
-            return _instance;
-        }
-    }
 
     public Text cellLabelPrefab;
 
@@ -34,13 +19,27 @@ public class HexGrid : MonoBehaviour
 
     [Range(1, 150)] public int width = 20;
 
+    public static HexGrid Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.Find("Hex Grid").GetComponent<HexGrid>();
+            }
+
+            return _instance;
+        }
+    }
+
 
     public void AddActorToCanvas(Actor actor, HexCell cell)
     {
         var display = ActorController.Instance.GetDisplayForActor(actor);
-        display.transform.localScale = new Vector3(0.05f,0.05f,1f);
-        display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x, cell.Label.transform.localPosition.y, -1f);
-        display.transform.SetParent(cell.Label.transform);       
+        display.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
+        display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x,
+            cell.Label.transform.localPosition.y, -1f);
+        display.transform.SetParent(cell.Label.transform);
     }
 
     private void Awake()
@@ -61,13 +60,23 @@ public class HexGrid : MonoBehaviour
         foreach (var actor in ActorController.Instance.Actors)
         {
             actor.Location = GetRandomCell();
-            actor.Location.Claim(actor);
-            AddActorToCanvas(actor, actor.Location);
-                
-            // take a few turns quickly to establish actors
-            for (int i = 0; i < actor.Mental/10; i++)
+
+            var hexClaimer = actor.GetTrait<HexClaimer>();
+
+            if (hexClaimer != null)
             {
-                actor.TakeTurn();
+                hexClaimer.Claim(actor.Location);
+            }
+
+            AddActorToCanvas(actor, actor.Location);
+            var sentient = actor.GetTrait<Sentient>();
+            if (sentient != null)
+            {
+                // take a few turns quickly to establish actors
+                for (int i = 0; i < sentient.Mental / 10; i++)
+                {
+                    actor.TakeTurn();
+                }
             }
         }
     }
@@ -95,7 +104,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.color = Color.gray;
-        cell.name = cell.coordinates.ToString() + " Cell";
+        cell.name = cell.coordinates + " Cell";
 
         if (x > 0)
         {
@@ -127,7 +136,7 @@ public class HexGrid : MonoBehaviour
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = position;
         label.text = cell.coordinates.ToStringOnSeparateLines();
-        label.name = cell.coordinates.ToString() + " Label";
+        label.name = cell.coordinates + " Label";
 
         cell.Label = label;
     }

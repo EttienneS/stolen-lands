@@ -10,15 +10,19 @@ public class Person : Actor
         gameObject.transform.parent = parent;
 
         var person = gameObject.GetComponent<Person>();
-        
-        person.Physical = Random.Range(20, 80);
-        person.Cunning = Random.Range(20, 80);
-        person.Mental = Random.Range(20, 80);
-        person.Charisma = Random.Range(20, 80);
 
+        var sentient = new Sentient(person)
+        {
+            Physical = Random.Range(20, 80),
+            Cunning = Random.Range(20, 80),
+            Mental = Random.Range(20, 80),
+            Charisma = Random.Range(20, 80)
+        };
+
+        person.Traits.Add(sentient);
+        person.Traits.Add(new HexClaimer(person));
         person.Instantiate(name, TextureHelper.GetRandomColor());
 
         return gameObject;
     }
-
 }
