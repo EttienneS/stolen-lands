@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
@@ -57,34 +59,55 @@ public class HexGrid : MonoBehaviour
         }
 
         // add all actors to the world
+        var allocatedCells = new List<HexCell>();
+
         foreach (var actor in ActorController.Instance.Actors)
         {
-            var faction = actor.GetTrait<Faction>();
+            var controlled = actor.GetTrait<Controlled>();
+            var controller = actor.GetTrait<Controller>();
 
-            if (faction != null)
+            var cell = GetRandomCell();
+            while (allocatedCells.Contains(cell))
             {
-                faction.Owner.Location = faction.Leader.Location;
+                cell = GetRandomCell();
+            }
+
+            if (controlled != null)
+            {
+                // actor under direct control
+                continue;
+            }
+            else if (controlled == null && controller == null)
+            {
+                // outlier actor
+                actor.Location = cell;
             }
             else
             {
-                actor.Location = GetRandomCell();
+                // actor that controls others
+                allocatedCells.Add(cell);
+                actor.Location = cell;
+
+                if (controller != null)
+                {
+                    foreach (var underling in controller.UnderControl)
+                    {
+                        underling.Owner.Location = actor.Location;
+                    }
+                }
+
+                // take a few turns quickly to establish sentient actors
+                var sentient = actor.GetTrait<Sentient>();
+                if (sentient != null)
+                {
+                    for (int i = 0; i < sentient.Mental / 10; i++)
+                    {
+                        actor.TakeTurn();
+                    }
+                }
             }
 
             AddActorToCanvas(actor, actor.Location);
-        }
-
-        foreach (var actor in ActorController.Instance.Actors)
-        {
-            var sentient = actor.GetTrait<Sentient>();
-
-            if (sentient != null)
-            {
-                // take a few turns quickly to establish actors
-                for (int i = 0; i < sentient.Mental / 10; i++)
-                {
-                    actor.TakeTurn();
-                }
-            }
         }
     }
 
@@ -142,7 +165,8 @@ public class HexGrid : MonoBehaviour
         var label = Instantiate(cellLabelPrefab);
         label.rectTransform.SetParent(gridCanvas.transform, false);
         label.rectTransform.anchoredPosition = position;
-        label.text = cell.coordinates.ToStringOnSeparateLines();
+        //label.text = cell.coordinates.ToStringOnSeparateLines();
+        label.text = "";
         label.name = cell.coordinates + " Label";
 
         cell.Label = label;

@@ -6,7 +6,7 @@ using Random = UnityEngine.Random;
 
 public class Actor : MonoBehaviour
 {
-    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
+    private Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
     public Color Color;
 
@@ -31,6 +31,12 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
+        if (GetTrait<Controlled>() != null)
+        {
+            // controlled actors turns are taken by their controllers
+            return;
+        }
+
         var allActions = new List<ActorAction>();
 
         foreach (var trait in Traits)
@@ -66,7 +72,6 @@ public class Actor : MonoBehaviour
     public T AddTrait<T>(T trait) where T : Trait
     {
         var newTrait = GetTrait<T>();
-        var type = typeof(T);
         if (newTrait == null)
         {
             Traits.Add(trait);

@@ -102,8 +102,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Speed: 5
-  ZoomMax: 300
-  ZoomMin: 30
+  ZoomMax: 500
+  ZoomMin: 10
   ZoomStep: 100
 --- !u!124 &124065231020705918
 Behaviour:

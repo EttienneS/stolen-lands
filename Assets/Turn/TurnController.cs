@@ -33,6 +33,7 @@ public class TurnController : MonoBehaviour
 
     private void Start()
     {
+
         foreach (var actor in ActorController.Instance.Actors)
         {
             var display = ActorController.Instance.GetDisplayForActor(actor);
@@ -68,17 +69,22 @@ public class TurnController : MonoBehaviour
     {
         if (TakeTurns)
         {
-            var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
-            activeActor.TakeTurn();
-
-            ActiveActorIndex++;
-
-            if (ActiveActorIndex >= ActorController.Instance.Actors.Length)
+            // each actor take 1 turn each frame
+            for (int i = 0; i < ActorController.Instance.Actors.Count; i++)
             {
-                ActiveActorIndex = 0;
+                var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
+                activeActor.TakeTurn();
+
+                ActiveActorIndex++;
+
+                if (ActiveActorIndex >= ActorController.Instance.Actors.Count)
+                {
+                    ActiveActorIndex = 0;
+                }
+
+                // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
             }
 
-            // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
         }
     }
 }

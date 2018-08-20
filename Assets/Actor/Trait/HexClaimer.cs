@@ -100,8 +100,8 @@ public class HexClaimer : Trait
         _border = new GameObject("border " + Owner.name);
         _border.transform.SetParent(SystemController.Instance.GridCanvas.transform);
 
-        var width = 0.6f;
-        var borderOffset = 0.3f;
+        var width = 2.0f;
+        var borderOffset = 1.1f;
         var points = new List<KeyValuePair<Vector3, Vector3>>();
         foreach (var cell in ControlledCells)
         {
@@ -113,8 +113,7 @@ public class HexClaimer : Trait
                 {
                     var startPoint = cell.transform.position;
                     var face1 = startPoint + new Vector3(HexMetrics.corners[face].x, HexMetrics.corners[face].y, -1);
-                    var face2 = startPoint +
-                                new Vector3(HexMetrics.corners[face + 1].x, HexMetrics.corners[face + 1].y, -1);
+                    var face2 = startPoint + new Vector3(HexMetrics.corners[face + 1].x, HexMetrics.corners[face + 1].y, -1);
 
                     face1 = Vector3.MoveTowards(face1, startPoint, borderOffset);
                     face2 = Vector3.MoveTowards(face2, startPoint, borderOffset);
@@ -158,6 +157,12 @@ public class HexClaimer : Trait
         if (sentience == null)
         {
             sentience = Owner.GetTrait<Controlled>().Controller.Owner.GetTrait<Sentient>();
+        }
+
+        if (sentience == null)
+        {
+            // no brain, no action
+            return new List<ActorAction>();
         }
 
         var actions = new List<ActorAction>();

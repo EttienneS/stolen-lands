@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ActorController : MonoBehaviour
@@ -26,9 +27,11 @@ public class ActorController : MonoBehaviour
         }
     }
 
-    public Actor[] Actors
+    private List<Actor> _actors = new List<Actor>();
+
+    public List<Actor> Actors
     {
-        get { return GetComponentsInChildren<Actor>(); }
+        get { return _actors; }
     }
 
     public ActorDisplay GetDisplayForActor(Actor actor)
@@ -42,29 +45,62 @@ public class ActorController : MonoBehaviour
     public void Awake()
     {
         var maxPersons = 100;
-        var personsPerFaction = 5;
+        var personsPerFaction = 1;
         var factions = maxPersons / personsPerFaction;
-
-        for (int i = 0; i < maxPersons; i++)
-        {
-            Person.GetPerson(transform);
-        }
-
-        var persons = Actors.ToList();
 
         for (int i = 0; i < factions; i++)
         {
-            var faction = Faction.GetFaction(transform, persons.First());
+            var leader = GetPerson();
+            var faction = GetFaction(leader);
 
-            for (int p = 0; p < personsPerFaction; p++)
+            for (int person = 0; person < personsPerFaction; person++)
             {
-                var person = persons.First();
-                person.AddTrait(new FactionMember(person, faction));
-                faction.Members.Add(person.GetTrait<FactionMember>());
-                persons.RemoveAt(0);
+                faction.AddMember(GetPerson());
             }
         }
     }
+
+    public Person GetPerson()
+    {
+        var name = ActorHelper.GetRandomName();
+        var gameObject = new GameObject(name);
+        gameObject.transform.parent = transform;
+
+        var person = gameObject.AddComponent(typeof(Person)) as Person;
+        var sentient = new Sentient(person)
+        {
+            Physical = Random.Range(20, 80),
+            Cunning = Random.Range(20, 80),
+            Mental = Random.Range(20, 80),
+            Charisma = Random.Range(20, 80)
+        };
+
+        person.AddTrait(sentient);
+        person.Instantiate(name, TextureHelper.GetRandomColor());
+
+        Actors.Add(person);
+
+        return person;
+    }
+
+    public Faction GetFaction(Actor leader)
+    {
+        var name = ActorHelper.GetRandomName();
+        var gameObject = new GameObject(name);
+        gameObject.transform.parent = transform;
+
+        var faction = gameObject.AddComponent(typeof(Faction)) as Faction;
+
+        faction.SetLeader(leader);
+
+        faction.AddTrait(new HexClaimer(faction));
+        faction.Instantiate(name, TextureHelper.GetRandomColor());
+
+        Actors.Add(faction);
+
+        return faction;
+    }
+
 
     public void ShowActorPanel(Actor actor)
     {
