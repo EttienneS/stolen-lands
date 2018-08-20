@@ -96,7 +96,7 @@ public class ActorController : MonoBehaviour
         faction.AddTrait(new HexClaimer(faction));
         faction.Instantiate(name, TextureHelper.GetRandomColor());
 
-        Actors.Add(faction);
+        Actors.Add(faction); 
 
         return faction;
     }
