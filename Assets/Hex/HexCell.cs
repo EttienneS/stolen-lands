@@ -3,16 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
-    public enum BorderType
-    {
-        Selection,
-        Control
-    }
-
-    public Dictionary<BorderType, GameObject> borders;
-
     public Color color;
     public HexCoordinates coordinates;
 
@@ -27,72 +20,72 @@ public class HexCell : MonoBehaviour
         return neighbors[(int)direction];
     }
 
-    public void Awake()
-    {
-        borders = new Dictionary<BorderType, GameObject>();
-    }
-
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
     }
 
-    public void DrawBorder(Color color, HexDirection faces = HexDirectionExtensions.AllFaces,
-        BorderType type = BorderType.Selection)
+
+    private List<Color> colors;
+    private Mesh hexMesh;
+    private MeshCollider meshCollider;
+    private List<int> triangles;
+    private List<Vector3> vertices;
+
+    private void Awake()
     {
-        GameObject border;
-        if (borders.ContainsKey(type))
+        GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
+        meshCollider = gameObject.AddComponent<MeshCollider>();
+        hexMesh.name = "Hex Mesh";
+        vertices = new List<Vector3>();
+        colors = new List<Color>();
+        triangles = new List<int>();
+    }
+
+    public void Triangulate()
+    {
+        hexMesh.Clear();
+        vertices.Clear();
+        colors.Clear();
+        triangles.Clear();
+
+        var center = new Vector2(0, 0);
+        for (int i = 0; i < 6; i++)
         {
-            border = borders[type];
-            borders.Remove(type);
-            Destroy(border, 0f);
+            AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
+            AddTriangleColor(color);
         }
 
-        if (faces == 0)
-        {
-            return;
-        }
+        hexMesh.vertices = vertices.ToArray();
+        hexMesh.colors = colors.ToArray();
+        hexMesh.triangles = triangles.ToArray();
+        hexMesh.RecalculateNormals();
+        // hexMesh.RecalculateBounds();
+        meshCollider.sharedMesh = hexMesh;
+    }
 
-        border = new GameObject("border-" + type);
-        border.transform.SetParent(transform);
+    private void AddTriangle(Vector2 v1, Vector2 v2, Vector2 v3)
+    {
+        int vertexIndex = vertices.Count;
+        vertices.Add(v1);
+        vertices.Add(v2);
+        vertices.Add(v3);
+        triangles.Add(vertexIndex);
+        triangles.Add(vertexIndex + 1);
+        triangles.Add(vertexIndex + 2);
+    }
 
-        borders.Add(type, border);
+    private void AddTriangleColor(Color color)
+    {
+        colors.Add(color);
+        colors.Add(color);
+        colors.Add(color);
+    }
 
-        var start = transform.localPosition + new Vector3(0, 0, -1);
-        var points = new List<KeyValuePair<Vector3, Vector3>>();
-
-        foreach (HexDirection face in Enum.GetValues(typeof(HexDirection)))
-        {
-            if ((faces & face) == face)
-            {
-                var faceValue = (int)face;
-                points.Add(new KeyValuePair<Vector3, Vector3>(HexMetrics.corners[faceValue],
-                    HexMetrics.corners[faceValue + 1]));
-            }
-        }
-
-        //var scaleRule = type == BorderType.Selection ? 0.7f : 1f;
-        var scale = new Vector3(0, 0, type == BorderType.Selection ? -0.1f : 0);
-
-        foreach (var point in points)
-        {
-            var borderLine = new GameObject("BorderLine");
-
-            borderLine.transform.localPosition = transform.position;
-            borderLine.transform.SetParent(border.transform);
-
-            borderLine.AddComponent<LineRenderer>();
-            var lr = borderLine.GetComponent<LineRenderer>();
-            lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-            lr.startColor = color;
-            lr.endColor = color;
-            lr.startWidth = type == BorderType.Selection ? 0.3f : 0.7f;
-            lr.endWidth = lr.startWidth;
-            lr.positionCount = 2;
-
-            lr.SetPosition(0, start + point.Key + scale);
-            lr.SetPosition(1, start + point.Value + scale);
-        }
+    public void ColorCell(Color color)
+    {
+        this.color = color;
+        Triangulate();
     }
 }
