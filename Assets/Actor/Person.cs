@@ -2,7 +2,7 @@
 
 public class Person : Actor
 {
-    public static GameObject GetAveragePerson(Transform parent)
+    public static Actor GetPerson(Transform parent)
     {
         var name = ActorHelper.GetRandomName();
         var gameObject = new GameObject(name);
@@ -19,10 +19,9 @@ public class Person : Actor
             Charisma = Random.Range(20, 80)
         };
 
-        person.Traits.Add(sentient);
-        person.Traits.Add(new HexClaimer(person));
+        person.AddTrait(sentient);
         person.Instantiate(name, TextureHelper.GetRandomColor());
 
-        return gameObject;
+        return person;
     }
 }

@@ -8,8 +8,6 @@ public class Actor : MonoBehaviour
 {
     private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
-    public List<ActorAction> ActorActions = new List<ActorAction>();
-
     public Color Color;
 
     public HexCell Location;
@@ -33,19 +31,16 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
-        var allActions = ActorActions;
+        var allActions = new List<ActorAction>();
 
         foreach (var trait in Traits)
         {
-            if (trait.Actions != null)
-            {
-                allActions.AddRange(trait.Actions);
-            }
+            allActions.AddRange(trait.GetActions());
         }
 
         if (allActions.Any())
         {
-            allActions[Random.Range(0, allActions.Count - 1)].Execute(this);
+            allActions[Random.Range(0, allActions.Count - 1)].Execute();
         }
     }
 
@@ -54,7 +49,7 @@ public class Actor : MonoBehaviour
         var type = typeof(T);
         if (TraitCache.ContainsKey(type))
         {
-            // only ever have one trait of a type
+            // should only ever have one trait of a type so return the first value
             return (T)TraitCache[type];
         }
 
@@ -66,5 +61,19 @@ public class Actor : MonoBehaviour
         }
 
         return null;
+    }
+
+    public T AddTrait<T>(T trait) where T : Trait
+    {
+        var newTrait = GetTrait<T>();
+        var type = typeof(T);
+        if (newTrait == null)
+        {
+            Traits.Add(trait);
+        }
+
+        newTrait = GetTrait<T>();
+
+        return newTrait;
     }
 }

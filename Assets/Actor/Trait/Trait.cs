@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-public class Trait
+public abstract class Trait
 {
     public Trait(Actor owner)
     {
@@ -10,7 +10,7 @@ public class Trait
 
     public Actor Owner { get; set; }
 
-    public List<ActorAction> Actions { get; set; }
+    public abstract List<ActorAction> GetActions();
 
     public string Name { get; set; }
 }

@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 public class Sentient : Trait
 {
     public int Charisma;
@@ -9,5 +11,11 @@ public class Sentient : Trait
 
     public Sentient(Actor owner) : base(owner)
     {
+    }
+
+
+    public override List<ActorAction> GetActions()
+    {
+        return new List<ActorAction>();
     }
 }

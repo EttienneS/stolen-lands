@@ -4,8 +4,11 @@ public class ActorAction
 
     public delegate object Discover(Actor actor);
 
-    public ActorAction(Discover discover, Act act)
+    public Actor ActionContext;
+
+    public ActorAction(Actor actionContext, Discover discover, Act act)
     {
+        ActionContext = actionContext;
         DiscoverAction = discover;
         ActAction = act;
     }
@@ -13,8 +16,8 @@ public class ActorAction
     public Discover DiscoverAction { get; set; }
     public Act ActAction { get; set; }
 
-    public void Execute(Actor actor)
+    public void Execute()
     {
-        ActAction(actor, DiscoverAction(actor));
+        ActAction(ActionContext, DiscoverAction(ActionContext));
     }
 }

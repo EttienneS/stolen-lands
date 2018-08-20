@@ -10,12 +10,7 @@ public class HexClaimer : Trait
 
     public HexClaimer(Actor owner) : base(owner)
     {
-        Actions = new List<ActorAction>
-        {
-            new ActorAction(DiscoverAvailableCells, ClaimAvailableCell),
-            new ActorAction(DiscoverMostAgressiveCells, ClaimAvailableCell),
-            new ActorAction(DiscoverLeastAggressive, ClaimAvailableCell)
-        };
+
     }
 
     public void Claim(HexCell cell)
@@ -72,16 +67,24 @@ public class HexClaimer : Trait
     public static List<HexCell> DiscoverAvailableCells(Actor actor)
     {
         var potentialCells = new List<HexCell>();
+        var claimer = actor.GetTrait<HexClaimer>();
 
-        foreach (var controlledCell in actor.GetTrait<HexClaimer>().ControlledCells)
+        if (claimer.ControlledCells.Any())
         {
-            foreach (var cell in controlledCell.neighbors)
+            foreach (var controlledCell in claimer.ControlledCells)
             {
-                if (cell != null && cell.Owner == null)
+                foreach (var cell in controlledCell.neighbors)
                 {
-                    potentialCells.Add(cell);
+                    if (cell != null && cell.Owner == null)
+                    {
+                        potentialCells.Add(cell);
+                    }
                 }
             }
+        }
+        else
+        {
+            potentialCells.Add(actor.Location);
         }
 
         return potentialCells;
@@ -145,5 +148,39 @@ public class HexClaimer : Trait
             lr.SetPosition(0, point.Key);
             lr.SetPosition(1, point.Value);
         }
+    }
+
+    public override List<ActorAction> GetActions()
+    {
+        var sentience = Owner.GetTrait<Sentient>();
+
+        // if hexclaimer is not itself sentient, assume its controller is
+        if (sentience == null)
+        {
+            sentience = Owner.GetTrait<Controlled>().Controller.Owner.GetTrait<Sentient>();
+        }
+
+        var actions = new List<ActorAction>();
+
+        if (sentience.Cunning > 60)
+        {
+            actions.Add(new ActorAction(Owner, DiscoverAvailableCells, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverMostAgressiveCells, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverMostAgressiveCells, ClaimAvailableCell));
+        }
+        else if (sentience.Cunning < 30)
+        {
+            actions.Add(new ActorAction(Owner, DiscoverLeastAggressive, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverLeastAggressive, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverAvailableCells, ClaimAvailableCell));
+        }
+        else
+        {
+            actions.Add(new ActorAction(Owner, DiscoverMostAgressiveCells, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverAvailableCells, ClaimAvailableCell));
+            actions.Add(new ActorAction(Owner, DiscoverLeastAggressive, ClaimAvailableCell));
+        }
+
+        return actions;
     }
 }

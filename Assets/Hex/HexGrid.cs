@@ -56,19 +56,27 @@ public class HexGrid : MonoBehaviour
             }
         }
 
+        // add all actors to the world
         foreach (var actor in ActorController.Instance.Actors)
         {
-            actor.Location = GetRandomCell();
+            var faction = actor.GetTrait<Faction>();
 
-            var hexClaimer = actor.GetTrait<HexClaimer>();
-
-            if (hexClaimer != null)
+            if (faction != null)
             {
-                hexClaimer.Claim(actor.Location);
+                faction.Owner.Location = faction.Leader.Location;
+            }
+            else
+            {
+                actor.Location = GetRandomCell();
             }
 
             AddActorToCanvas(actor, actor.Location);
+        }
+
+        foreach (var actor in ActorController.Instance.Actors)
+        {
             var sentient = actor.GetTrait<Sentient>();
+
             if (sentient != null)
             {
                 // take a few turns quickly to establish actors

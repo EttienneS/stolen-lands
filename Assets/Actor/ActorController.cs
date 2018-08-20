@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
@@ -40,9 +41,28 @@ public class ActorController : MonoBehaviour
 
     public void Awake()
     {
-        for (int i = 0; i < 50; i++)
+        var maxPersons = 100;
+        var personsPerFaction = 5;
+        var factions = maxPersons / personsPerFaction;
+
+        for (int i = 0; i < maxPersons; i++)
         {
-            Person.GetAveragePerson(transform);
+            Person.GetPerson(transform);
+        }
+
+        var persons = Actors.ToList();
+
+        for (int i = 0; i < factions; i++)
+        {
+            var faction = Faction.GetFaction(transform, persons.First());
+
+            for (int p = 0; p < personsPerFaction; p++)
+            {
+                var person = persons.First();
+                person.AddTrait(new FactionMember(person, faction));
+                faction.Members.Add(person.GetTrait<FactionMember>());
+                persons.RemoveAt(0);
+            }
         }
     }
 
