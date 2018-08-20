@@ -31,7 +31,7 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
         Name = transform.Find("Name").GetComponent<Text>();
 
         Icon.sprite = Actor.Sprite;
-        Name.text = Actor.Name;
+        Name.text = Actor.name;
     }
 
     // Update is called once per frame

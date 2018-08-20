@@ -12,15 +12,13 @@ public class Actor : MonoBehaviour
 
     public HexCell Location;
 
-    public string Name;
-
     public Sprite Sprite;
 
     public List<Trait> Traits = new List<Trait>();
 
     public void Instantiate(string name, Color color)
     {
-        Name = name;
+        this.name = name;
         Color = color;
 
         // resolution of sprite

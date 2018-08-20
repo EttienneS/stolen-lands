@@ -18,7 +18,7 @@ public class ActorPanel : MonoBehaviour
         Actor = actor;
 
         transform.Find("Icon").GetComponent<Image>().sprite = Actor.Sprite;
-        transform.Find("Name").GetComponent<Text>().text = Actor.Name;
+        transform.Find("Name").GetComponent<Text>().text = Actor.name;
 
         var stats = transform.Find("Stats").transform;
 

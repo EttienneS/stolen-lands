@@ -18,7 +18,7 @@ public class Controlled : Trait
 
     public override string ToString()
     {
-        return Owner +  " controlled by: " + Controller.Owner.Name;
+        return Owner +  " controlled by: " + Controller.Owner.name;
     }
 }
 

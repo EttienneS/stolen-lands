@@ -37,7 +37,7 @@ public class ActorController : MonoBehaviour
     public ActorDisplay GetDisplayForActor(Actor actor)
     {
         var display = Instantiate(Instance.ActorDisplayPrefab);
-        display.name = actor.Name + " (Display)";
+        display.name = actor.name + " (Display)";
         display.GetComponent<ActorDisplay>().SetActor(actor);
         return display;
     }
@@ -85,12 +85,12 @@ public class ActorController : MonoBehaviour
 
     public Faction GetFaction(Actor leader)
     {
-        var name = ActorHelper.GetRandomName();
+        var name = leader.name + "'s Faction";
+
         var gameObject = new GameObject(name);
         gameObject.transform.parent = transform;
 
         var faction = gameObject.AddComponent(typeof(Faction)) as Faction;
-
         faction.SetLeader(leader);
 
         faction.AddTrait(new HexClaimer(faction));
@@ -109,7 +109,7 @@ public class ActorController : MonoBehaviour
             ActivePanel = Instantiate(ActorPanelPrefab, ActorPanelContainer.transform);
         }
 
-        ActivePanel.name = actor.Name + " (Info Panel)";
+        ActivePanel.name = actor.name + " (Info Panel)";
         ActivePanel.SetActor(actor);
     }
 }

@@ -12,7 +12,7 @@ public class FactionMember : Trait
 
     public override string ToString()
     {
-        return "Member of : " + Owner.Name;
+        return "Member of : " + Owner.name;
     }
 
     public override List<ActorAction> GetActions()

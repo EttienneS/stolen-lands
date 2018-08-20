@@ -10,12 +10,11 @@ public class Faction : Actor
 
     public override string ToString()
     {
-        return Name;
+        return name;
     }
 
     public void SetLeader(Actor leader)
     {
-        Name = leader.Name + "'s Faction";
         Controller.AddControl(leader, this);
         Leader = leader;
     }
