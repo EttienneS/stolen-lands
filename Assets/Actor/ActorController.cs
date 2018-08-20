@@ -81,7 +81,7 @@ public class ActorController : MonoBehaviour
         Actors.Add(person);
 
         return person;
-    }
+    } 
 
     public Faction GetFaction(Actor leader)
     {
