@@ -4,7 +4,7 @@ public class CameraController : MonoBehaviour
 {
     [Range(1, 20)] public int Speed = 5;
 
-    [Range(50, 500)] public int ZoomMax = 500;
+    [Range(50, 800)] public int ZoomMax = 500;
 
     [Range(10, 50)] public int ZoomMin = 10;
 

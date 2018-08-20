@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,11 +14,9 @@ public class HexGrid : MonoBehaviour
 
     private Canvas gridCanvas;
 
-    [Range(1, 150)] public int height = 20;
+    [Range(1, 250)] public int height = 2;
 
-    private HexMesh hexMesh;
-
-    [Range(1, 150)] public int width = 20;
+    [Range(1, 250)] public int width = 2;
 
     public static HexGrid Instance
     {
@@ -46,8 +43,6 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         gridCanvas = GetComponentInChildren<Canvas>();
-        hexMesh = GetComponentInChildren<HexMesh>();
-
         cells = new HexCell[height * width];
 
         for (int y = 0, i = 0; y < height; y++)
@@ -77,7 +72,8 @@ public class HexGrid : MonoBehaviour
                 // actor under direct control
                 continue;
             }
-            else if (controlled == null && controller == null)
+
+            if (controlled == null && controller == null)
             {
                 // outlier actor
                 actor.Location = cell;
@@ -100,7 +96,7 @@ public class HexGrid : MonoBehaviour
                 var sentient = actor.GetTrait<Sentient>();
                 if (sentient != null)
                 {
-                    for (int i = 0; i < sentient.Mental / 10; i++)
+                    for (int i = 0; i < sentient.Mental; i++)
                     {
                         actor.TakeTurn();
                     }
@@ -113,7 +109,9 @@ public class HexGrid : MonoBehaviour
 
     private void Start()
     {
-        hexMesh.Triangulate(cells);
+        foreach (var cell in cells)
+        {
+        }
     }
 
     public HexCell GetRandomCell()
@@ -133,7 +131,6 @@ public class HexGrid : MonoBehaviour
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
-        cell.color = Color.gray;
         cell.name = cell.coordinates + " Cell";
 
         if (x > 0)
@@ -168,8 +165,9 @@ public class HexGrid : MonoBehaviour
         //label.text = cell.coordinates.ToStringOnSeparateLines();
         label.text = "";
         label.name = cell.coordinates + " Label";
-
         cell.Label = label;
+
+        cell.ColorCell(Color.grey);
     }
 
     public HexCell GetCellAtPoint(Vector3 position)
@@ -180,11 +178,5 @@ public class HexGrid : MonoBehaviour
         var cell = cells[index];
 
         return cell;
-    }
-
-    public void ColorCell(HexCell cell, Color color)
-    {
-        cell.color = color;
-        hexMesh.Triangulate(cells);
     }
 }

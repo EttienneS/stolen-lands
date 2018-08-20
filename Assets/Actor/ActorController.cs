@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using UnityEngine;
 
 public class ActorController : MonoBehaviour
 {
     private static ActorController _instance;
+
+    private readonly List<Actor> _actors = new List<Actor>();
 
     public ActorPanel ActivePanel;
 
@@ -13,6 +14,9 @@ public class ActorController : MonoBehaviour
     public GameObject ActorPanelContainer;
 
     public ActorPanel ActorPanelPrefab;
+
+    [Range(1, 200)] public int maxPersons = 50;
+    [Range(1, 200)] public int personsPerFaction = 5;
 
     public static ActorController Instance
     {
@@ -26,8 +30,6 @@ public class ActorController : MonoBehaviour
             return _instance;
         }
     }
-
-    private List<Actor> _actors = new List<Actor>();
 
     public List<Actor> Actors
     {
@@ -44,8 +46,6 @@ public class ActorController : MonoBehaviour
 
     public void Awake()
     {
-        var maxPersons = 100;
-        var personsPerFaction = 1;
         var factions = maxPersons / personsPerFaction;
 
         for (int i = 0; i < factions; i++)
@@ -81,7 +81,7 @@ public class ActorController : MonoBehaviour
         Actors.Add(person);
 
         return person;
-    } 
+    }
 
     public Faction GetFaction(Actor leader)
     {
@@ -96,7 +96,7 @@ public class ActorController : MonoBehaviour
         faction.AddTrait(new HexClaimer(faction));
         faction.Instantiate(name, TextureHelper.GetRandomColor());
 
-        Actors.Add(faction); 
+        Actors.Add(faction);
 
         return faction;
     }
