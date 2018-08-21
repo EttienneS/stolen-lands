@@ -6,11 +6,14 @@ public class ActorAction
 
     public Actor ActionContext;
 
-    public ActorAction(Actor actionContext, Discover discover, Act act)
+    public int Cost;
+
+    public ActorAction(Actor actionContext, int cost, Discover discover, Act act)
     {
         ActionContext = actionContext;
         DiscoverAction = discover;
         ActAction = act;
+        Cost = cost;
     }
 
     public Discover DiscoverAction { get; set; }
