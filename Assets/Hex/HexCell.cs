@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
-    public Color color;
+    public Color Color;
+    public int Height = 0;
     public HexCoordinates coordinates;
 
     [SerializeField] public HexCell[] neighbors;
@@ -25,7 +25,6 @@ public class HexCell : MonoBehaviour
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
     }
-
 
     private List<Color> colors;
     private Mesh hexMesh;
@@ -54,14 +53,13 @@ public class HexCell : MonoBehaviour
         for (int i = 0; i < 6; i++)
         {
             AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
-            AddTriangleColor(color);
+            AddTriangleColor(Color);
         }
 
         hexMesh.vertices = vertices.ToArray();
         hexMesh.colors = colors.ToArray();
         hexMesh.triangles = triangles.ToArray();
         hexMesh.RecalculateNormals();
-        // hexMesh.RecalculateBounds();
         meshCollider.sharedMesh = hexMesh;
     }
 
@@ -85,7 +83,7 @@ public class HexCell : MonoBehaviour
 
     public void ColorCell(Color color)
     {
-        this.color = color;
+        Color = color;
         Triangulate();
     }
 }
