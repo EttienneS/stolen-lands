@@ -70,7 +70,7 @@ public class TurnController : MonoBehaviour
         if (TakeTurns)
         {
             // each actor take 1 turn each frame
-            for (int i = 0; i < ActorController.Instance.Actors.Count; i++)
+            for (int i = 0; i < 10; i++)
             {
                 var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
                 activeActor.TakeTurn();

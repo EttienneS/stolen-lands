@@ -35,17 +35,20 @@ public class Actor : MonoBehaviour
             return;
         }
 
-        var allActions = new List<ActorAction>();
+        var sentient = GetTrait<Sentient>();
 
-        foreach (var trait in Traits)
+        if (sentient != null)
         {
-            allActions.AddRange(trait.GetActions());
-        }
+            var allActions = new List<ActorAction>();
 
-        if (allActions.Any())
-        {
-            allActions[Random.Range(0, allActions.Count - 1)].Execute();
+            foreach (var trait in Traits)
+            {
+                allActions.AddRange(trait.GetActions());
+            }
+
+            sentient.TakeAction(allActions);
         }
+       
     }
 
     public T GetTrait<T>() where T : Trait

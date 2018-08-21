@@ -92,15 +92,8 @@ public class HexGrid : MonoBehaviour
                     }
                 }
 
-                // take a few turns quickly to establish sentient actors
-                var sentient = actor.GetTrait<Sentient>();
-                if (sentient != null)
-                {
-                    for (int i = 0; i < sentient.Mental; i++)
-                    {
-                        actor.TakeTurn();
-                    }
-                }
+                // take a setup turn to establish actors
+                actor.TakeTurn();
             }
 
             AddActorToCanvas(actor, actor.Location);
