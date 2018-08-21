@@ -16,6 +16,8 @@ public class HexClaimer : Trait
     {
         ControlledCells.Add(cell);
         cell.Owner = Owner;
+        // get average of cell color and owner color
+        // cell.ColorCell((Owner.Color + cell.Color)/2);
         cell.ColorCell(Owner.Color);
         UpdateBorder();
     }
@@ -75,7 +77,7 @@ public class HexClaimer : Trait
             {
                 foreach (var cell in controlledCell.neighbors)
                 {
-                    if (cell != null && cell.Owner == null)
+                    if (cell != null && cell.Owner == null && cell.Height > 0)
                     {
                         potentialCells.Add(cell);
                     }
@@ -128,6 +130,9 @@ public class HexClaimer : Trait
         _border.transform.localPosition = Owner.transform.position;
         _border.transform.SetParent(_border.transform);
 
+        var material = ControlledCells[0].GetComponent<MeshRenderer>().material;
+        material.color = Owner.Color;
+
         foreach (var point in points)
         {
             var borderLine = new GameObject("BorderLine");
@@ -137,9 +142,7 @@ public class HexClaimer : Trait
 
             borderLine.AddComponent<LineRenderer>();
             var lr = borderLine.GetComponent<LineRenderer>();
-            lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
-            lr.startColor = Owner.Color;
-            lr.endColor = Owner.Color;
+            lr.material = material;
             lr.startWidth = width;
             lr.endWidth = lr.startWidth;
             lr.positionCount = 2;

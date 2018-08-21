@@ -46,18 +46,29 @@ public class ActorController : MonoBehaviour
 
     public void Awake()
     {
-        var factions = maxPersons / personsPerFaction;
+        Init();
+    }
 
-        for (int i = 0; i < factions; i++)
+    private bool init = false;
+    public void Init()
+    {
+        if (!init)
         {
-            var leader = GetPerson();
-            var faction = GetFaction(leader);
+            init = true;
+            var factions = maxPersons / personsPerFaction;
 
-            for (int person = 0; person < personsPerFaction; person++)
+            for (int i = 0; i < factions; i++)
             {
-                faction.AddMember(GetPerson());
+                var leader = GetPerson();
+                var faction = GetFaction(leader);
+
+                for (int person = 0; person < personsPerFaction; person++)
+                {
+                    faction.AddMember(GetPerson());
+                }
             }
         }
+
     }
 
     public Person GetPerson()
