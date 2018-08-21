@@ -348,7 +348,7 @@ Prefab:
     - target: {fileID: 114754830705209644, guid: 7d046710cc135d3448effed977db2354,
         type: 2}
       propertyPath: maxPersons
-      value: 1
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 114061947489800202, guid: 7d046710cc135d3448effed977db2354,
         type: 2}
@@ -358,12 +358,27 @@ Prefab:
     - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
         type: 2}
       propertyPath: Height
-      value: 50
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
         type: 2}
       propertyPath: Width
-      value: 50
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Masses
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: MinMassSize
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: MaxMassSize
+      value: 300
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d046710cc135d3448effed977db2354, type: 2}

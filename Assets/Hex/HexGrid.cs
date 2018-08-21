@@ -19,6 +19,13 @@ public class HexGrid : MonoBehaviour
 
     [Range(1, 250)] public int Width = 2;
 
+
+    [Range(1, 1000)] public int Masses = 50;
+
+    [Range(1, 500)] public int MinMassSize = 50;
+
+    [Range(1, 500)] public int MaxMassSize = 100;
+
     public static HexGrid Instance
     {
         get
@@ -56,7 +63,7 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-        GenerateMap();
+        GenerateMap(Masses, MinMassSize, MaxMassSize);
 
         // add all actors to the world
         var allocatedCells = new List<HexCell>();
@@ -106,13 +113,11 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    private void GenerateMap()
+    private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
     {
-        var massCount = 50;
-
         for (int i = 0; i < massCount; i++)
         {
-            var massSize = Random.Range(90, 150);
+            var massSize = Random.Range(massSizeMin, massSizeMax);
             //GetMass(TextureHelper.GetRandomColor(), massSize);
             var massColor = new Color(0, Random.Range(0.5f, 1f), 0);
 
