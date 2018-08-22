@@ -17,14 +17,14 @@ public class HexGrid : MonoBehaviour
 
     [Range(1, 250)] public int Height = 2;
 
-    [Range(1, 250)] public int Width = 2;
-
 
     [Range(1, 1000)] public int Masses = 50;
 
+    [Range(1, 500)] public int MaxMassSize = 100;
+
     [Range(1, 500)] public int MinMassSize = 50;
 
-    [Range(1, 500)] public int MaxMassSize = 100;
+    [Range(1, 250)] public int Width = 2;
 
     public static HexGrid Instance
     {
@@ -120,10 +120,8 @@ public class HexGrid : MonoBehaviour
         for (int i = 0; i < massCount; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
-            //GetMass(TextureHelper.GetRandomColor(), massSize);
-
             var rb = Random.Range(0.1f, 0.2f);
-            var massColor = new Color(rb, Random.Range(0.5f, 0.8f),rb);
+            var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
 
             foreach (var cell in GetMass(massSize))
             {
@@ -133,10 +131,9 @@ public class HexGrid : MonoBehaviour
         }
 
         // desert
-        for (int i = 0; i < massCount/10; i++)
+        for (int i = 0; i < massCount / 10; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
-            //GetMass(TextureHelper.GetRandomColor(), massSize);
             var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
 
             foreach (var cell in GetMass(massSize))
@@ -149,11 +146,10 @@ public class HexGrid : MonoBehaviour
         foreach (var cell in Cells.Where(c => c.Height == 0))
         {
             // if cell is completely surrounded with water
-            // change its height to reflect it being deep water
+            // change its height and color to reflect it being deep water
             if (cell.neighbors.All(c => c == null || c.Height <= 0))
             {
                 cell.Height = -1;
-                // dark blue
                 cell.ColorCell(new Color(0, 0, 0.5f));
             }
         }
@@ -205,7 +201,6 @@ public class HexGrid : MonoBehaviour
 
         return newCell;
     }
-
 
 
     public HexCell GetRandomCell()

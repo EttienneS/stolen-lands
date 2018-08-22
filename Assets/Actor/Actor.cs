@@ -2,17 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 public class Actor : MonoBehaviour
 {
-    private Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
-
     public Color Color;
 
     public HexCell Location;
 
     public Sprite Sprite;
+    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
     public List<Trait> Traits = new List<Trait>();
 
@@ -48,7 +46,6 @@ public class Actor : MonoBehaviour
 
             sentient.TakeAction(allActions);
         }
-       
     }
 
     public T GetTrait<T>() where T : Trait
@@ -57,7 +54,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // should only ever have one trait of a type so return the first value
-            return (T)TraitCache[type];
+            return (T) TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();

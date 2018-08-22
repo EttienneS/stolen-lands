@@ -26,7 +26,7 @@ public class Sentient : Trait
         // 100 mental, 100 cunning == 10 actions
         // 100 mental, 10 cunning == 1 actions
 
-        var actionDivisor = (110 - Cunning)/10;
+        var actionDivisor = (110 - Cunning) / 10;
         var actionsAvailable = Mental / actionDivisor;
 
         while (actionsAvailable > 0)

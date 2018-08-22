@@ -15,6 +15,8 @@ public class ActorController : MonoBehaviour
 
     public ActorPanel ActorPanelPrefab;
 
+    private bool init;
+
     [Range(1, 200)] public int maxPersons = 50;
     [Range(1, 200)] public int personsPerFaction = 5;
 
@@ -49,7 +51,6 @@ public class ActorController : MonoBehaviour
         Init();
     }
 
-    private bool init = false;
     public void Init()
     {
         if (!init)
@@ -68,7 +69,6 @@ public class ActorController : MonoBehaviour
                 }
             }
         }
-
     }
 
     public Person GetPerson()
