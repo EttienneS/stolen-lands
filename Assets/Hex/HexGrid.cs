@@ -11,7 +11,7 @@ public class HexGrid : MonoBehaviour
 
     public HexCell cellPrefab;
 
-    private HexCell[] cells;
+    private HexCell[] Cells;
 
     private Canvas gridCanvas;
 
@@ -53,7 +53,7 @@ public class HexGrid : MonoBehaviour
         ActorController.Instance.Init();
 
         gridCanvas = GetComponentInChildren<Canvas>();
-        cells = new HexCell[Height * Width];
+        Cells = new HexCell[Height * Width];
 
         for (int y = 0, i = 0; y < Height; y++)
         {
@@ -67,7 +67,7 @@ public class HexGrid : MonoBehaviour
 
         // add all actors to the world
         var allocatedCells = new List<HexCell>();
-        allocatedCells.AddRange(cells.Where(c => c.Height == 0).ToList());
+        allocatedCells.AddRange(Cells.Where(c => c.Height == 0).ToList());
 
         foreach (var actor in ActorController.Instance.Actors)
         {
@@ -115,16 +115,46 @@ public class HexGrid : MonoBehaviour
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
     {
+        // nice color index chart: http://prideout.net/archive/colors.php
+        // grassland
         for (int i = 0; i < massCount; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
             //GetMass(TextureHelper.GetRandomColor(), massSize);
-            var massColor = new Color(0, Random.Range(0.5f, 1f), 0);
+
+            var rb = Random.Range(0.1f, 0.2f);
+            var massColor = new Color(rb, Random.Range(0.5f, 0.8f),rb);
 
             foreach (var cell in GetMass(massSize))
             {
                 cell.Height = 1;
                 cell.ColorCell(massColor);
+            }
+        }
+
+        // desert
+        for (int i = 0; i < massCount/10; i++)
+        {
+            var massSize = Random.Range(massSizeMin, massSizeMax);
+            //GetMass(TextureHelper.GetRandomColor(), massSize);
+            var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
+
+            foreach (var cell in GetMass(massSize))
+            {
+                cell.Height = 1;
+                cell.ColorCell(massColor);
+            }
+        }
+
+        foreach (var cell in Cells.Where(c => c.Height == 0))
+        {
+            // if cell is completely surrounded with water
+            // change its height to reflect it being deep water
+            if (cell.neighbors.All(c => c == null || c.Height <= 0))
+            {
+                cell.Height = -1;
+                // dark blue
+                cell.ColorCell(new Color(0, 0, 0.5f));
             }
         }
     }
@@ -180,7 +210,7 @@ public class HexGrid : MonoBehaviour
 
     public HexCell GetRandomCell()
     {
-        return cells[Random.Range(0, Height * Width)];
+        return Cells[Random.Range(0, Height * Width)];
     }
 
     private void CreateCell(int x, int y, int i)
@@ -191,7 +221,7 @@ public class HexGrid : MonoBehaviour
         var position = new Vector2((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
             ypos * (HexMetrics.outerRadius * 1.5f));
 
-        var cell = cells[i] = Instantiate(cellPrefab);
+        var cell = Cells[i] = Instantiate(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
@@ -199,26 +229,26 @@ public class HexGrid : MonoBehaviour
 
         if (x > 0)
         {
-            cell.SetNeighbor(HexDirection.W, cells[i - 1]);
+            cell.SetNeighbor(HexDirection.W, Cells[i - 1]);
         }
 
         if (y > 0)
         {
             if ((y & 1) == 0)
             {
-                cell.SetNeighbor(HexDirection.SE, cells[i - Width]);
+                cell.SetNeighbor(HexDirection.SE, Cells[i - Width]);
 
                 if (x > 0)
                 {
-                    cell.SetNeighbor(HexDirection.SW, cells[i - Width - 1]);
+                    cell.SetNeighbor(HexDirection.SW, Cells[i - Width - 1]);
                 }
             }
             else
             {
-                cell.SetNeighbor(HexDirection.SW, cells[i - Width]);
+                cell.SetNeighbor(HexDirection.SW, Cells[i - Width]);
                 if (x < Width - 1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, cells[i - Width + 1]);
+                    cell.SetNeighbor(HexDirection.SE, Cells[i - Width + 1]);
                 }
             }
         }
@@ -240,7 +270,7 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         var coordinates = HexCoordinates.FromPosition(position);
         var index = coordinates.X + coordinates.Y * Width + coordinates.Y / 2;
-        var cell = cells[index];
+        var cell = Cells[index];
 
         return cell;
     }
