@@ -1,5 +1,3 @@
-﻿using UnityEngine;
-
-public class Person : Actor
+﻿public class Person : Actor
 {
 }

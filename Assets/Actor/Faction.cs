@@ -1,12 +1,16 @@
-﻿using UnityEngine;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class Faction : Actor
 {
-    public Actor Leader { get; set; }
-
     public List<FactionMember> Members = new List<FactionMember>();
 
+    public Actor Leader { get; set; }
+
+    public int Gold { get; set; }
+
+    public int Foon { get; set; }
+
+    public int Manpower { get; set; }
 
     public override string ToString()
     {

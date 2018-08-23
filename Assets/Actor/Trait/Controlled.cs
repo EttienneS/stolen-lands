@@ -2,12 +2,12 @@
 
 public class Controlled : Trait
 {
-    public Controller Controller { get; set; }
-
     public Controlled(Actor owner, Controller controller) : base(owner)
     {
         Controller = controller;
     }
+
+    public Controller Controller { get; set; }
 
     public override List<ActorAction> GetActions()
     {
@@ -18,18 +18,18 @@ public class Controlled : Trait
 
     public override string ToString()
     {
-        return Owner +  " controlled by: " + Controller.Owner.name;
+        return Owner + " controlled by: " + Controller.Owner.name;
     }
 }
 
 public class Controller : Trait
 {
-    public List<Controlled> UnderControl { get; set; }
-
     public Controller(Actor owner) : base(owner)
     {
         UnderControl = new List<Controlled>();
     }
+
+    public List<Controlled> UnderControl { get; set; }
 
     public static void AddControl(Actor controllingActor, Actor controlledActor)
     {

@@ -6,10 +6,16 @@ using UnityEngine.UI;
 public class HexCell : MonoBehaviour
 {
     public Color Color;
-    public int Height = 0;
+
+    private List<Color> colors;
     public HexCoordinates coordinates;
+    public int Height = 0;
+    private Mesh hexMesh;
+    private MeshCollider meshCollider;
 
     [SerializeField] public HexCell[] neighbors;
+    private List<int> triangles;
+    private List<Vector3> vertices;
 
     public Text Label { get; set; }
 
@@ -17,20 +23,14 @@ public class HexCell : MonoBehaviour
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int)direction];
+        return neighbors[(int) direction];
     }
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int)direction] = cell;
-        cell.neighbors[(int)direction.Opposite()] = this;
+        neighbors[(int) direction] = cell;
+        cell.neighbors[(int) direction.Opposite()] = this;
     }
-
-    private List<Color> colors;
-    private Mesh hexMesh;
-    private MeshCollider meshCollider;
-    private List<int> triangles;
-    private List<Vector3> vertices;
 
     private void Awake()
     {

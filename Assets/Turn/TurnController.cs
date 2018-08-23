@@ -33,7 +33,6 @@ public class TurnController : MonoBehaviour
 
     private void Start()
     {
-
         foreach (var actor in ActorController.Instance.Actors)
         {
             var display = ActorController.Instance.GetDisplayForActor(actor);
@@ -84,7 +83,6 @@ public class TurnController : MonoBehaviour
 
                 // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
             }
-
         }
     }
 }

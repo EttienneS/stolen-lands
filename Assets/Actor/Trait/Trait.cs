@@ -10,7 +10,7 @@ public abstract class Trait
 
     public Actor Owner { get; set; }
 
-    public abstract List<ActorAction> GetActions();
-
     public string Name { get; set; }
+
+    public abstract List<ActorAction> GetActions();
 }

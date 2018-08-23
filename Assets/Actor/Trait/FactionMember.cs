@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 public class FactionMember : Trait
 {
@@ -20,6 +19,4 @@ public class FactionMember : Trait
         // ask faction for acitons
         return new List<ActorAction>();
     }
-
-
 }

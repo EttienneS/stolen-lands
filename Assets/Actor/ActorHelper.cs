@@ -12,7 +12,7 @@ public class ActorHelper
             "Ch", "K", "Sh", "R", "S", "St", "B", "T", "X", "P", "D", "Kr", "Can", "Ex", "J", "H", "Th", "Sch", "Ten",
             "W", "Wr", "V"
         };
-        var mid = new[] { "a", "e", "u", "olo", "i", "o", "oo", "ee", "ero", "ane", "ala", "are", "ou", "y", "ai" };
+        var mid = new[] {"a", "e", "u", "olo", "i", "o", "oo", "ee", "ero", "ane", "ala", "are", "ou", "y", "ai"};
         var end = new[]
         {
             "ll", "xel", "lle", "p", "ck", "t", "ne", "lla", "le", "x", "lo", "lee", "bel", "tel", "xa", "ty", "te",
