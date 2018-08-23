@@ -3,8 +3,14 @@
 public class Faction : Actor
 {
     public List<FactionMember> Members = new List<FactionMember>();
+
     public Actor Leader { get; set; }
 
+    public int Gold { get; set; }
+
+    public int Foon { get; set; }
+
+    public int Manpower { get; set; }
 
     public override string ToString()
     {

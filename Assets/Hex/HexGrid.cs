@@ -16,8 +16,7 @@ public class HexGrid : MonoBehaviour
     private Canvas gridCanvas;
 
     [Range(1, 250)] public int Height = 2;
-
-
+    
     [Range(1, 1000)] public int Masses = 50;
 
     [Range(1, 500)] public int MaxMassSize = 100;
