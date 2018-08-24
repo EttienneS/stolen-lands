@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class TurnController : MonoBehaviour
@@ -33,17 +34,16 @@ public class TurnController : MonoBehaviour
 
     private void Start()
     {
-        foreach (var actor in ActorController.Instance.Actors)
+        foreach (var faction in ActorController.Instance.Factions)
         {
-            var display = ActorController.Instance.GetDisplayForActor(actor);
+            var display = ActorController.Instance.GetDisplayForActor(faction);
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
         ActiveActorIndex = 0;
-        // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
 
-        // uncomment the next line to spam the endturn button 100 times per second
-        // InvokeRepeating("EndCurrentTurn", 0, 0.01f);
+        var playerLocation = ActorController.Instance.Player.Location.transform.position;
+        CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y, CameraController.Instance.transform.position.z);
     }
 
     private void Update()
@@ -52,37 +52,16 @@ public class TurnController : MonoBehaviour
         {
             actorDisplay.GetComponent<Image>().color =
                 ActorController.Instance.Actors[ActiveActorIndex] == actorDisplay.Actor
-                    ? ActiveColor
-                    : InactiveColor;
+                    ? ActiveColor : InactiveColor;
         }
-
-        TakeTurn();
     }
 
     public void EndCurrentTurn()
     {
-        TakeTurns = !TakeTurns;
-    }
-
-    public void TakeTurn()
-    {
-        if (TakeTurns)
+        foreach (var faction in ActorController.Instance.Factions)
         {
-            // each actor take 1 turn each frame
-            for (int i = 0; i < 10; i++)
-            {
-                var activeActor = ActorController.Instance.Actors[ActiveActorIndex];
-                activeActor.TakeTurn();
-
-                ActiveActorIndex++;
-
-                if (ActiveActorIndex >= ActorController.Instance.Actors.Count)
-                {
-                    ActiveActorIndex = 0;
-                }
-
-                // ActorController.Instance.ShowActorPanel(ActorController.Instance.Actors[ActiveActorIndex]);
-            }
+            faction.Leader.TakeTurn();
         }
     }
+
 }

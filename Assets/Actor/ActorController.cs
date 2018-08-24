@@ -6,6 +6,7 @@ public class ActorController : MonoBehaviour
     private static ActorController _instance;
 
     private readonly List<Actor> _actors = new List<Actor>();
+    private readonly List<Faction> _factions = new List<Faction>();
 
     public ActorPanel ActivePanel;
 
@@ -16,6 +17,9 @@ public class ActorController : MonoBehaviour
     public ActorPanel ActorPanelPrefab;
 
     private bool init;
+
+    public Faction Player { get; set; }
+
 
     [Range(1, 200)] public int maxPersons = 50;
     [Range(1, 200)] public int personsPerFaction = 5;
@@ -36,6 +40,11 @@ public class ActorController : MonoBehaviour
     public List<Actor> Actors
     {
         get { return _actors; }
+    }
+
+    public List<Faction> Factions
+    {
+        get { return _factions; }
     }
 
     public ActorDisplay GetDisplayForActor(Actor actor)
@@ -67,7 +76,10 @@ public class ActorController : MonoBehaviour
                 {
                     faction.AddMember(GetPerson());
                 }
+
+                
             }
+
         }
     }
 
@@ -107,8 +119,15 @@ public class ActorController : MonoBehaviour
         faction.AddTrait(new HexClaimer(faction));
         faction.Instantiate(name, TextureHelper.GetRandomColor());
 
-        Actors.Add(faction);
+        if (Player == null)
+        {
+            faction.name = "Player";
+            faction.Leader.Traits.Remove(faction.Leader.GetTrait<Sentient>());
+            faction.Leader.AddTrait(new Player(faction.Leader));
+            Player = faction;
+        }
 
+        Factions.Add(faction);
         return faction;
     }
 
