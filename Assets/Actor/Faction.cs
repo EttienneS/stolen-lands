@@ -8,7 +8,7 @@ public class Faction : Actor
 
     public int Gold { get; set; }
 
-    public int Foon { get; set; }
+    public int Food { get; set; }
 
     public int Manpower { get; set; }
 

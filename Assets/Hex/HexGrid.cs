@@ -68,47 +68,18 @@ public class HexGrid : MonoBehaviour
         var allocatedCells = new List<HexCell>();
         allocatedCells.AddRange(Cells.Where(c => c.Height == 0).ToList());
 
-        foreach (var actor in ActorController.Instance.Actors)
+        foreach (var faction in ActorController.Instance.Factions)
         {
-            var controlled = actor.GetTrait<Controlled>();
-            var controller = actor.GetTrait<Controller>();
-
             var cell = GetRandomCell();
             while (allocatedCells.Contains(cell))
             {
                 cell = GetRandomCell();
             }
 
-            if (controlled != null)
-            {
-                // actor under direct control
-                continue;
-            }
+            faction.Location = cell;
+            faction.TakeTurn();
 
-            if (controlled == null && controller == null)
-            {
-                // outlier actor
-                actor.Location = cell;
-            }
-            else
-            {
-                // actor that controls others
-                allocatedCells.Add(cell);
-                actor.Location = cell;
-
-                if (controller != null)
-                {
-                    foreach (var underling in controller.UnderControl)
-                    {
-                        underling.Owner.Location = actor.Location;
-                    }
-                }
-
-                // take a setup turn to establish actors
-                actor.TakeTurn();
-            }
-
-            AddActorToCanvas(actor, actor.Location);
+            AddActorToCanvas(faction, faction.Location);
         }
     }
 
