@@ -25,13 +25,6 @@ public class TurnController : MonoBehaviour
         }
     }
 
-    public int ActiveActorIndex { get; set; }
-
-    public Actor ActiveActor
-    {
-        get { return ActorController.Instance.Actors[ActiveActorIndex]; }
-    }
-
     private void Start()
     {
         foreach (var faction in ActorController.Instance.Factions)
@@ -40,20 +33,13 @@ public class TurnController : MonoBehaviour
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        ActiveActorIndex = 0;
-
-        var playerLocation = ActorController.Instance.Player.Location.transform.position;
+        var playerLocation = ActorController.Instance.PlayerFaction.Location.transform.position;
         CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y, CameraController.Instance.transform.position.z);
     }
 
     private void Update()
     {
-        foreach (var actorDisplay in GetComponentsInChildren<ActorDisplay>())
-        {
-            actorDisplay.GetComponent<Image>().color =
-                ActorController.Instance.Actors[ActiveActorIndex] == actorDisplay.Actor
-                    ? ActiveColor : InactiveColor;
-        }
+       
     }
 
     public void EndCurrentTurn()

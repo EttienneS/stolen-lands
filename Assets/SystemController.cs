@@ -50,8 +50,6 @@ public class SystemController : MonoBehaviour
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
             //SelectedCell.DrawBorder(Color.black);
 
-            var activeActor = TurnController.Instance.ActiveActor;
-
             //if (SelectedCell.Owner == null)
             //{
             //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
