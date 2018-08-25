@@ -16,7 +16,7 @@ public class HexGrid : MonoBehaviour
     private Canvas gridCanvas;
 
     [Range(1, 250)] public int Height = 2;
-    
+
     [Range(1, 1000)] public int Masses = 50;
 
     [Range(1, 500)] public int MaxMassSize = 100;
@@ -71,16 +71,18 @@ public class HexGrid : MonoBehaviour
         foreach (var faction in ActorController.Instance.Factions)
         {
             var cell = GetRandomCell();
-            while (allocatedCells.Contains(cell))
+            while (allocatedCells.Contains(cell) || cell.Height < 0)
             {
                 cell = GetRandomCell();
             }
 
             faction.Location = cell;
-            faction.TakeTurn();
+            faction.Leader.TakeTurn();
 
             AddActorToCanvas(faction, faction.Location);
         }
+
+        ActorController.Instance.PlayerFaction.GetTrait<HexClaimer>().Claim(ActorController.Instance.PlayerFaction.Location);
     }
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)

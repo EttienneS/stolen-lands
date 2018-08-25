@@ -27,6 +27,11 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
+        if (ActorController.Instance.Player == this || ActorController.Instance.PlayerFaction == this)
+        {
+            return;
+        }
+
         if (GetTrait<Controlled>() != null)
         {
             // controlled actors turns are taken by their controllers
@@ -34,7 +39,6 @@ public class Actor : MonoBehaviour
         }
 
         var sentient = GetTrait<Sentient>();
-
         if (sentient != null)
         {
             var allActions = new List<ActorAction>();
@@ -54,7 +58,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // should only ever have one trait of a type so return the first value
-            return (T) TraitCache[type];
+            return (T)TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();

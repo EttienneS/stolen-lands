@@ -18,7 +18,8 @@ public class ActorController : MonoBehaviour
 
     private bool init;
 
-    public Faction Player { get; set; }
+    public Faction PlayerFaction { get; set; }
+    public Actor Player { get; set; }
 
 
     [Range(1, 200)] public int maxPersons = 50;
@@ -65,8 +66,12 @@ public class ActorController : MonoBehaviour
         if (!init)
         {
             init = true;
-            var factions = maxPersons / personsPerFaction;
 
+            Player = GetPerson();
+            PlayerFaction = GetFaction(Player);
+            PlayerFaction.name = "Player";
+            
+            var factions = maxPersons / personsPerFaction;
             for (int i = 0; i < factions; i++)
             {
                 var leader = GetPerson();
@@ -118,14 +123,6 @@ public class ActorController : MonoBehaviour
 
         faction.AddTrait(new HexClaimer(faction));
         faction.Instantiate(name, TextureHelper.GetRandomColor());
-
-        if (Player == null)
-        {
-            faction.name = "Player";
-            faction.Leader.Traits.Remove(faction.Leader.GetTrait<Sentient>());
-            faction.Leader.AddTrait(new Player(faction.Leader));
-            Player = faction;
-        }
 
         Factions.Add(faction);
         return faction;
