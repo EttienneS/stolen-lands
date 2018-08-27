@@ -68,6 +68,8 @@ public class ActorController : MonoBehaviour
             init = true;
 
             Player = GetPerson();
+            Player.Traits.Remove(Player.GetTrait<Sentient>());
+            Player.Traits.Add(new Player(Player));
             PlayerFaction = GetFaction(Player);
             PlayerFaction.name = "Player";
             

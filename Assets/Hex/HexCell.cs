@@ -17,8 +17,6 @@ public class HexCell : MonoBehaviour
     private List<int> triangles;
     private List<Vector3> vertices;
 
-    public Text Label { get; set; }
-
     public Actor Owner { get; set; }
 
     public HexCell GetNeighbor(HexDirection direction)

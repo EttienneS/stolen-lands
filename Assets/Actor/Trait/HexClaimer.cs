@@ -168,27 +168,35 @@ public class HexClaimer : Trait
             // no brain, no action
             return new List<ActorAction>();
         }
-
         var actions = new List<ActorAction>();
 
-        if (sentience.Cunning > 60)
+
+        if (Owner == ActorController.Instance.PlayerFaction)
         {
-            actions.Add(new ActorAction(Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-        }
-        else if (sentience.Cunning < 30)
-        {
-            actions.Add(new ActorAction(Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
+            actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
         }
         else
         {
-            actions.Add(new ActorAction(Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
-            actions.Add(new ActorAction(Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
+            if (sentience.Cunning > 60)
+            {
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
+            }
+            else if (sentience.Cunning < 30)
+            {
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
+            }
+            else
+            {
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
+                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
+            }
         }
+
 
         return actions;
     }
