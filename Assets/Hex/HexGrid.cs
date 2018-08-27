@@ -15,6 +15,8 @@ public class HexGrid : MonoBehaviour
 
     private Canvas gridCanvas;
 
+    public ActionDisplay ActionDisplayPrefab;
+
     [Range(1, 250)] public int Height = 2;
 
     [Range(1, 1000)] public int Masses = 50;
@@ -42,9 +44,41 @@ public class HexGrid : MonoBehaviour
     {
         var display = ActorController.Instance.GetDisplayForActor(actor);
         display.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
-        display.transform.localPosition = new Vector3(cell.Label.transform.localPosition.x,
-            cell.Label.transform.localPosition.y, -1f);
-        display.transform.SetParent(cell.Label.transform);
+        display.transform.localPosition = new Vector3(cell.transform.localPosition.x, cell.transform.localPosition.y, -1f);
+        display.transform.SetParent(SystemController.Instance.GridCanvas.transform);
+    }
+
+    private Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
+
+    public void ClearPlayerActions()
+    {
+        foreach (var action in _playerActions.Values)
+        {
+            Destroy(action.gameObject, 0);
+        }
+
+        _playerActions.Clear();
+    }
+
+    public void AddPlayerActionToCanvas(Player player, HexCell cell, ActorAction action)
+    {
+        if (!_playerActions.ContainsKey(cell))
+        {
+            var actionDisplay = Instantiate(ActionDisplayPrefab);
+            actionDisplay.name = "ActionDisplay - " + cell.coordinates.ToString();
+            actionDisplay.transform.SetParent(SystemController.Instance.GridCanvas.transform);
+            actionDisplay.transform.localPosition = cell.transform.localPosition;
+
+            actionDisplay.Context = cell;
+            actionDisplay.RefreshPlayerAction = player.RefreshActions;
+
+            _playerActions.Add(cell, actionDisplay);
+        }
+
+        if (!_playerActions[cell].Actions.Any(a => a.ActionName == action.ActionName))
+        {
+            _playerActions[cell].Actions.Add(action);
+        }
     }
 
     private void Awake()
@@ -77,12 +111,17 @@ public class HexGrid : MonoBehaviour
             }
 
             faction.Location = cell;
+
+            if (faction == ActorController.Instance.PlayerFaction)
+            {
+                faction.GetTrait<HexClaimer>().Claim(ActorController.Instance.PlayerFaction.Location);
+            }
+
             faction.Leader.TakeTurn();
 
             AddActorToCanvas(faction, faction.Location);
         }
 
-        ActorController.Instance.PlayerFaction.GetTrait<HexClaimer>().Claim(ActorController.Instance.PlayerFaction.Location);
     }
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
@@ -219,14 +258,6 @@ public class HexGrid : MonoBehaviour
                 }
             }
         }
-
-        var label = Instantiate(cellLabelPrefab);
-        label.rectTransform.SetParent(gridCanvas.transform, false);
-        label.rectTransform.anchoredPosition = position;
-        //label.text = cell.coordinates.ToStringOnSeparateLines();
-        label.text = "";
-        label.name = cell.coordinates + " Label";
-        cell.Label = label;
 
         cell.ColorCell(Color.blue);
     }

@@ -27,29 +27,36 @@ public class Actor : MonoBehaviour
 
     public void TakeTurn()
     {
-        if (ActorController.Instance.Player == this || ActorController.Instance.PlayerFaction == this)
-        {
-            return;
-        }
-
         if (GetTrait<Controlled>() != null)
         {
             // controlled actors turns are taken by their controllers
             return;
         }
 
-        var sentient = GetTrait<Sentient>();
-        if (sentient != null)
+        var player = GetTrait<Player>();
+        if (player != null)
         {
             var allActions = new List<ActorAction>();
-
             foreach (var trait in Traits)
             {
                 allActions.AddRange(trait.GetActions());
             }
-
-            sentient.TakeAction(allActions);
+            player.TakeAction(allActions);
         }
+        else
+        {
+            var sentient = GetTrait<Sentient>();
+            if (sentient != null)
+            {
+                var allActions = new List<ActorAction>();
+                foreach (var trait in Traits)
+                {
+                    allActions.AddRange(trait.GetActions());
+                }
+                sentient.TakeAction(allActions);
+            }
+        }
+
     }
 
     public T GetTrait<T>() where T : Trait

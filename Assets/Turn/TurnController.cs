@@ -44,6 +44,9 @@ public class TurnController : MonoBehaviour
 
     public void EndCurrentTurn()
     {
+        ActorController.Instance.Player.GetTrait<Player>().SpentActions = 0;
+
+
         foreach (var faction in ActorController.Instance.Factions)
         {
             faction.Leader.TakeTurn();

@@ -11,7 +11,7 @@ public class Sentient : Trait
     public int Morality;
     public int Physical;
 
-    public int ActionsAvailable
+    public virtual int ActionsAvailable
     {
         get
         {
@@ -32,7 +32,7 @@ public class Sentient : Trait
         return new List<ActorAction>();
     }
 
-    public void TakeAction(List<ActorAction> allActions)
+    public virtual void TakeAction(List<ActorAction> allActions)
     {
         // 100 mental, 100 cunning == 10 actions
         // 100 mental, 10 cunning == 1 actions

@@ -1,19 +1,24 @@
+using System.Collections.Generic;
+
 public class ActorAction
 {
-    public delegate void Act(Actor actor, object target);
+    public delegate void Act(Actor actor, List<HexCell> target);
 
-    public delegate object Discover(Actor actor);
+    public delegate List<HexCell> Discover(Actor actor);
 
-    public Actor ActionContext;
+    public Actor ActorContext;
 
     public int Cost;
 
-    public ActorAction(Actor actionContext, int cost, Discover discover, Act act)
+    public string ActionName;
+
+    public ActorAction(string name, Actor actorContext, int cost, Discover discover, Act act)
     {
-        ActionContext = actionContext;
+        ActorContext = actorContext;
         DiscoverAction = discover;
         ActAction = act;
         Cost = cost;
+        ActionName = name;
     }
 
     public Discover DiscoverAction { get; set; }
@@ -21,6 +26,6 @@ public class ActorAction
 
     public void Execute()
     {
-        ActAction(ActionContext, DiscoverAction(ActionContext));
+        ActAction(ActorContext, DiscoverAction(ActorContext));
     }
 }
