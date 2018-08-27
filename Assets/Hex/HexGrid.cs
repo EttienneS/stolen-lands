@@ -13,8 +13,6 @@ public class HexGrid : MonoBehaviour
 
     private HexCell[] Cells;
 
-    private Canvas gridCanvas;
-
     public ActionDisplay ActionDisplayPrefab;
 
     [Range(1, 250)] public int Height = 2;
@@ -85,7 +83,6 @@ public class HexGrid : MonoBehaviour
     {
         ActorController.Instance.Init();
 
-        gridCanvas = GetComponentInChildren<Canvas>();
         Cells = new HexCell[Height * Width];
 
         for (int y = 0, i = 0; y < Height; y++)
