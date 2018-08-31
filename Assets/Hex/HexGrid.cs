@@ -158,7 +158,7 @@ public class HexGrid : MonoBehaviour
             if (cell.neighbors.All(c => c == null || c.Height <= 0))
             {
                 cell.Height = -1;
-                cell.ColorCell(new Color(0, 0, 0.5f));
+                cell.ColorCell(new Color(0, 0, Random.Range(0.25f, 0.5f)));
             }
         }
     }
@@ -256,7 +256,7 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-        cell.ColorCell(Color.blue);
+        cell.ColorCell(new Color(0f, 0f, Random.Range(0.8f, 1.0f)));
     }
 
 

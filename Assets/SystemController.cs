@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class SystemController : MonoBehaviour
 {
@@ -60,5 +61,10 @@ public class SystemController : MonoBehaviour
         {
             SelectedCell = null;
         }
+    }
+
+    public void Reset()
+    {
+        SceneManager.LoadScene("Main");
     }
 }
