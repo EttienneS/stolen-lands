@@ -5,8 +5,6 @@ using UnityEngine.UI;
 public class TurnController : MonoBehaviour
 {
     public static TurnController _instance;
-    private readonly Color ActiveColor = new Color(0.7f, 0.02f, 0.02f, 0.5f);
-    private readonly Color InactiveColor = new Color(0.2f, 0.2f, 0.2f, 0.5f);
 
     public GameObject ScrollContentContainer;
 
