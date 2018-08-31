@@ -35,7 +35,7 @@ public class CameraController : MonoBehaviour
 
     private float _journeyLength;
 
-    private Vector2 touchOrigin = -Vector2.one;
+    private Camera Camera;
 
     public void MoveToViewCell(HexCell cell)
     {
@@ -45,6 +45,11 @@ public class CameraController : MonoBehaviour
         _journeyLength = Vector3.Distance(_panSource, _panDesitnation);
 
         _panning = true;
+    }
+
+    private void Start()
+    {
+        Camera = GetComponent<Camera>();
     }
 
     private void Update()
@@ -63,62 +68,62 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-            float horizontal = 0;
-            float vertical = 0;
 
-            // RawOdds = (1 + Skill) / ((1 + Skill) + (1 + Difficulty))
-            // AdjustedOdds = 1 / (1 + (e ^ ((RawOdds * Steepness) + Offset)))
+
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
 
-             horizontal = Input.GetAxis("Horizontal");
-             vertical = Input.GetAxis("Vertical");
+            float horizontal = 0;
+            float vertical = 0;
+            float z = transform.position.z;
+            horizontal = Input.GetAxis("Horizontal");
+            vertical = Input.GetAxis("Vertical");
 
-
+            z = -1 * Mathf.Clamp(-transform.position.z - Input.GetAxis("Mouse ScrollWheel") * ZoomStep, ZoomMin, ZoomMax);
+            transform.position = new Vector3(transform.position.x + (horizontal * Speed), transform.position.y + (vertical * Speed), z);
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
 
-
-            //Check if Input has registered more than zero touches
+            var speed = 0.25f;
             if (Input.touchCount > 0)
             {
-                Touch myTouch = Input.touches[0];
+                Touch touchZero = Input.GetTouch(0);
 
-                if (myTouch.phase == TouchPhase.Began)
+                if (Input.touchCount == 2)
                 {
-                    //If so, set touchOrigin to the position of that touch
-                    touchOrigin = myTouch.position;
+                    Touch touchOne = Input.GetTouch(1);
+
+                    Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition;
+                    Vector2 touchOnePrevPos = touchOne.position - touchOne.deltaPosition;
+
+                    float prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
+                    float touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
+
+                    float deltaMagnitudeDiff = (prevTouchDeltaMag - touchDeltaMag) * speed;
+
+                    //Camera.fieldOfView += deltaMagnitudeDiff * speed;
+                    //Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView, 10f, 150f);
+
+                    transform.Translate(0, 0, deltaMagnitudeDiff);
+
+
+                    // todo: clamp the camera to stop it from moving off screen
+                    //var x = transform.position.x;
+                    //var y = transform.position.y;
+                    //var z = transform.position.z;
+
+                    //transform.position = new Vector3(x, y, z);
                 }
-
-                //If the touch phase is not Began, and instead is equal to Ended and the x of touchOrigin is greater or equal to zero:
-                else if (myTouch.phase == TouchPhase.Ended && touchOrigin.x >= 0)
+                else
                 {
-                    //Set touchEnd to equal the position of this touch
-                    Vector2 touchEnd = myTouch.position;
-
-                    //Calculate the difference between the beginning and end of the touch on the x axis.
-                    float x = touchEnd.x - touchOrigin.x;
-
-                    //Calculate the difference between the beginning and end of the touch on the y axis.
-                    float y = touchEnd.y - touchOrigin.y;
-
-                    //Set touchOrigin.x to -1 so that our else if statement will evaluate false and not repeat immediately.
-                    touchOrigin.x = -1;
-
-                    //Check if the difference along the x axis is greater than the difference along the y axis.
-                    if (Mathf.Abs(x) > Mathf.Abs(y))
-                        //If x is greater than zero, set horizontal to 1, otherwise set it to -1
-                        horizontal = x > 0 ? 1 : -1;
-                    else
-                        //If y is greater than zero, set horizontal to 1, otherwise set it to -1
-                        vertical = y > 0 ? 1 : -1;
+                    if (touchZero.phase == TouchPhase.Moved)
+                    {
+                        Vector2 touchDeltaPosition = touchZero.deltaPosition;
+                        transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
+                    }
                 }
             }
 
 #endif //End of mobile platform dependendent compilation section started above with #elif
-
-            var z = -1 * Mathf.Clamp(-transform.position.z - Input.GetAxis("Mouse ScrollWheel") * ZoomStep, ZoomMin, ZoomMax);
-
-            transform.position = new Vector3(transform.position.x + (horizontal * Speed), transform.position.y + (vertical * Speed), z);
 
         }
     }
