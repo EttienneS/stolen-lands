@@ -64,6 +64,6 @@ public class SystemController : MonoBehaviour
 
     public void Reset()
     {
-        SceneManager.LoadScene("Main");
+        SceneManager.LoadScene("Loading");
     }
 }
