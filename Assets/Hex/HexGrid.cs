@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -15,7 +16,7 @@ public class HexGrid : MonoBehaviour
 
     public HexCell cellPrefab;
 
-    private HexCell[] Cells;
+    private HexCell[] cells;
 
     [Range(1, 250)] public int Height = 2;
 
@@ -84,7 +85,7 @@ public class HexGrid : MonoBehaviour
     {
         ActorController.Instance.Init();
 
-        Cells = new HexCell[Height * Width];
+        cells = new HexCell[Height * Width];
 
         for (int y = 0, i = 0; y < Height; y++)
         {
@@ -98,7 +99,7 @@ public class HexGrid : MonoBehaviour
 
         // add all actors to the world
         var allocatedCells = new List<HexCell>();
-        allocatedCells.AddRange(Cells.Where(c => c.Height == 0).ToList());
+        allocatedCells.AddRange(cells.Where(c => c.Height == 0).ToList());
 
         foreach (var faction in ActorController.Instance.Factions)
         {
@@ -113,6 +114,8 @@ public class HexGrid : MonoBehaviour
 
             AddActorToCanvas(faction.Leader, cell);
         }
+
+        FindDistancesTo(ActorController.Instance.Player.Location);
     }
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
@@ -145,7 +148,7 @@ public class HexGrid : MonoBehaviour
             }
         }
 
-        foreach (var cell in Cells.Where(c => c.Height == 0))
+        foreach (var cell in cells.Where(c => c.Height == 0))
         {
             // if cell is completely surrounded with water
             // change its height and color to reflect it being deep water
@@ -207,7 +210,7 @@ public class HexGrid : MonoBehaviour
 
     public HexCell GetRandomCell()
     {
-        return Cells[Random.Range(0, Height * Width)];
+        return cells[Random.Range(0, Height * Width)];
     }
 
     private void CreateCell(int x, int y, int i)
@@ -218,7 +221,7 @@ public class HexGrid : MonoBehaviour
         var position = new Vector2((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
             ypos * (HexMetrics.outerRadius * 1.5f));
 
-        var cell = Cells[i] = Instantiate(cellPrefab);
+        var cell = cells[i] = Instantiate(cellPrefab);
         cell.transform.SetParent(transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
@@ -226,41 +229,113 @@ public class HexGrid : MonoBehaviour
 
         if (x > 0)
         {
-            cell.SetNeighbor(HexDirection.W, Cells[i - 1]);
+            cell.SetNeighbor(HexDirection.W, cells[i - 1]);
         }
 
         if (y > 0)
         {
             if ((y & 1) == 0)
             {
-                cell.SetNeighbor(HexDirection.SE, Cells[i - Width]);
+                cell.SetNeighbor(HexDirection.SE, cells[i - Width]);
 
                 if (x > 0)
                 {
-                    cell.SetNeighbor(HexDirection.SW, Cells[i - Width - 1]);
+                    cell.SetNeighbor(HexDirection.SW, cells[i - Width - 1]);
                 }
             }
             else
             {
-                cell.SetNeighbor(HexDirection.SW, Cells[i - Width]);
+                cell.SetNeighbor(HexDirection.SW, cells[i - Width]);
                 if (x < Width - 1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, Cells[i - Width + 1]);
+                    cell.SetNeighbor(HexDirection.SE, cells[i - Width + 1]);
                 }
             }
         }
 
         cell.ColorCell(new Color(0f, 0f, Random.Range(0.8f, 1.0f)));
-    }
 
+        var label = new GameObject(cell.coordinates.ToString());
+        label.transform.SetParent(SystemController.Instance.GridCanvas.transform);
+        label.transform.position = cell.transform.position;
+
+        var text = label.AddComponent<Text>();
+        text.font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        text.material = text.font.material;
+        text.fontSize = 4;
+        text.fontStyle = FontStyle.Bold;
+        text.text = cell.Distance.ToString();
+        text.alignment = TextAnchor.MiddleCenter;
+
+        var rect = label.GetComponent<RectTransform>();
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 20);
+        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 20);
+
+        cell.Label = text;
+    }
 
     public HexCell GetCellAtPoint(Vector3 position)
     {
         position = transform.InverseTransformPoint(position);
         var coordinates = HexCoordinates.FromPosition(position);
         var index = coordinates.X + coordinates.Y * Width + coordinates.Y / 2;
-        var cell = Cells[index];
+        var cell = cells[index];
 
         return cell;
     }
+
+    public void FindDistancesTo(HexCell cell)
+    {
+        StopAllCoroutines();
+        StartCoroutine(Search(cell));
+    }
+
+    IEnumerator Search(HexCell cell)
+    {
+        for (int i = 0; i < cells.Length; i++)
+        {
+            cells[i].Distance = int.MaxValue;
+        }
+
+        WaitForSeconds delay = new WaitForSeconds(1 / 60f);
+
+        List<HexCell> frontier = new List<HexCell>();
+        cell.Distance = 0;
+        frontier.Add(cell);
+
+        while (frontier.Count > 0)
+        {
+            yield return delay;
+            HexCell current = frontier[0];
+            frontier.RemoveAt(0);
+
+            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            {
+                HexCell neighbor = current.GetNeighbor(d);
+                if (neighbor == null)
+                {
+                    continue;
+                }
+
+                if (neighbor.Height <= 0)
+                {
+                    continue;
+                }
+
+                int distance = current.Distance + neighbor.TravelCost + 1;
+                if (neighbor.Distance == int.MaxValue)
+                {
+                    neighbor.Distance = distance;
+                    frontier.Add(neighbor);
+                }
+                else if (distance < neighbor.Distance)
+                {
+                    neighbor.Distance = distance;
+                }
+
+                frontier.Sort((x, y) => x.Distance.CompareTo(y.Distance));
+            }
+        }
+    }
+
 }

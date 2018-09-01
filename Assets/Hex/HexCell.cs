@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -17,17 +18,35 @@ public class HexCell : MonoBehaviour
     private List<int> triangles;
     private List<Vector3> vertices;
 
+    private int distance;
+
+    public int TravelCost = 0;
+
+    public int Distance
+    {
+        get
+        {
+            return distance;
+        }
+        set
+        {
+            distance = value;
+            UpdateDistanceLabel();
+        }
+    }
+
     public Actor Owner { get; set; }
+    public Text Label { get; set; }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int) direction];
+        return neighbors[(int)direction];
     }
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int) direction] = cell;
-        cell.neighbors[(int) direction.Opposite()] = this;
+        neighbors[(int)direction] = cell;
+        cell.neighbors[(int)direction.Opposite()] = this;
     }
 
     private void Awake()
@@ -83,5 +102,10 @@ public class HexCell : MonoBehaviour
     {
         Color = color;
         Triangulate();
+    }
+
+    void UpdateDistanceLabel()
+    {
+        Label.text = distance == int.MaxValue ? "" : distance.ToString();
     }
 }
