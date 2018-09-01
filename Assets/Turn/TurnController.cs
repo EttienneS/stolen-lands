@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class TurnController : MonoBehaviour
 {
-    public static TurnController _instance;
+    private static TurnController _instance;
 
     public GameObject ScrollContentContainer;
 
@@ -27,11 +27,11 @@ public class TurnController : MonoBehaviour
     {
         foreach (var faction in ActorController.Instance.Factions)
         {
-            var display = ActorController.Instance.GetDisplayForActor(faction);
+            var display = ActorController.Instance.GetDisplayForActor(faction.Leader);
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        var playerLocation = ActorController.Instance.PlayerFaction.Location.transform.position;
+        var playerLocation = ActorController.Instance.Player.Location.transform.position;
         CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y, CameraController.Instance.transform.position.z);
     }
 
@@ -44,10 +44,14 @@ public class TurnController : MonoBehaviour
     {
         ActorController.Instance.Player.GetTrait<Player>().SpentActions = 0;
 
-
         foreach (var faction in ActorController.Instance.Factions)
         {
             faction.Leader.TakeTurn();
+            
+            foreach (var member in faction.Members)
+            {
+                member.Owner.TakeTurn();
+            }
         }
     }
 

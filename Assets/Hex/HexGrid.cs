@@ -7,13 +7,15 @@ public class HexGrid : MonoBehaviour
 {
     private static HexGrid _instance;
 
+    private readonly Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
+
+    public ActionDisplay ActionDisplayPrefab;
+
     public Text cellLabelPrefab;
 
     public HexCell cellPrefab;
 
     private HexCell[] Cells;
-
-    public ActionDisplay ActionDisplayPrefab;
 
     [Range(1, 250)] public int Height = 2;
 
@@ -42,11 +44,10 @@ public class HexGrid : MonoBehaviour
     {
         var display = ActorController.Instance.GetDisplayForActor(actor);
         display.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
-        display.transform.localPosition = new Vector3(cell.transform.localPosition.x, cell.transform.localPosition.y, -1f);
+        display.transform.localPosition =
+            new Vector3(cell.transform.localPosition.x, cell.transform.localPosition.y, -1f);
         display.transform.SetParent(SystemController.Instance.GridCanvas.transform);
     }
-
-    private Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
 
     public void ClearPlayerActions()
     {
@@ -63,7 +64,7 @@ public class HexGrid : MonoBehaviour
         if (!_playerActions.ContainsKey(cell))
         {
             var actionDisplay = Instantiate(ActionDisplayPrefab);
-            actionDisplay.name = "ActionDisplay - " + cell.coordinates.ToString();
+            actionDisplay.name = "ActionDisplay - " + cell.coordinates;
             actionDisplay.transform.SetParent(SystemController.Instance.GridCanvas.transform);
             actionDisplay.transform.localPosition = cell.transform.localPosition;
 
@@ -107,18 +108,11 @@ public class HexGrid : MonoBehaviour
                 cell = GetRandomCell();
             }
 
-            faction.Location = cell;
-
-            if (faction == ActorController.Instance.PlayerFaction)
-            {
-                faction.GetTrait<HexClaimer>().Claim(ActorController.Instance.PlayerFaction.Location);
-            }
-
+            faction.Leader.Location = cell;
             faction.Leader.TakeTurn();
 
-            AddActorToCanvas(faction, faction.Location);
+            AddActorToCanvas(faction.Leader, cell);
         }
-
     }
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)

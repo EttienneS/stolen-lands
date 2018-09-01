@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 public class SystemController : MonoBehaviour
 {
     private static SystemController _instance;
-    private HexCell _selectedCell;
 
     public Canvas GridCanvas;
 
