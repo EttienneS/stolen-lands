@@ -46,13 +46,15 @@ public class TurnController : MonoBehaviour
 
         foreach (var faction in ActorController.Instance.Factions)
         {
-            faction.Leader.TakeTurn();
-            
-            foreach (var member in faction.Members)
+            if (faction == ActorController.Instance.PlayerFaction)
             {
-                member.Owner.TakeTurn();
+                continue;
             }
+
+            faction.TakeTurn();
         }
+
+        ActorController.Instance.PlayerFaction.TakeTurn();
     }
 
 }

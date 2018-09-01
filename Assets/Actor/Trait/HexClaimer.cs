@@ -167,7 +167,7 @@ public class HexClaimer : Trait
         var actions = new List<ActorAction>();
 
 
-        if (Owner == ActorController.Instance.PlayerFaction)
+        if (Owner == ActorController.Instance.Player)
         {
             actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
         }
