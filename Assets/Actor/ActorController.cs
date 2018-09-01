@@ -16,14 +16,13 @@ public class ActorController : MonoBehaviour
 
     public ActorPanel ActorPanelPrefab;
 
-    private bool init;
+
+    private bool _init;
+
+    [Range(1, 200)] public int InitialFactions = 50;
 
     public Faction PlayerFaction { get; set; }
     public Actor Player { get; set; }
-
-
-    [Range(1, 200)] public int maxPersons = 50;
-    [Range(1, 200)] public int personsPerFaction = 5;
 
     public static ActorController Instance
     {
@@ -63,40 +62,29 @@ public class ActorController : MonoBehaviour
 
     public void Init()
     {
-        if (!init)
+        if (_init) return;
+
+        _init = true;
+
+        Player = GetPerson();
+        Player.Traits.Remove(Player.GetTrait<Sentient>());
+        Player.Traits.Add(new Player(Player));
+        PlayerFaction = GetFaction(Player);
+        PlayerFaction.name = "Player";
+
+        for (var i = 0; i < InitialFactions; i++)
         {
-            init = true;
-
-            Player = GetPerson();
-            Player.Traits.Remove(Player.GetTrait<Sentient>());
-            Player.Traits.Add(new Player(Player));
-            PlayerFaction = GetFaction(Player);
-            PlayerFaction.name = "Player";
-            
-            var factions = maxPersons / personsPerFaction;
-            for (int i = 0; i < factions; i++)
-            {
-                var leader = GetPerson();
-                var faction = GetFaction(leader);
-
-                for (int person = 0; person < personsPerFaction; person++)
-                {
-                    faction.AddMember(GetPerson());
-                }
-
-                
-            }
-
+            GetFaction(GetPerson());
         }
     }
 
-    public Person GetPerson()
+    private Person GetPerson()
     {
-        var name = ActorHelper.GetRandomName();
-        var gameObject = new GameObject(name);
-        gameObject.transform.parent = transform;
+        var personName = ActorHelper.GetRandomName();
+        var personGameObject = new GameObject(personName);
+        personGameObject.transform.parent = transform;
 
-        var person = gameObject.AddComponent(typeof(Person)) as Person;
+        var person = personGameObject.AddComponent(typeof(Person)) as Person;
         var sentient = new Sentient(person)
         {
             Physical = Random.Range(20, 80),
@@ -106,25 +94,23 @@ public class ActorController : MonoBehaviour
         };
 
         person.AddTrait(sentient);
-        person.Instantiate(name, TextureHelper.GetRandomColor());
+        person.Instantiate(personName);
 
         Actors.Add(person);
 
         return person;
     }
 
-    public Faction GetFaction(Actor leader)
+    private Faction GetFaction(Actor leader)
     {
-        var name = leader.name + "'s Faction";
+        var factionName = leader.name + "'s Faction";
 
-        var gameObject = new GameObject(name);
-        gameObject.transform.parent = transform;
+        var factionGameObject = new GameObject(factionName);
+        factionGameObject.transform.parent = transform;
 
-        var faction = gameObject.AddComponent(typeof(Faction)) as Faction;
+        var faction = factionGameObject.AddComponent(typeof(Faction)) as Faction;
         faction.SetLeader(leader);
-
-        faction.AddTrait(new HexClaimer(faction));
-        faction.Instantiate(name, TextureHelper.GetRandomColor());
+        faction.Instantiate(factionName, TextureHelper.GetRandomColor());
 
         Factions.Add(faction);
         return faction;

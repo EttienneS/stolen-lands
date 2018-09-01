@@ -5,34 +5,25 @@ using UnityEngine;
 
 public class Actor : MonoBehaviour
 {
-    public Color Color;
-
+    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
     public HexCell Location;
 
     public Sprite Sprite;
-    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
     public List<Trait> Traits = new List<Trait>();
 
-    public void Instantiate(string name, Color color)
+    public void Instantiate(string name)
     {
         this.name = name;
-        Color = color;
 
         // resolution of sprite
         var res = 16;
-        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, color),
+        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor()),
             new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
     }
 
     public void TakeTurn()
     {
-        if (GetTrait<Controlled>() != null)
-        {
-            // controlled actors turns are taken by their controllers
-            return;
-        }
-
         var player = GetTrait<Player>();
         if (player != null)
         {
@@ -41,6 +32,7 @@ public class Actor : MonoBehaviour
             {
                 allActions.AddRange(trait.GetActions());
             }
+
             player.TakeAction(allActions);
         }
         else
@@ -53,10 +45,10 @@ public class Actor : MonoBehaviour
                 {
                     allActions.AddRange(trait.GetActions());
                 }
+
                 sentient.TakeAction(allActions);
             }
         }
-
     }
 
     public T GetTrait<T>() where T : Trait
@@ -65,7 +57,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // should only ever have one trait of a type so return the first value
-            return (T)TraitCache[type];
+            return (T) TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();

@@ -16,9 +16,10 @@ public class HexClaimer : Trait
     {
         ControlledCells.Add(cell);
         cell.Owner = Owner;
+
         // get average of cell color and owner color
         // cell.ColorCell((Owner.Color + cell.Color)/2);
-        cell.ColorCell(Owner.Color);
+        cell.ColorCell(Owner.GetTrait<FactionMember>().Faction.Color);
         UpdateBorder();
     }
 
@@ -102,8 +103,9 @@ public class HexClaimer : Trait
         _border = new GameObject("border " + Owner.name);
         _border.transform.SetParent(SystemController.Instance.GridCanvas.transform);
 
-        var width = 2.0f;
-        var borderOffset = 1.1f;
+        const float width = 2.0f;
+        const float borderOffset = 1.1f;
+
         var points = new List<KeyValuePair<Vector3, Vector3>>();
         foreach (var cell in ControlledCells)
         {
@@ -132,7 +134,7 @@ public class HexClaimer : Trait
         _border.transform.SetParent(_border.transform);
 
         var material = ControlledCells[0].GetComponent<MeshRenderer>().material;
-        material.color = Owner.Color;
+        material.color = Owner.GetTrait<FactionMember>().Faction.Color;
 
         foreach (var point in points)
         {
@@ -156,18 +158,12 @@ public class HexClaimer : Trait
     public override List<ActorAction> GetActions()
     {
         var sentience = Owner.GetTrait<Sentient>();
-
-        // if hexclaimer is not itself sentient, assume its controller is
-        if (sentience == null)
-        {
-            sentience = Owner.GetTrait<Controlled>().Controller.Owner.GetTrait<Sentient>();
-        }
-
         if (sentience == null)
         {
             // no brain, no action
             return new List<ActorAction>();
         }
+
         var actions = new List<ActorAction>();
 
 
