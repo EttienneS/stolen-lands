@@ -44,4 +44,13 @@ public class Faction : MonoBehaviour
     {
         Members.Add(person.AddTrait(new FactionMember(person, this)));
     }
+
+    public void TakeTurn()
+    {
+        Leader.TakeTurn();
+        foreach (var member in Members)
+        {
+            member.Owner.TakeTurn();
+        }
+    }
 }
