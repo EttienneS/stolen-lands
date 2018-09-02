@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
 using UnityEngine.UI;
 
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
@@ -10,24 +9,21 @@ public class HexCell : MonoBehaviour
 
     private List<Color> colors;
     public HexCoordinates coordinates;
+
+    private int distance;
     public int Height = 0;
     private Mesh hexMesh;
     private MeshCollider meshCollider;
 
     [SerializeField] public HexCell[] neighbors;
+
+    public int TravelCost = 0;
     private List<int> triangles;
     private List<Vector3> vertices;
 
-    private int distance;
-
-    public int TravelCost = 0;
-
     public int Distance
     {
-        get
-        {
-            return distance;
-        }
+        get { return distance; }
         set
         {
             distance = value;
@@ -40,13 +36,13 @@ public class HexCell : MonoBehaviour
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int)direction];
+        return neighbors[(int) direction];
     }
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int)direction] = cell;
-        cell.neighbors[(int)direction.Opposite()] = this;
+        neighbors[(int) direction] = cell;
+        cell.neighbors[(int) direction.Opposite()] = this;
     }
 
     private void Awake()
@@ -104,8 +100,21 @@ public class HexCell : MonoBehaviour
         Triangulate();
     }
 
-    void UpdateDistanceLabel()
+    private void UpdateDistanceLabel()
     {
         Label.text = distance == int.MaxValue ? "" : distance.ToString();
+    }
+
+    public void DisableHighlight()
+    {
+        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.enabled = false;
+    }
+
+
+    public void EnableHighlight()
+    {
+        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.enabled = true;
     }
 }
