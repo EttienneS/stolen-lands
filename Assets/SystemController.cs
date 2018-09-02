@@ -44,10 +44,12 @@ public class SystemController : MonoBehaviour
             {
                 // remove border
                 // SelectedCell.DrawBorder(Color.clear, 0);
+                SelectedCell.DisableHighlight();
                 SelectedCell = null;
             }
 
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
+            SelectedCell.EnableHighlight();
             //SelectedCell.DrawBorder(Color.black);
 
             //if (SelectedCell.Owner == null)

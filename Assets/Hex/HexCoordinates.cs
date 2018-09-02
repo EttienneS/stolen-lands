@@ -18,6 +18,11 @@ public struct HexCoordinates
         get { return y; }
     }
 
+    public int Z
+    {
+        get { return -X - Y; }
+    }
+
     public HexCoordinates(int x, int y)
     {
         this.x = x;
@@ -70,4 +75,12 @@ public struct HexCoordinates
     {
         return X + "\n" + Y;
     }
+
+    public int DistanceTo(HexCoordinates other)
+    {
+      return  ((x < other.x ? other.x - x : x - other.x) +
+         (Y < other.Y ? other.Y - Y : Y - other.Y) +
+         (Z < other.Z ? other.Z - Z : Z - other.Z)) / 2;
+    }
+
 }

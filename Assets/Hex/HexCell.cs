@@ -9,15 +9,30 @@ public class HexCell : MonoBehaviour
 
     private List<Color> colors;
     public HexCoordinates coordinates;
+
+    private int distance;
     public int Height = 0;
     private Mesh hexMesh;
     private MeshCollider meshCollider;
 
     [SerializeField] public HexCell[] neighbors;
+
+    public int TravelCost = 0;
     private List<int> triangles;
     private List<Vector3> vertices;
 
+    public int Distance
+    {
+        get { return distance; }
+        set
+        {
+            distance = value;
+            UpdateDistanceLabel();
+        }
+    }
+
     public Actor Owner { get; set; }
+    public Text Label { get; set; }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -83,5 +98,23 @@ public class HexCell : MonoBehaviour
     {
         Color = color;
         Triangulate();
+    }
+
+    private void UpdateDistanceLabel()
+    {
+        Label.text = distance == int.MaxValue ? "" : distance.ToString();
+    }
+
+    public void DisableHighlight()
+    {
+        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.enabled = false;
+    }
+
+
+    public void EnableHighlight()
+    {
+        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.enabled = true;
     }
 }

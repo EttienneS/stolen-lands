@@ -956,11 +956,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8196f5ad3867154083203080f805d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ActionDisplayPrefab: {fileID: 114473800643985250, guid: f43e6f3f3c2a6d545886801c766c1f40,
+    type: 2}
   cellLabelPrefab: {fileID: 114632725630112832, guid: 17f157a9b6b74e34cb242c61a0e971dc,
     type: 2}
   cellPrefab: {fileID: 114824413764255646, guid: 1d17b824720ea3240a26182d890e9f9b,
-    type: 2}
-  ActionDisplayPrefab: {fileID: 114473800643985250, guid: f43e6f3f3c2a6d545886801c766c1f40,
     type: 2}
   Height: 100
   Masses: 200
@@ -1113,7 +1113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1257,8 +1257,7 @@ MonoBehaviour:
   ActorPanelContainer: {fileID: 1976077550939868}
   ActorPanelPrefab: {fileID: 114851321275246304, guid: c9cc2088bc1b1c74d81c9edf66b8af6d,
     type: 2}
-  maxPersons: 50
-  personsPerFaction: 5
+  InitialFactions: 50
 --- !u!114 &114756834174762474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1951,8 +1950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 99, y: 25}
-  m_SizeDelta: {x: 199.90002, y: 50}
+  m_AnchoredPosition: {x: 25, y: 25}
+  m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224997043695703618
 RectTransform:
