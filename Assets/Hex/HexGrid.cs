@@ -7,6 +7,7 @@ public class HexGrid : MonoBehaviour
 {
     public ActionDisplay ActionDisplayPrefab;
     public HexCell cellPrefab;
+
     [Range(1, 250)] public int Height = 2;
     [Range(1, 1000)] public int Masses = 50;
     [Range(1, 500)] public int MaxMassSize = 100;
@@ -33,15 +34,6 @@ public class HexGrid : MonoBehaviour
 
             return _instance;
         }
-    }
-
-    public void AddActorToCanvas(Actor actor, HexCell cell)
-    {
-        var display = ActorController.Instance.GetDisplayForActor(actor);
-        display.transform.localScale = new Vector3(0.05f, 0.05f, 1f);
-        display.transform.localPosition =
-            new Vector3(cell.transform.localPosition.x, cell.transform.localPosition.y, -1f);
-        display.transform.SetParent(SystemController.Instance.GridCanvas.transform);
     }
 
     public void AddPlayerActionToCanvas(Player player, HexCell cell, ActorAction action)
@@ -161,10 +153,8 @@ public class HexGrid : MonoBehaviour
                 cell = GetRandomCell();
             }
 
-            faction.Leader.Location = cell;
+            faction.Leader.Move(cell);
             faction.Leader.TakeTurn();
-
-            AddActorToCanvas(faction.Leader, cell);
         }
     }
 

@@ -270,66 +270,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: Height
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: Width
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: Masses
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: MaxMassSize
-      value: 30
-      objectReference: {fileID: 0}
-    - target: {fileID: 224114622716310900, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 224114622716310900, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114474207399563982, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114810507896149958, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_Value
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224879743553587034, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_AnchorMax.x
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 224822680355179594, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: m_AnchorMax.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: MinMassSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 114754830705209644, guid: 7d046710cc135d3448effed977db2354,
-        type: 2}
-      propertyPath: InitialFactions
-      value: 5
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d046710cc135d3448effed977db2354, type: 2}
   m_IsPrefabAsset: 0

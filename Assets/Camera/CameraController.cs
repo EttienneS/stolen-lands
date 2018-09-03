@@ -14,8 +14,6 @@ public class CameraController : MonoBehaviour
 
     private float _startTime;
 
-    private Camera Camera;
-
 
     [Range(1, 20)] public int Speed = 5;
 
@@ -50,7 +48,6 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
-        Camera = GetComponent<Camera>();
     }
 
     private void Update()
