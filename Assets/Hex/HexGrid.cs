@@ -12,8 +12,6 @@ public class HexGrid : MonoBehaviour
 
     public ActionDisplay ActionDisplayPrefab;
 
-    public Text cellLabelPrefab;
-
     public HexCell cellPrefab;
 
     private HexCell[] cells;
@@ -25,6 +23,8 @@ public class HexGrid : MonoBehaviour
     [Range(1, 500)] public int MaxMassSize = 100;
 
     [Range(1, 500)] public int MinMassSize = 50;
+
+    private HexCellPriorityQueue searchFrontier;
 
     [Range(1, 250)] public int Width = 2;
 
@@ -114,8 +114,6 @@ public class HexGrid : MonoBehaviour
 
             AddActorToCanvas(faction.Leader, cell);
         }
-
-        FindDistancesTo(ActorController.Instance.Player.Location);
     }
 
     private void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
@@ -255,6 +253,11 @@ public class HexGrid : MonoBehaviour
 
         cell.ColorCell(new Color(0f, 0f, Random.Range(0.8f, 1.0f)));
 
+        AddLabelToCell(cell);
+    }
+
+    private static void AddLabelToCell(HexCell cell)
+    {
         var label = new GameObject(cell.coordinates.ToString());
         label.transform.SetParent(SystemController.Instance.GridCanvas.transform);
         label.transform.position = cell.transform.position;
@@ -264,7 +267,6 @@ public class HexGrid : MonoBehaviour
         text.material = text.font.material;
         text.fontSize = 4;
         text.fontStyle = FontStyle.Bold;
-        text.text = cell.Distance.ToString();
         text.alignment = TextAnchor.MiddleCenter;
 
         var rect = label.GetComponent<RectTransform>();
@@ -284,30 +286,55 @@ public class HexGrid : MonoBehaviour
         return cell;
     }
 
-    public void FindDistancesTo(HexCell cell)
+    public void FindPath(HexCell fromCell, HexCell toCell)
     {
         StopAllCoroutines();
-        StartCoroutine(Search(cell));
+        StartCoroutine(Search(fromCell, toCell));
     }
 
-    private IEnumerator Search(HexCell cell)
+
+    private IEnumerator Search(HexCell fromCell, HexCell toCell)
     {
-        for (var i = 0; i < cells.Length; i++)
+        if (searchFrontier == null)
         {
-            cells[i].Distance = int.MaxValue;
+            searchFrontier = new HexCellPriorityQueue();
+        }
+        else
+        {
+            searchFrontier.Clear();
         }
 
+        foreach (var cell in cells)
+        {
+            cell.Distance = int.MaxValue;
+            cell.DisableHighlight();
+        }
+
+        fromCell.EnableHighlight(Color.blue);
+        toCell.EnableHighlight(Color.red);
+
+        // for debug to see search going
         var delay = new WaitForSeconds(1 / 60f);
 
-        var frontier = new List<HexCell>();
-        cell.Distance = 0;
-        frontier.Add(cell);
+        fromCell.Distance = 0;
+        searchFrontier.Enqueue(fromCell);
 
-        while (frontier.Count > 0)
+        while (searchFrontier.Count > 0)
         {
             yield return delay;
-            var current = frontier[0];
-            frontier.RemoveAt(0);
+            var current = searchFrontier.Dequeue();
+
+            if (current == toCell)
+            {
+                current = current.PathFrom;
+                while (current != fromCell)
+                {
+                    current.EnableHighlight(Color.white);
+                    current = current.PathFrom;
+                }
+
+                break;
+            }
 
             for (var d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
@@ -326,14 +353,17 @@ public class HexGrid : MonoBehaviour
                 if (neighbor.Distance == int.MaxValue)
                 {
                     neighbor.Distance = distance;
-                    frontier.Add(neighbor);
+                    neighbor.PathFrom = current;
+                    neighbor.SearchHeuristic = neighbor.coordinates.DistanceTo(toCell.coordinates);
+                    searchFrontier.Enqueue(neighbor);
                 }
                 else if (distance < neighbor.Distance)
                 {
+                    var oldPriority = neighbor.SearchPriority;
                     neighbor.Distance = distance;
+                    neighbor.PathFrom = current;
+                    searchFrontier.Change(neighbor, oldPriority);
                 }
-
-                frontier.Sort((x, y) => x.Distance.CompareTo(y.Distance));
             }
         }
     }

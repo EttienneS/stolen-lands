@@ -21,6 +21,19 @@ public class HexCell : MonoBehaviour
     private List<int> triangles;
     private List<Vector3> vertices;
 
+    public HexCell PathFrom { get; set; }
+    public int SearchHeuristic { get; set; }
+
+    public HexCell NextWithSamePriority { get; set; }
+
+    public int SearchPriority
+    {
+        get
+        {
+            return distance + SearchHeuristic;
+        }
+    }
+
     public int Distance
     {
         get { return distance; }
@@ -112,9 +125,10 @@ public class HexCell : MonoBehaviour
     }
 
 
-    public void EnableHighlight()
+    public void EnableHighlight(Color color )
     {
         var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.color = color;
         highlight.enabled = true;
     }
 }

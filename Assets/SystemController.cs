@@ -45,7 +45,9 @@ public class SystemController : MonoBehaviour
             }
 
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
-            SelectedCell.EnableHighlight();
+            SelectedCell.EnableHighlight(Color.blue);
+
+            HexGrid.Instance.FindPath(ActorController.Instance.Player.Location, SelectedCell);
         }
         else
         {
