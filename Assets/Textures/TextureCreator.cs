@@ -144,15 +144,15 @@ public class TextureHelper
             texture.Resize(resolution, resolution);
         }
 
-        float stepSize = 1f / resolution;
-        for (int y = 0; y < resolution; y++)
+        var stepSize = 1f / resolution;
+        for (var y = 0; y < resolution; y++)
         {
-            Vector3 point0 = Vector3.Lerp(point00, point01, (y + 0.5f) * stepSize);
-            Vector3 point1 = Vector3.Lerp(point10, point11, (y + 0.5f) * stepSize);
-            for (int x = 0; x < resolution; x++)
+            var point0 = Vector3.Lerp(point00, point01, (y + 0.5f) * stepSize);
+            var point1 = Vector3.Lerp(point10, point11, (y + 0.5f) * stepSize);
+            for (var x = 0; x < resolution; x++)
             {
-                Vector3 point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
-                float sample = Noise.Sum(Noise.methods[(int) type][dimensions - 1], point, frequency, octaves,
+                var point = Vector3.Lerp(point0, point1, (x + 0.5f) * stepSize);
+                var sample = Noise.Sum(Noise.methods[(int) type][dimensions - 1], point, frequency, octaves,
                     lacunarity, persistence);
                 if (type != NoiseMethodType.Value)
                 {

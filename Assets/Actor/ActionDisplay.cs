@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,7 +16,7 @@ public class ActionDisplay : MonoBehaviour
     {
         if (Actions.Count == 1)
         {
-            transform.Find("Text").GetComponent<Text>().text = Actions[0].ActionName; 
+            transform.Find("Text").GetComponent<Text>().text = Actions[0].ActionName;
         }
         else
         {
@@ -28,8 +27,8 @@ public class ActionDisplay : MonoBehaviour
     public void OnClick()
     {
         var executedAction = Actions[0];
-        executedAction.ActAction(executedAction.ActorContext, new List<HexCell> { Context });
-        
+        executedAction.ActAction(executedAction.ActorContext, new List<HexCell> {Context});
+
         if (RefreshPlayerAction != null)
         {
             RefreshPlayerAction(executedAction);

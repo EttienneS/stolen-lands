@@ -21,13 +21,27 @@ public class HexCell : MonoBehaviour
     private List<int> triangles;
     private List<Vector3> vertices;
 
+    public HexCell PathFrom { get; set; }
+    public int SearchHeuristic { get; set; }
+
+    public HexCell NextWithSamePriority { get; set; }
+
+    public int SearchPhase { get; set; }
+
+    public int SearchPriority
+    {
+        get
+        {
+            return distance + SearchHeuristic;
+        }
+    }
+
     public int Distance
     {
         get { return distance; }
         set
         {
             distance = value;
-            UpdateDistanceLabel();
         }
     }
 
@@ -63,7 +77,7 @@ public class HexCell : MonoBehaviour
         triangles.Clear();
 
         var center = new Vector2(0, 0);
-        for (int i = 0; i < 6; i++)
+        for (var i = 0; i < 6; i++)
         {
             AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
             AddTriangleColor(Color);
@@ -78,7 +92,7 @@ public class HexCell : MonoBehaviour
 
     private void AddTriangle(Vector2 v1, Vector2 v2, Vector2 v3)
     {
-        int vertexIndex = vertices.Count;
+        var vertexIndex = vertices.Count;
         vertices.Add(v1);
         vertices.Add(v2);
         vertices.Add(v3);
@@ -100,21 +114,22 @@ public class HexCell : MonoBehaviour
         Triangulate();
     }
 
-    private void UpdateDistanceLabel()
+    private void SetLabel(string message)
     {
-        Label.text = distance == int.MaxValue ? "" : distance.ToString();
+        Label.text = message;
     }
 
     public void DisableHighlight()
     {
-        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
         highlight.enabled = false;
     }
 
 
-    public void EnableHighlight()
+    public void EnableHighlight(Color color )
     {
-        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        highlight.color = color;
         highlight.enabled = true;
     }
 }

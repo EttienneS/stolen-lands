@@ -8,6 +8,9 @@ public class ActorController : MonoBehaviour
     private readonly List<Actor> _actors = new List<Actor>();
     private readonly List<Faction> _factions = new List<Faction>();
 
+
+    private bool _init;
+
     public ActorPanel ActivePanel;
 
     public ActorDisplay ActorDisplayPrefab;
@@ -15,9 +18,6 @@ public class ActorController : MonoBehaviour
     public GameObject ActorPanelContainer;
 
     public ActorPanel ActorPanelPrefab;
-
-
-    private bool _init;
 
     [Range(1, 200)] public int InitialFactions = 50;
 
