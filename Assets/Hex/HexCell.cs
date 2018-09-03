@@ -26,6 +26,8 @@ public class HexCell : MonoBehaviour
 
     public HexCell NextWithSamePriority { get; set; }
 
+    public int SearchPhase { get; set; }
+
     public int SearchPriority
     {
         get
@@ -40,7 +42,6 @@ public class HexCell : MonoBehaviour
         set
         {
             distance = value;
-            UpdateDistanceLabel();
         }
     }
 
@@ -113,9 +114,9 @@ public class HexCell : MonoBehaviour
         Triangulate();
     }
 
-    private void UpdateDistanceLabel()
+    private void SetLabel(string message)
     {
-        Label.text = distance == int.MaxValue ? "" : distance.ToString();
+        Label.text = message;
     }
 
     public void DisableHighlight()
