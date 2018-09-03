@@ -9,9 +9,11 @@ public class ActorController : MonoBehaviour
     private readonly List<Faction> _factions = new List<Faction>();
 
 
+    public Actor ActorPrefab;
+
     private bool _init;
 
-    public ActorPanel ActivePanel;
+    private ActorPanel ActivePanel;
 
     public ActorDisplay ActorDisplayPrefab;
 
@@ -66,7 +68,7 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
-        Player = GetPerson();
+        Player = GetActor();
         Player.Traits.Remove(Player.GetTrait<Sentient>());
         Player.Traits.Add(new Player(Player));
         PlayerFaction = GetFaction(Player);
@@ -74,31 +76,24 @@ public class ActorController : MonoBehaviour
 
         for (var i = 0; i < InitialFactions; i++)
         {
-            GetFaction(GetPerson());
+            GetFaction(GetActor());
         }
     }
 
-    private Person GetPerson()
+    private Actor GetActor()
     {
-        var personName = ActorHelper.GetRandomName();
-        var personGameObject = new GameObject(personName);
-        personGameObject.transform.parent = transform;
-
-        var person = personGameObject.AddComponent(typeof(Person)) as Person;
-        var sentient = new Sentient(person)
+        var actor = Instantiate(ActorPrefab, transform);
+        actor.name = ActorHelper.GetRandomName();
+        actor.AddTrait(new Sentient(actor)
         {
             Physical = Random.Range(20, 80),
             Cunning = Random.Range(20, 80),
             Mental = Random.Range(20, 80),
             Charisma = Random.Range(20, 80)
-        };
+        });
+        Actors.Add(actor);
 
-        person.AddTrait(sentient);
-        person.Instantiate(personName);
-
-        Actors.Add(person);
-
-        return person;
+        return actor;
     }
 
     private Faction GetFaction(Actor leader)

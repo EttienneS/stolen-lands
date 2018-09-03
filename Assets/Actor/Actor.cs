@@ -6,20 +6,43 @@ using UnityEngine;
 public class Actor : MonoBehaviour
 {
     private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
-    public HexCell Location;
 
-    public Sprite Sprite;
+    private MeshRenderer _meshRenderer;
+    public HexCell Location;
 
     public List<Trait> Traits = new List<Trait>();
 
-    public void Instantiate(string name)
-    {
-        this.name = name;
+    public Sprite Sprite { get; set; }
 
-        // resolution of sprite
+    private MeshRenderer MeshRenderer
+    {
+        get
+        {
+            if (_meshRenderer == null)
+            {
+                _meshRenderer = GetComponent<MeshRenderer>();
+            }
+
+            return _meshRenderer;
+        }
+    }
+
+    public void Move(HexCell location)
+    {
+        Location = location;
+        transform.position = new Vector3(location.transform.position.x, location.transform.position.y, transform.position.z);
+    }
+
+    public void Start()
+    {
+        var resolution = 16;
+
         var res = 16;
-        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor()),
-            new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
+
+        var texture = TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor());
+        Sprite = Sprite.Create(texture, new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
+
+        MeshRenderer.material.mainTexture = texture;
     }
 
     public void TakeTurn()
@@ -57,7 +80,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // should only ever have one trait of a type so return the first value
-            return (T) TraitCache[type];
+            return (T)TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();
