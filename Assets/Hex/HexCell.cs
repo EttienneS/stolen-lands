@@ -63,7 +63,7 @@ public class HexCell : MonoBehaviour
         triangles.Clear();
 
         var center = new Vector2(0, 0);
-        for (int i = 0; i < 6; i++)
+        for (var i = 0; i < 6; i++)
         {
             AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
             AddTriangleColor(Color);
@@ -78,7 +78,7 @@ public class HexCell : MonoBehaviour
 
     private void AddTriangle(Vector2 v1, Vector2 v2, Vector2 v3)
     {
-        int vertexIndex = vertices.Count;
+        var vertexIndex = vertices.Count;
         vertices.Add(v1);
         vertices.Add(v2);
         vertices.Add(v3);
@@ -107,14 +107,14 @@ public class HexCell : MonoBehaviour
 
     public void DisableHighlight()
     {
-        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
         highlight.enabled = false;
     }
 
 
     public void EnableHighlight()
     {
-        SpriteRenderer highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
         highlight.enabled = true;
     }
 }

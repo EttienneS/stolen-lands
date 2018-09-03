@@ -11,6 +11,10 @@ public class Sentient : Trait
     public int Morality;
     public int Physical;
 
+    public Sentient(Actor owner) : base(owner)
+    {
+    }
+
     public virtual int ActionsAvailable
     {
         get
@@ -20,10 +24,6 @@ public class Sentient : Trait
 
             return actionsAvailable;
         }
-    }
-
-    public Sentient(Actor owner) : base(owner)
-    {
     }
 
 

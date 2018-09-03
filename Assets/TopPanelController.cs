@@ -1,19 +1,17 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class TopPanelController : MonoBehaviour
 {
+    private static TopPanelController _instance;
     private Player _player;
 
-    private static TopPanelController _instance;
+    public string Gold = string.Empty;
+
     public static TopPanelController Instance
     {
         get
         {
-
             if (_instance == null)
             {
                 _instance = GameObject.Find("TopPanel").GetComponent<TopPanelController>();
@@ -23,9 +21,7 @@ public class TopPanelController : MonoBehaviour
         }
     }
 
-    public string Gold = String.Empty;
-
-    void Update()
+    private void Update()
     {
         if (_player == null)
         {
@@ -34,8 +30,8 @@ public class TopPanelController : MonoBehaviour
 
         if (_player != null)
         {
-
-            transform.Find("Available Actions").GetComponent<Text>().text = "Available Actions: " + _player.ActionsAvailable.ToString();
+            transform.Find("Available Actions").GetComponent<Text>().text =
+                "Available Actions: " + _player.ActionsAvailable;
             transform.Find("Gold").GetComponent<Text>().text = "Gold: " + Gold;
         }
     }

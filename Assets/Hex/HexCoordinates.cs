@@ -31,22 +31,22 @@ public struct HexCoordinates
 
     public static HexCoordinates FromPosition(Vector3 position)
     {
-        float x = position.x / (HexMetrics.innerRadius * 2f);
-        float z = -x;
+        var x = position.x / (HexMetrics.innerRadius * 2f);
+        var z = -x;
 
-        float offset = position.y / (HexMetrics.outerRadius * 3f);
+        var offset = position.y / (HexMetrics.outerRadius * 3f);
         x -= offset;
         z -= offset;
 
-        int iX = Mathf.RoundToInt(x);
-        int iZ = Mathf.RoundToInt(z);
-        int iY = Mathf.RoundToInt(-x - z);
+        var iX = Mathf.RoundToInt(x);
+        var iZ = Mathf.RoundToInt(z);
+        var iY = Mathf.RoundToInt(-x - z);
 
         if (iX + iZ + iY != 0)
         {
-            float dX = Mathf.Abs(x - iX);
-            float dZ = Mathf.Abs(z - iZ);
-            float dY = Mathf.Abs(-x - z - iY);
+            var dX = Mathf.Abs(x - iX);
+            var dZ = Mathf.Abs(z - iZ);
+            var dY = Mathf.Abs(-x - z - iY);
 
             if (dX > dZ && dX > dY)
             {
@@ -78,9 +78,8 @@ public struct HexCoordinates
 
     public int DistanceTo(HexCoordinates other)
     {
-      return  ((x < other.x ? other.x - x : x - other.x) +
-         (Y < other.Y ? other.Y - Y : Y - other.Y) +
-         (Z < other.Z ? other.Z - Z : Z - other.Z)) / 2;
+        return ((x < other.x ? other.x - x : x - other.x) +
+                (Y < other.Y ? other.Y - Y : Y - other.Y) +
+                (Z < other.Z ? other.Z - Z : Z - other.Z)) / 2;
     }
-
 }

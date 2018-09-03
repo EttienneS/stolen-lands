@@ -133,13 +133,13 @@ public static class Noise
     public static float Value1D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int i0 = Mathf.FloorToInt(point.x);
-        float t = point.x - i0;
+        var i0 = Mathf.FloorToInt(point.x);
+        var t = point.x - i0;
         i0 &= hashMask;
-        int i1 = i0 + 1;
+        var i1 = i0 + 1;
 
-        int h0 = hash[i0];
-        int h1 = hash[i1];
+        var h0 = hash[i0];
+        var h1 = hash[i1];
 
         t = Smooth(t);
         return Mathf.Lerp(h0, h1, t) * (1f / hashMask);
@@ -148,21 +148,21 @@ public static class Noise
     public static float Value2D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int ix0 = Mathf.FloorToInt(point.x);
-        int iy0 = Mathf.FloorToInt(point.y);
-        float tx = point.x - ix0;
-        float ty = point.y - iy0;
+        var ix0 = Mathf.FloorToInt(point.x);
+        var iy0 = Mathf.FloorToInt(point.y);
+        var tx = point.x - ix0;
+        var ty = point.y - iy0;
         ix0 &= hashMask;
         iy0 &= hashMask;
-        int ix1 = ix0 + 1;
-        int iy1 = iy0 + 1;
+        var ix1 = ix0 + 1;
+        var iy1 = iy0 + 1;
 
-        int h0 = hash[ix0];
-        int h1 = hash[ix1];
-        int h00 = hash[h0 + iy0];
-        int h10 = hash[h1 + iy0];
-        int h01 = hash[h0 + iy1];
-        int h11 = hash[h1 + iy1];
+        var h0 = hash[ix0];
+        var h1 = hash[ix1];
+        var h00 = hash[h0 + iy0];
+        var h10 = hash[h1 + iy0];
+        var h01 = hash[h0 + iy1];
+        var h11 = hash[h1 + iy1];
 
         tx = Smooth(tx);
         ty = Smooth(ty);
@@ -175,33 +175,33 @@ public static class Noise
     public static float Value3D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int ix0 = Mathf.FloorToInt(point.x);
-        int iy0 = Mathf.FloorToInt(point.y);
-        int iz0 = Mathf.FloorToInt(point.z);
-        float tx = point.x - ix0;
-        float ty = point.y - iy0;
-        float tz = point.z - iz0;
+        var ix0 = Mathf.FloorToInt(point.x);
+        var iy0 = Mathf.FloorToInt(point.y);
+        var iz0 = Mathf.FloorToInt(point.z);
+        var tx = point.x - ix0;
+        var ty = point.y - iy0;
+        var tz = point.z - iz0;
         ix0 &= hashMask;
         iy0 &= hashMask;
         iz0 &= hashMask;
-        int ix1 = ix0 + 1;
-        int iy1 = iy0 + 1;
-        int iz1 = iz0 + 1;
+        var ix1 = ix0 + 1;
+        var iy1 = iy0 + 1;
+        var iz1 = iz0 + 1;
 
-        int h0 = hash[ix0];
-        int h1 = hash[ix1];
-        int h00 = hash[h0 + iy0];
-        int h10 = hash[h1 + iy0];
-        int h01 = hash[h0 + iy1];
-        int h11 = hash[h1 + iy1];
-        int h000 = hash[h00 + iz0];
-        int h100 = hash[h10 + iz0];
-        int h010 = hash[h01 + iz0];
-        int h110 = hash[h11 + iz0];
-        int h001 = hash[h00 + iz1];
-        int h101 = hash[h10 + iz1];
-        int h011 = hash[h01 + iz1];
-        int h111 = hash[h11 + iz1];
+        var h0 = hash[ix0];
+        var h1 = hash[ix1];
+        var h00 = hash[h0 + iy0];
+        var h10 = hash[h1 + iy0];
+        var h01 = hash[h0 + iy1];
+        var h11 = hash[h1 + iy1];
+        var h000 = hash[h00 + iz0];
+        var h100 = hash[h10 + iz0];
+        var h010 = hash[h01 + iz0];
+        var h110 = hash[h11 + iz0];
+        var h001 = hash[h00 + iz1];
+        var h101 = hash[h10 + iz1];
+        var h011 = hash[h01 + iz1];
+        var h111 = hash[h11 + iz1];
 
         tx = Smooth(tx);
         ty = Smooth(ty);
@@ -215,50 +215,50 @@ public static class Noise
     public static float Perlin1D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int i0 = Mathf.FloorToInt(point.x);
-        float t0 = point.x - i0;
-        float t1 = t0 - 1f;
+        var i0 = Mathf.FloorToInt(point.x);
+        var t0 = point.x - i0;
+        var t1 = t0 - 1f;
         i0 &= hashMask;
-        int i1 = i0 + 1;
+        var i1 = i0 + 1;
 
-        float g0 = gradients1D[hash[i0] & gradientsMask1D];
-        float g1 = gradients1D[hash[i1] & gradientsMask1D];
+        var g0 = gradients1D[hash[i0] & gradientsMask1D];
+        var g1 = gradients1D[hash[i1] & gradientsMask1D];
 
-        float v0 = g0 * t0;
-        float v1 = g1 * t1;
+        var v0 = g0 * t0;
+        var v1 = g1 * t1;
 
-        float t = Smooth(t0);
+        var t = Smooth(t0);
         return Mathf.Lerp(v0, v1, t) * 2f;
     }
 
     public static float Perlin2D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int ix0 = Mathf.FloorToInt(point.x);
-        int iy0 = Mathf.FloorToInt(point.y);
-        float tx0 = point.x - ix0;
-        float ty0 = point.y - iy0;
-        float tx1 = tx0 - 1f;
-        float ty1 = ty0 - 1f;
+        var ix0 = Mathf.FloorToInt(point.x);
+        var iy0 = Mathf.FloorToInt(point.y);
+        var tx0 = point.x - ix0;
+        var ty0 = point.y - iy0;
+        var tx1 = tx0 - 1f;
+        var ty1 = ty0 - 1f;
         ix0 &= hashMask;
         iy0 &= hashMask;
-        int ix1 = ix0 + 1;
-        int iy1 = iy0 + 1;
+        var ix1 = ix0 + 1;
+        var iy1 = iy0 + 1;
 
-        int h0 = hash[ix0];
-        int h1 = hash[ix1];
-        Vector2 g00 = gradients2D[hash[h0 + iy0] & gradientsMask2D];
-        Vector2 g10 = gradients2D[hash[h1 + iy0] & gradientsMask2D];
-        Vector2 g01 = gradients2D[hash[h0 + iy1] & gradientsMask2D];
-        Vector2 g11 = gradients2D[hash[h1 + iy1] & gradientsMask2D];
+        var h0 = hash[ix0];
+        var h1 = hash[ix1];
+        var g00 = gradients2D[hash[h0 + iy0] & gradientsMask2D];
+        var g10 = gradients2D[hash[h1 + iy0] & gradientsMask2D];
+        var g01 = gradients2D[hash[h0 + iy1] & gradientsMask2D];
+        var g11 = gradients2D[hash[h1 + iy1] & gradientsMask2D];
 
-        float v00 = Dot(g00, tx0, ty0);
-        float v10 = Dot(g10, tx1, ty0);
-        float v01 = Dot(g01, tx0, ty1);
-        float v11 = Dot(g11, tx1, ty1);
+        var v00 = Dot(g00, tx0, ty0);
+        var v10 = Dot(g10, tx1, ty0);
+        var v01 = Dot(g01, tx0, ty1);
+        var v11 = Dot(g11, tx1, ty1);
 
-        float tx = Smooth(tx0);
-        float ty = Smooth(ty0);
+        var tx = Smooth(tx0);
+        var ty = Smooth(ty0);
         return Mathf.Lerp(
                    Mathf.Lerp(v00, v10, tx),
                    Mathf.Lerp(v01, v11, tx),
@@ -268,49 +268,49 @@ public static class Noise
     public static float Perlin3D(Vector3 point, float frequency)
     {
         point *= frequency;
-        int ix0 = Mathf.FloorToInt(point.x);
-        int iy0 = Mathf.FloorToInt(point.y);
-        int iz0 = Mathf.FloorToInt(point.z);
-        float tx0 = point.x - ix0;
-        float ty0 = point.y - iy0;
-        float tz0 = point.z - iz0;
-        float tx1 = tx0 - 1f;
-        float ty1 = ty0 - 1f;
-        float tz1 = tz0 - 1f;
+        var ix0 = Mathf.FloorToInt(point.x);
+        var iy0 = Mathf.FloorToInt(point.y);
+        var iz0 = Mathf.FloorToInt(point.z);
+        var tx0 = point.x - ix0;
+        var ty0 = point.y - iy0;
+        var tz0 = point.z - iz0;
+        var tx1 = tx0 - 1f;
+        var ty1 = ty0 - 1f;
+        var tz1 = tz0 - 1f;
         ix0 &= hashMask;
         iy0 &= hashMask;
         iz0 &= hashMask;
-        int ix1 = ix0 + 1;
-        int iy1 = iy0 + 1;
-        int iz1 = iz0 + 1;
+        var ix1 = ix0 + 1;
+        var iy1 = iy0 + 1;
+        var iz1 = iz0 + 1;
 
-        int h0 = hash[ix0];
-        int h1 = hash[ix1];
-        int h00 = hash[h0 + iy0];
-        int h10 = hash[h1 + iy0];
-        int h01 = hash[h0 + iy1];
-        int h11 = hash[h1 + iy1];
-        Vector3 g000 = gradients3D[hash[h00 + iz0] & gradientsMask3D];
-        Vector3 g100 = gradients3D[hash[h10 + iz0] & gradientsMask3D];
-        Vector3 g010 = gradients3D[hash[h01 + iz0] & gradientsMask3D];
-        Vector3 g110 = gradients3D[hash[h11 + iz0] & gradientsMask3D];
-        Vector3 g001 = gradients3D[hash[h00 + iz1] & gradientsMask3D];
-        Vector3 g101 = gradients3D[hash[h10 + iz1] & gradientsMask3D];
-        Vector3 g011 = gradients3D[hash[h01 + iz1] & gradientsMask3D];
-        Vector3 g111 = gradients3D[hash[h11 + iz1] & gradientsMask3D];
+        var h0 = hash[ix0];
+        var h1 = hash[ix1];
+        var h00 = hash[h0 + iy0];
+        var h10 = hash[h1 + iy0];
+        var h01 = hash[h0 + iy1];
+        var h11 = hash[h1 + iy1];
+        var g000 = gradients3D[hash[h00 + iz0] & gradientsMask3D];
+        var g100 = gradients3D[hash[h10 + iz0] & gradientsMask3D];
+        var g010 = gradients3D[hash[h01 + iz0] & gradientsMask3D];
+        var g110 = gradients3D[hash[h11 + iz0] & gradientsMask3D];
+        var g001 = gradients3D[hash[h00 + iz1] & gradientsMask3D];
+        var g101 = gradients3D[hash[h10 + iz1] & gradientsMask3D];
+        var g011 = gradients3D[hash[h01 + iz1] & gradientsMask3D];
+        var g111 = gradients3D[hash[h11 + iz1] & gradientsMask3D];
 
-        float v000 = Dot(g000, tx0, ty0, tz0);
-        float v100 = Dot(g100, tx1, ty0, tz0);
-        float v010 = Dot(g010, tx0, ty1, tz0);
-        float v110 = Dot(g110, tx1, ty1, tz0);
-        float v001 = Dot(g001, tx0, ty0, tz1);
-        float v101 = Dot(g101, tx1, ty0, tz1);
-        float v011 = Dot(g011, tx0, ty1, tz1);
-        float v111 = Dot(g111, tx1, ty1, tz1);
+        var v000 = Dot(g000, tx0, ty0, tz0);
+        var v100 = Dot(g100, tx1, ty0, tz0);
+        var v010 = Dot(g010, tx0, ty1, tz0);
+        var v110 = Dot(g110, tx1, ty1, tz0);
+        var v001 = Dot(g001, tx0, ty0, tz1);
+        var v101 = Dot(g101, tx1, ty0, tz1);
+        var v011 = Dot(g011, tx0, ty1, tz1);
+        var v111 = Dot(g111, tx1, ty1, tz1);
 
-        float tx = Smooth(tx0);
-        float ty = Smooth(ty0);
-        float tz = Smooth(tz0);
+        var tx = Smooth(tx0);
+        var ty = Smooth(ty0);
+        var tz = Smooth(tz0);
         return Mathf.Lerp(
             Mathf.Lerp(Mathf.Lerp(v000, v100, tx), Mathf.Lerp(v010, v110, tx), ty),
             Mathf.Lerp(Mathf.Lerp(v001, v101, tx), Mathf.Lerp(v011, v111, tx), ty),
@@ -320,10 +320,10 @@ public static class Noise
     public static float Sum(NoiseMethod method, Vector3 point, float frequency, int octaves, float lacunarity,
         float persistence)
     {
-        float sum = method(point, frequency);
-        float amplitude = 1f;
-        float range = 1f;
-        for (int o = 1; o < octaves; o++)
+        var sum = method(point, frequency);
+        var amplitude = 1f;
+        var range = 1f;
+        for (var o = 1; o < octaves; o++)
         {
             frequency *= lacunarity;
             amplitude *= persistence;

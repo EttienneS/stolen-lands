@@ -1,6 +1,4 @@
-﻿using System.Linq;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 
 public class TurnController : MonoBehaviour
 {
@@ -32,12 +30,12 @@ public class TurnController : MonoBehaviour
         }
 
         var playerLocation = ActorController.Instance.Player.Location.transform.position;
-        CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y, CameraController.Instance.transform.position.z);
+        CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y,
+            CameraController.Instance.transform.position.z);
     }
 
     private void Update()
     {
-       
     }
 
     public void EndCurrentTurn()
@@ -56,5 +54,4 @@ public class TurnController : MonoBehaviour
 
         ActorController.Instance.PlayerFaction.TakeTurn();
     }
-
 }

@@ -27,36 +27,25 @@ public class SystemController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
-        {
-            HandleInput();
-        }
+        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) HandleInput();
     }
 
     private void HandleInput()
     {
-        Ray inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
+        var inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
         if (Physics.Raycast(inputRay, out hit))
         {
             if (SelectedCell != null)
             {
-                // remove border
-                // SelectedCell.DrawBorder(Color.clear, 0);
+                // remove highlight
                 SelectedCell.DisableHighlight();
                 SelectedCell = null;
             }
 
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
             SelectedCell.EnableHighlight();
-            //SelectedCell.DrawBorder(Color.black);
-
-            //if (SelectedCell.Owner == null)
-            //{
-            //    InfoController.Instance.ShowInfoBox("Hex Claimed!", activeActor.Name + " claimed " + SelectedCell.coordinates);
-            //}
-            // SelectedCell.Claim(activeActor);
         }
         else
         {

@@ -3,6 +3,28 @@
 public class CameraController : MonoBehaviour
 {
     private static CameraController _instance;
+
+    private float _journeyLength;
+    private Vector3 _panDesitnation;
+
+
+    private bool _panning;
+
+    private Vector3 _panSource;
+
+    private float _startTime;
+
+    private Camera Camera;
+
+
+    [Range(1, 20)] public int Speed = 5;
+
+    [Range(50, 800)] public int ZoomMax = 500;
+
+    [Range(10, 50)] public int ZoomMin = 10;
+
+    [Range(50, 300)] public int ZoomStep = 100;
+
     public static CameraController Instance
     {
         get
@@ -15,27 +37,6 @@ public class CameraController : MonoBehaviour
             return _instance;
         }
     }
-
-
-    [Range(1, 20)] public int Speed = 5;
-
-    [Range(50, 800)] public int ZoomMax = 500;
-
-    [Range(10, 50)] public int ZoomMin = 10;
-
-    [Range(50, 300)] public int ZoomStep = 100;
-
-
-    private bool _panning;
-
-    private Vector3 _panSource;
-    private Vector3 _panDesitnation;
-
-    private float _startTime;
-
-    private float _journeyLength;
-
-    private Camera Camera;
 
     public void MoveToViewCell(HexCell cell)
     {
@@ -68,21 +69,20 @@ public class CameraController : MonoBehaviour
         }
         else
         {
-
-
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
 
             float horizontal = 0;
             float vertical = 0;
-            float z = transform.position.z;
+            var z = transform.position.z;
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
 
-            z = -1 * Mathf.Clamp(-transform.position.z - Input.GetAxis("Mouse ScrollWheel") * ZoomStep, ZoomMin, ZoomMax);
-            transform.position = new Vector3(transform.position.x + (horizontal * Speed), transform.position.y + (vertical * Speed), z);
+            z = -1 * Mathf.Clamp(-transform.position.z - Input.GetAxis("Mouse ScrollWheel") * ZoomStep, ZoomMin,
+                    ZoomMax);
+            transform.position = new Vector3(transform.position.x + horizontal * Speed,
+                transform.position.y + vertical * Speed, z);
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-
             var speed = 0.25f;
             if (Input.touchCount > 0)
             {
@@ -124,7 +124,6 @@ public class CameraController : MonoBehaviour
             }
 
 #endif //End of mobile platform dependendent compilation section started above with #elif
-
         }
     }
 }

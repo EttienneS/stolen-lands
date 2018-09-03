@@ -89,7 +89,7 @@ public class HexGrid : MonoBehaviour
 
         for (int y = 0, i = 0; y < Height; y++)
         {
-            for (int x = 0; x < Width; x++)
+            for (var x = 0; x < Width; x++)
             {
                 CreateCell(x, y, i++);
             }
@@ -122,7 +122,7 @@ public class HexGrid : MonoBehaviour
     {
         // nice color index chart: http://prideout.net/archive/colors.php
         // grassland
-        for (int i = 0; i < massCount; i++)
+        for (var i = 0; i < massCount; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
             var rb = Random.Range(0.1f, 0.2f);
@@ -136,7 +136,7 @@ public class HexGrid : MonoBehaviour
         }
 
         // desert
-        for (int i = 0; i < massCount / 10; i++)
+        for (var i = 0; i < massCount / 10; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
             var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
@@ -167,7 +167,7 @@ public class HexGrid : MonoBehaviour
         var massCenter = GetRandomCell();
         mass.Add(massCenter);
 
-        for (int x = 0; x < massSize; x++)
+        for (var x = 0; x < massSize; x++)
         {
             var newCenter = GetRandomNeighbourNotInMass(massCenter, mass);
 
@@ -178,7 +178,7 @@ public class HexGrid : MonoBehaviour
 
             mass.Add(newCenter);
 
-            for (int z = 0; z < Random.Range(0, 3); z++)
+            for (var z = 0; z < Random.Range(0, 3); z++)
             {
                 var jitterCell = GetRandomNeighbourNotInMass(newCenter, mass);
 
@@ -260,7 +260,7 @@ public class HexGrid : MonoBehaviour
         label.transform.position = cell.transform.position;
 
         var text = label.AddComponent<Text>();
-        text.font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        text.font = (Font) Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         text.material = text.font.material;
         text.fontSize = 4;
         text.fontStyle = FontStyle.Bold;
@@ -290,28 +290,28 @@ public class HexGrid : MonoBehaviour
         StartCoroutine(Search(cell));
     }
 
-    IEnumerator Search(HexCell cell)
+    private IEnumerator Search(HexCell cell)
     {
-        for (int i = 0; i < cells.Length; i++)
+        for (var i = 0; i < cells.Length; i++)
         {
             cells[i].Distance = int.MaxValue;
         }
 
-        WaitForSeconds delay = new WaitForSeconds(1 / 60f);
+        var delay = new WaitForSeconds(1 / 60f);
 
-        List<HexCell> frontier = new List<HexCell>();
+        var frontier = new List<HexCell>();
         cell.Distance = 0;
         frontier.Add(cell);
 
         while (frontier.Count > 0)
         {
             yield return delay;
-            HexCell current = frontier[0];
+            var current = frontier[0];
             frontier.RemoveAt(0);
 
-            for (HexDirection d = HexDirection.NE; d <= HexDirection.NW; d++)
+            for (var d = HexDirection.NE; d <= HexDirection.NW; d++)
             {
-                HexCell neighbor = current.GetNeighbor(d);
+                var neighbor = current.GetNeighbor(d);
                 if (neighbor == null)
                 {
                     continue;
@@ -322,7 +322,7 @@ public class HexGrid : MonoBehaviour
                     continue;
                 }
 
-                int distance = current.Distance + neighbor.TravelCost + 1;
+                var distance = current.Distance + neighbor.TravelCost + 1;
                 if (neighbor.Distance == int.MaxValue)
                 {
                     neighbor.Distance = distance;
@@ -337,5 +337,4 @@ public class HexGrid : MonoBehaviour
             }
         }
     }
-
 }

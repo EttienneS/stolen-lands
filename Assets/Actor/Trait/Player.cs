@@ -1,18 +1,16 @@
 using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class Player : Sentient
 {
+    public Player(Actor owner) : base(owner)
+    {
+    }
+
     public int SpentActions { get; set; }
 
     public override int ActionsAvailable
     {
         get { return 10 - SpentActions; }
-    }
-
-    public Player(Actor owner) : base(owner)
-    {
     }
 
     public override List<ActorAction> GetActions()

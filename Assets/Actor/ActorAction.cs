@@ -6,11 +6,11 @@ public class ActorAction
 
     public delegate List<HexCell> Discover(Actor actor);
 
+    public string ActionName;
+
     public Actor ActorContext;
 
     public int Cost;
-
-    public string ActionName;
 
     public ActorAction(string name, Actor actorContext, int cost, Discover discover, Act act)
     {

@@ -1,12 +1,13 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LoadScreen : MonoBehaviour
 {
-    void Update()
+    private bool _loading;
+
+    private void Update()
     {
         if (!_loading)
         {
@@ -20,8 +21,6 @@ public class LoadScreen : MonoBehaviour
             panel.color = new Color(0f, Random.Range(0.4f, 0.6f), 0f);
         }
     }
-
-    private bool _loading;
 
     public static IEnumerator LoadNewScene()
     {

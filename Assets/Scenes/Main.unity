@@ -325,6 +325,11 @@ Prefab:
       propertyPath: MinMassSize
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114754830705209644, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: InitialFactions
+      value: 5
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d046710cc135d3448effed977db2354, type: 2}
   m_IsPrefabAsset: 0
