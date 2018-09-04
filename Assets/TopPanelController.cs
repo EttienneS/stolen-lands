@@ -31,7 +31,7 @@ public class TopPanelController : MonoBehaviour
         if (_player != null)
         {
             transform.Find("Available Actions").GetComponent<Text>().text =
-                "Available Actions: " + _player.ActionsAvailable;
+                "Available Actions: " + ActorController.Instance.Player.ActionsAvailable;
             transform.Find("Gold").GetComponent<Text>().text = "Gold: " + Gold;
         }
     }

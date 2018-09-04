@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
     public Camera Camera;
 
 
-    [Range(1, 20)] public int Speed = 5;
+    [Range(1, 20)] public int Speed = 2;
 
     [Range(50, 100)] public int ZoomMax = 100;
 
@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
     {
         _startTime = Time.time;
         _panSource = transform.position;
-        _panDesitnation = new Vector3(cell.transform.position.x, cell.transform.position.y, transform.position.z);
+        _panDesitnation = new Vector3(cell.transform.position.x, cell.transform.position.y - 25, transform.position.z);
         _journeyLength = Vector3.Distance(_panSource, _panDesitnation);
 
         _panning = true;

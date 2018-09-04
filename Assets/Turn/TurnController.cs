@@ -29,13 +29,8 @@ public class TurnController : MonoBehaviour
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        var playerLocation = ActorController.Instance.Player.Location.transform.position;
-        CameraController.Instance.transform.position = new Vector3(playerLocation.x, playerLocation.y,
-            CameraController.Instance.transform.position.z);
-    }
-
-    private void Update()
-    {
+        CameraController.Instance.MoveToViewCell(ActorController.Instance.Player.Location);
+        SystemController.Instance.SetSelectedActor(ActorController.Instance.Player);
     }
 
     public void EndCurrentTurn()
@@ -53,5 +48,12 @@ public class TurnController : MonoBehaviour
         }
 
         ActorController.Instance.PlayerFaction.TakeTurn();
+
+        foreach (var actor in ActorController.Instance.Actors)
+        {
+            actor.StartTurn();
+        }
+
+        SystemController.Instance.SetSelectedActor(SystemController.Instance.SelectedActor);
     }
 }

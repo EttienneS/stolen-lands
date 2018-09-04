@@ -62,10 +62,12 @@ public class Actor : MonoBehaviour
         MeshRenderer.material.SetFloat("_Outline", 0f);
     }
 
-    public void TakeTurn()
+
+    public int ActionsAvailable { get; set; }
+
+    public List<ActorAction> AvailableActions
     {
-        var player = GetTrait<Player>();
-        if (player != null)
+        get
         {
             var allActions = new List<ActorAction>();
             foreach (var trait in Traits)
@@ -73,20 +75,31 @@ public class Actor : MonoBehaviour
                 allActions.AddRange(trait.GetActions());
             }
 
-            player.TakeAction(allActions);
+            return allActions;
         }
-        else
+    }
+
+    public void StartTurn()
+    {
+        ActionsAvailable = 5;
+    }
+
+    public void TakeTurn()
+    {
+        var player = GetTrait<Player>();
+        if (player == null)
         {
             var sentient = GetTrait<Sentient>();
             if (sentient != null)
             {
-                var allActions = new List<ActorAction>();
-                foreach (var trait in Traits)
-                {
-                    allActions.AddRange(trait.GetActions());
-                }
-
-                sentient.TakeAction(allActions);
+                sentient.TakeAction(AvailableActions);
+            }
+        }
+        else
+        {
+            if (SystemController.Instance.SelectedActor == this)
+            {
+                player.TakeAction(AvailableActions);
             }
         }
     }
