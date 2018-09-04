@@ -130,11 +130,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
       propertyPath: m_LocalPosition.z
-      value: -100
+      value: -75
       objectReference: {fileID: 0}
     - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.08715578
+      value: -0.17364825
       objectReference: {fileID: 0}
     - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
       propertyPath: m_LocalRotation.y
@@ -146,7 +146,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.9961947
+      value: 0.9848078
       objectReference: {fileID: 0}
     - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
       propertyPath: m_RootOrder
@@ -160,7 +160,16 @@ Prefab:
     - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d,
         type: 2}
       propertyPath: ZoomMin
-      value: 20
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4422623219325598, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -20
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d,
+        type: 2}
+      propertyPath: ZoomMax
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
@@ -190,13 +199,13 @@ Light:
   m_Enabled: 1
   serializedVersion: 8
   m_Type: 1
-  m_Color: {r: 0.5943396, g: 0.5943396, b: 0.5943396, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 0.9
   m_Range: 10
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 0
+    m_Type: 1
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1

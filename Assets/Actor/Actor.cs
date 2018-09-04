@@ -35,14 +35,31 @@ public class Actor : MonoBehaviour
 
     public void Start()
     {
-        var resolution = 16;
-
         var res = 16;
 
         var texture = TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor());
         Sprite = Sprite.Create(texture, new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
 
         MeshRenderer.material.mainTexture = texture;
+    }
+
+    void OnMouseDown()
+    {
+        SystemController.Instance.SetSelectedActor(this);
+    }
+
+    public void EnableOutline()
+    {
+        var outline = Shader.Find("Custom/Outline");
+
+        MeshRenderer.material.shader = outline;
+        MeshRenderer.material.SetFloat("_Outline", 0.04f);
+        MeshRenderer.material.SetColor("_OutlineColor", Color.red);
+    }
+
+    public void DisableOtline()
+    {
+        MeshRenderer.material.SetFloat("_Outline", 0f);
     }
 
     public void TakeTurn()

@@ -59,4 +59,18 @@ public class SystemController : MonoBehaviour
     {
         SceneManager.LoadScene("Loading");
     }
+
+    public Actor SelectedActor;
+
+    public void SetSelectedActor(Actor actor)
+    {
+        if (SelectedActor != null)
+        {
+            SelectedActor.DisableOtline();
+        }
+
+        SelectedActor = actor;
+        SelectedActor.EnableOutline();
+
+    }
 }
