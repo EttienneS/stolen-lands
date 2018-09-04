@@ -169,7 +169,12 @@ Prefab:
     - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d,
         type: 2}
       propertyPath: ZoomMax
-      value: 100
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d,
+        type: 2}
+      propertyPath: Speed
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}

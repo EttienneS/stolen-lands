@@ -8,10 +8,7 @@ public class Player : Sentient
 
     public int SpentActions { get; set; }
 
-    public override int ActionsAvailable
-    {
-        get { return 10 - SpentActions; }
-    }
+  
 
     public override List<ActorAction> GetActions()
     {
@@ -24,7 +21,7 @@ public class Player : Sentient
 
         foreach (var action in allActions)
         {
-            if (action.Cost <= ActionsAvailable)
+            if (action.Cost <= Owner.ActionsAvailable)
             {
                 foreach (var actionCell in action.DiscoverAction(action.ActorContext))
                 {
@@ -38,7 +35,6 @@ public class Player : Sentient
     public void RefreshActions(ActorAction executedAction)
     {
         SpentActions += executedAction.Cost;
-
         Owner.TakeTurn();
     }
 }

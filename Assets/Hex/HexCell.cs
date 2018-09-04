@@ -17,7 +17,8 @@ public class HexCell : MonoBehaviour
 
     [SerializeField] public HexCell[] neighbors;
 
-    public int TravelCost = 0;
+    public int TravelCost;
+
     private List<int> triangles;
     private List<Vector3> vertices;
 

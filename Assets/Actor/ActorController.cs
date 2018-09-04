@@ -78,6 +78,7 @@ public class ActorController : MonoBehaviour
         {
             GetFaction(GetActor());
         }
+
     }
 
     private Actor GetActor()
@@ -92,6 +93,8 @@ public class ActorController : MonoBehaviour
             Charisma = Random.Range(20, 80)
         });
         Actors.Add(actor);
+        actor.AddTrait(new Mobile(actor));
+        actor.StartTurn();
 
         return actor;
     }

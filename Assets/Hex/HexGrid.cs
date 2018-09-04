@@ -5,24 +5,22 @@ using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
+    private static HexGrid _instance;
+
+    private readonly Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
     public ActionDisplay ActionDisplayPrefab;
     public HexCell cellPrefab;
+    private HexCell[] cells;
 
     [Range(1, 250)] public int Height = 2;
     [Range(1, 1000)] public int Masses = 50;
     [Range(1, 500)] public int MaxMassSize = 100;
     [Range(1, 500)] public int MinMassSize = 50;
-    [Range(1, 250)] public int Width = 2;
-    private static HexGrid _instance;
-
-    private readonly Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
-    private HexCell[] cells;
-    private bool currentPathExists;
-
-    private HexCell currentPathFrom, currentPathTo;
     private HexCellPriorityQueue searchFrontier;
 
     private int searchFrontierPhase;
+    [Range(1, 250)] public int Width = 2;
+
     public static HexGrid Instance
     {
         get
@@ -51,7 +49,7 @@ public class HexGrid : MonoBehaviour
             _playerActions.Add(cell, actionDisplay);
         }
 
-        if (!_playerActions[cell].Actions.Any(a => a.ActionName == action.ActionName))
+        if (_playerActions[cell].Actions.All(a => a.ActionName != action.ActionName))
         {
             _playerActions[cell].Actions.Add(action);
         }
@@ -66,15 +64,26 @@ public class HexGrid : MonoBehaviour
 
         _playerActions.Clear();
     }
-    public void FindPath(HexCell fromCell, HexCell toCell)
+
+    public List<HexCell> FindPath(HexCell fromCell, HexCell toCell)
     {
-        ClearPath();
+        var path = new List<HexCell>();
 
-        currentPathFrom = fromCell;
-        currentPathTo = toCell;
-        currentPathExists = Search(fromCell, toCell);
+        if (fromCell != null && toCell != null)
+        {
+            if (Search(fromCell, toCell))
+            {
+                var current = toCell;
+                while (current != fromCell)
+                {
+                    current = current.PathFrom;
+                    path.Add(current);
+                }
 
-        ShowPath();
+                path.Add(toCell);
+            }
+        }
+        return path;
     }
 
     public HexCell GetCellAtPoint(Vector3 position)
@@ -158,22 +167,33 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    private void ClearPath()
+    private List<HexCell> _displayedPath;
+
+    public void ShowPath(List<HexCell> path)
     {
-        if (currentPathExists)
+        ClearPath();
+
+        if (_displayedPath != null)
         {
-            var current = currentPathTo;
-            while (current != currentPathFrom)
+            foreach (var cell in path)
             {
-                current.DisableHighlight();
-                current = current.PathFrom;
+                cell.EnableHighlight(Color.white);
             }
 
-            current.DisableHighlight();
-            currentPathExists = false;
+            path.First().EnableHighlight(Color.blue);
+            path.Last().EnableHighlight(Color.red);
         }
+    }
 
-        currentPathFrom = currentPathTo = null;
+    public void ClearPath()
+    {
+        if (_displayedPath != null)
+        {
+            foreach (var cell in _displayedPath)
+            {
+                cell.DisableHighlight();
+            }
+        }
     }
 
     private void CreateCell(int x, int y, int i)
@@ -296,6 +316,7 @@ public class HexGrid : MonoBehaviour
 
         return mass;
     }
+
     private bool Search(HexCell fromCell, HexCell toCell)
     {
         searchFrontierPhase += 2;
@@ -309,7 +330,6 @@ public class HexGrid : MonoBehaviour
             searchFrontier.Clear();
         }
 
-
         fromCell.SearchPhase = searchFrontierPhase;
         fromCell.Distance = 0;
         searchFrontier.Enqueue(fromCell);
@@ -321,13 +341,7 @@ public class HexGrid : MonoBehaviour
 
             if (current == toCell)
             {
-                current = current.PathFrom;
-                while (current != fromCell)
-                {
-                    return true;
-                }
-
-                break;
+                return true;
             }
 
             for (var d = HexDirection.NE; d <= HexDirection.NW; d++)
@@ -344,7 +358,7 @@ public class HexGrid : MonoBehaviour
                     continue;
                 }
 
-                var distance = current.Distance + neighbor.TravelCost + 1;
+                var distance = current.Distance + neighbor.TravelCost;
                 if (neighbor.SearchPhase < searchFrontierPhase)
                 {
                     neighbor.SearchPhase = searchFrontierPhase;
@@ -366,19 +380,50 @@ public class HexGrid : MonoBehaviour
         return false;
     }
 
-    private void ShowPath()
+
+    public List<HexCell> GetReachableCells(HexCell actorLocation, int speed)
     {
-        if (currentPathExists)
+        var reachableCells = new List<HexCell>();
+        var availableCells = actorLocation.neighbors.Where(n => n != null).ToList();
+        var processedCells = new List<HexCell> { actorLocation };
+
+        while (availableCells.Any())
         {
-            var current = currentPathTo;
-            while (current != currentPathFrom)
+            var cell = availableCells[0];
+            availableCells.RemoveAt(0);
+            processedCells.Add(cell);
+
+            var path = FindPath(actorLocation, cell);
+
+            if (path.Count > 0 && GetPathCost(path) <= speed)
             {
-                current.EnableHighlight(Color.white);
-                current = current.PathFrom;
+                reachableCells.Add(cell);
+
+                foreach (var neighbor in cell.neighbors)
+                {
+                    if (neighbor != null && !processedCells.Contains(neighbor))
+                    {
+                        availableCells.Add(neighbor);
+                    }
+                }
             }
         }
 
-        currentPathFrom.EnableHighlight(Color.blue);
-        currentPathTo.EnableHighlight(Color.red);
+        return reachableCells.Distinct().ToList();
+    }
+
+    public int GetPathCost(List<HexCell> path)
+    {
+        var cost = 0;
+
+        foreach (var cell in path)
+        {
+            if (cell != null)
+            {
+                cost += 1;
+            }
+        }
+
+        return cost;
     }
 }

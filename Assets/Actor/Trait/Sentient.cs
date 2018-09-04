@@ -15,18 +15,6 @@ public class Sentient : Trait
     {
     }
 
-    public virtual int ActionsAvailable
-    {
-        get
-        {
-            var actionDivisor = (110 - Cunning) / 10;
-            var actionsAvailable = Mental / actionDivisor;
-
-            return actionsAvailable;
-        }
-    }
-
-
     public override List<ActorAction> GetActions()
     {
         return new List<ActorAction>();
@@ -37,7 +25,7 @@ public class Sentient : Trait
         // 100 mental, 100 cunning == 10 actions
         // 100 mental, 10 cunning == 1 actions
 
-        var actionsAvailable = ActionsAvailable;
+        var actionsAvailable = Owner.ActionsAvailable;
 
         while (actionsAvailable > 0)
         {

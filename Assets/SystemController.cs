@@ -45,9 +45,6 @@ public class SystemController : MonoBehaviour
             }
 
             SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
-            SelectedCell.EnableHighlight(Color.blue);
-
-            HexGrid.Instance.FindPath(ActorController.Instance.Player.Location, SelectedCell);
         }
         else
         {
@@ -71,6 +68,12 @@ public class SystemController : MonoBehaviour
 
         SelectedActor = actor;
         SelectedActor.EnableOutline();
+        SelectedActor.TakeTurn();
 
+        var player = actor.GetTrait<Player>();
+        if (player != null)
+        {
+            player.TakeAction(actor.AvailableActions);
+        }
     }
 }
