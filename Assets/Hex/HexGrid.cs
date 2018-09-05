@@ -36,6 +36,12 @@ public class HexGrid : MonoBehaviour
 
     public void AddPlayerActionToCanvas(Player player, HexCell cell, ActorAction action)
     {
+        if (!ActorController.Instance.PlayerFaction.KnownHexes.Contains(cell))
+        {
+            // do not add actions to unknown hexes
+            return;
+        }
+
         if (!_playerActions.ContainsKey(cell))
         {
             var actionDisplay = Instantiate(ActionDisplayPrefab);
@@ -164,6 +170,12 @@ public class HexGrid : MonoBehaviour
 
             faction.Leader.GetTrait<Mobile>().MoveToCell(cell);
             faction.Leader.TakeTurn();
+
+            faction.LearnHex(cell);
+            foreach (var neighbor in cell.neighbors)
+            {
+                faction.LearnHex(neighbor);
+            }
         }
     }
 

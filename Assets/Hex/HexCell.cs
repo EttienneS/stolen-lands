@@ -51,13 +51,13 @@ public class HexCell : MonoBehaviour
 
     public HexCell GetNeighbor(HexDirection direction)
     {
-        return neighbors[(int) direction];
+        return neighbors[(int)direction];
     }
 
     public void SetNeighbor(HexDirection direction, HexCell cell)
     {
-        neighbors[(int) direction] = cell;
-        cell.neighbors[(int) direction.Opposite()] = this;
+        neighbors[(int)direction] = cell;
+        cell.neighbors[(int)direction.Opposite()] = this;
     }
 
     private void Awake()
@@ -122,15 +122,21 @@ public class HexCell : MonoBehaviour
 
     public void DisableHighlight()
     {
-        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.Find("Highlight").GetComponent<SpriteRenderer>();
         highlight.enabled = false;
     }
 
 
-    public void EnableHighlight(Color color )
+    public void EnableHighlight(Color color)
     {
-        var highlight = transform.GetChild(0).GetComponent<SpriteRenderer>();
+        var highlight = transform.Find("Highlight").GetComponent<SpriteRenderer>();
         highlight.color = color;
         highlight.enabled = true;
+    }
+
+    public bool Visble
+    {
+        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled; }
+        set { transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled = !value; }
     }
 }

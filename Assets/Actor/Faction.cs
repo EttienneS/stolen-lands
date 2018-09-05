@@ -17,9 +17,21 @@ public class Faction : MonoBehaviour
 
     public int Manpower { get; set; }
 
+    public List<HexCell> KnownHexes = new List<HexCell>();
+
     public override string ToString()
     {
         return name;
+    }
+
+    public void LearnHex(HexCell hex)
+    {
+        KnownHexes.Add(hex);
+
+        if (this == ActorController.Instance.PlayerFaction)
+        {
+            hex.Visble = true;
+        }
     }
 
     public void Instantiate(string name, Color color)

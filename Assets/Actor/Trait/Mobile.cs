@@ -37,6 +37,16 @@ public class Mobile : Trait
 
         Owner.Location = target;
         Owner.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+
+        foreach (var hex in target.neighbors)
+        {
+            var member = Owner.GetTrait<FactionMember>();
+
+            if (member != null)
+            {
+                member.Faction.LearnHex(hex);
+            }
+        }
     }
 
     private List<HexCell> GetReachableCells()
