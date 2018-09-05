@@ -7,9 +7,7 @@ public class Player : Sentient
     }
 
     public int SpentActions { get; set; }
-
-  
-
+    
     public override List<ActorAction> GetActions()
     {
         return new List<ActorAction>();
