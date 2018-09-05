@@ -93,6 +93,7 @@ public class ActorController : MonoBehaviour
             Charisma = Random.Range(20, 80)
         });
         Actors.Add(actor);
+        actor.AddTrait(new Sighted(actor, 2));
         actor.AddTrait(new Mobile(actor));
         actor.StartTurn();
 

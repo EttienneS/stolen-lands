@@ -12,6 +12,8 @@ public class Actor : MonoBehaviour
 
     public List<Trait> Traits = new List<Trait>();
 
+    public Faction Faction { get; set; }
+
     public Sprite Sprite { get; set; }
 
     private MeshRenderer MeshRenderer
@@ -78,6 +80,10 @@ public class Actor : MonoBehaviour
     public void StartTurn()
     {
         ActionsAvailable = 5;
+        foreach (var trait in Traits)
+        {
+            trait.DoPassive();
+        }
     }
 
     public void TakeTurn()

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Emit;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
@@ -26,6 +27,10 @@ public class Mobile : Trait
         return actions;
     }
 
+    public override void DoPassive()
+    {
+    }
+
     public void MoveToCell(HexCell target)
     {
         if (Owner.Location != null)
@@ -38,14 +43,11 @@ public class Mobile : Trait
         Owner.Location = target;
         Owner.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
 
-        foreach (var hex in target.neighbors)
-        {
-            var member = Owner.GetTrait<FactionMember>();
+        var sighted = Owner.GetTrait<Sighted>();
 
-            if (member != null)
-            {
-                member.Faction.LearnHex(hex);
-            }
+        if (sighted != null)
+        {
+            sighted.See();
         }
     }
 

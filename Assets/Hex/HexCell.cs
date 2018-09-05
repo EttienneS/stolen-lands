@@ -139,4 +139,10 @@ public class HexCell : MonoBehaviour
         get { return transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled; }
         set { transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled = !value; }
     }
+
+    public bool Known
+    {
+        get { return transform.GetComponent<MeshRenderer>().enabled; }
+        set { transform.GetComponent<MeshRenderer>().enabled = value; }
+    }
 }
