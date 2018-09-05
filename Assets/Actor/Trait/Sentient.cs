@@ -20,6 +20,10 @@ public class Sentient : Trait
         return new List<ActorAction>();
     }
 
+    public override void DoPassive()
+    {
+    }
+
     public virtual void TakeAction(List<ActorAction> allActions)
     {
         // 100 mental, 100 cunning == 10 actions

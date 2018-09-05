@@ -19,7 +19,7 @@ public class HexClaimer : Trait
 
         // get average of cell color and owner color
         // cell.ColorCell((Owner.Color + cell.Color)/2);
-        cell.ColorCell(Owner.GetTrait<FactionMember>().Faction.Color);
+        cell.ColorCell(Owner.Faction.Color);
         UpdateBorder();
     }
 
@@ -134,7 +134,7 @@ public class HexClaimer : Trait
         _border.transform.SetParent(_border.transform);
 
         var material = ControlledCells[0].GetComponent<MeshRenderer>().material;
-        material.color = Owner.GetTrait<FactionMember>().Faction.Color;
+        material.color = Owner.Faction.Color;
 
         foreach (var point in points)
         {
@@ -195,5 +195,9 @@ public class HexClaimer : Trait
 
 
         return actions;
+    }
+
+    public override void DoPassive()
+    {
     }
 }

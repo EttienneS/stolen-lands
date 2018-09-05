@@ -5,7 +5,7 @@ public class Faction : MonoBehaviour
 {
     public Color Color;
 
-    public List<FactionMember> Members = new List<FactionMember>();
+    public List<Actor> Members = new List<Actor>();
 
     public Sprite Sprite;
 
@@ -19,6 +19,8 @@ public class Faction : MonoBehaviour
 
     public List<HexCell> KnownHexes = new List<HexCell>();
 
+    public List<HexCell> VisibleHexes = new List<HexCell>();
+
     public override string ToString()
     {
         return name;
@@ -26,10 +28,19 @@ public class Faction : MonoBehaviour
 
     public void LearnHex(HexCell hex)
     {
-        KnownHexes.Add(hex);
-
-        if (this == ActorController.Instance.PlayerFaction)
+        if (!KnownHexes.Contains(hex))
         {
+            KnownHexes.Add(hex);
+        }
+
+        if (!VisibleHexes.Contains(hex))
+        {
+            VisibleHexes.Add(hex);
+        }
+
+        if (ActorController.Instance.PlayerFaction == this)
+        {
+            hex.Known = true;
             hex.Visble = true;
         }
     }
@@ -48,13 +59,14 @@ public class Faction : MonoBehaviour
     public void SetLeader(Actor leader)
     {
         Leader = leader;
-        Leader.AddTrait(new FactionMember(Leader, this));
+        Leader.Faction = this;
         Leader.AddTrait(new HexClaimer(Leader));
     }
 
     public void AddMember(Actor person)
     {
-        Members.Add(person.AddTrait(new FactionMember(person, this)));
+        Members.Add(person);
+        person.Faction = this;
     }
 
     public void TakeTurn()
@@ -62,7 +74,17 @@ public class Faction : MonoBehaviour
         Leader.TakeTurn();
         foreach (var member in Members)
         {
-            member.Owner.TakeTurn();
+            member.TakeTurn();
         }
+    }
+
+    public void ResetFog()
+    {
+        foreach (var hex in VisibleHexes)
+        {
+            hex.Visble = false;
+        }
+
+        VisibleHexes.Clear();
     }
 }

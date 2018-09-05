@@ -13,4 +13,7 @@ public abstract class Trait
     public string Name { get; set; }
 
     public abstract List<ActorAction> GetActions();
+
+    public abstract void DoPassive();
+
 }
