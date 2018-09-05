@@ -8,9 +8,6 @@ public class ActorController : MonoBehaviour
     private readonly List<Actor> _actors = new List<Actor>();
     private readonly List<Faction> _factions = new List<Faction>();
 
-
-    public Actor ActorPrefab;
-
     private bool _init;
 
     private ActorPanel ActivePanel;
@@ -21,10 +18,12 @@ public class ActorController : MonoBehaviour
 
     public ActorPanel ActorPanelPrefab;
 
+
+    public Actor ActorPrefab;
+
     [Range(1, 200)] public int InitialFactions = 50;
 
     public Faction PlayerFaction { get; set; }
-    public Actor Player { get; set; }
 
     public static ActorController Instance
     {
@@ -68,17 +67,17 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
-        Player = GetActor();
-        Player.Traits.Remove(Player.GetTrait<Sentient>());
-        Player.Traits.Add(new Player(Player));
-        PlayerFaction = GetFaction(Player);
+        
+        PlayerFaction = GetFaction(GetActor());
+        PlayerFaction.Leader.Traits.Remove(PlayerFaction.Leader.GetTrait<Sentient>());
+        PlayerFaction.Leader.Traits.Add(new Player(PlayerFaction.Leader));
+
         PlayerFaction.name = "Player";
 
         for (var i = 0; i < InitialFactions; i++)
         {
             GetFaction(GetActor());
         }
-
     }
 
     private Actor GetActor()

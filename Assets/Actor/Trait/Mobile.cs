@@ -14,7 +14,7 @@ public class Mobile : Trait
     {
         var actions = new List<ActorAction>();
 
-        if (Owner == ActorController.Instance.Player)
+        if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
             actions.Add(new ActorAction("Move", Owner, 0, DiscoverReachableCells, MoveToCell));
         }

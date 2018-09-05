@@ -29,13 +29,13 @@ public class TurnController : MonoBehaviour
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        CameraController.Instance.MoveToViewCell(ActorController.Instance.Player.Location);
-        SystemController.Instance.SetSelectedActor(ActorController.Instance.Player);
+        CameraController.Instance.MoveToViewCell(ActorController.Instance.PlayerFaction.Leader.Location);
+        SystemController.Instance.SetSelectedActor(ActorController.Instance.PlayerFaction.Leader);
     }
 
     public void EndCurrentTurn()
     {
-        ActorController.Instance.Player.GetTrait<Player>().SpentActions = 0;
+        ActorController.Instance.PlayerFaction.Leader.GetTrait<Player>().SpentActions = 0;
 
         foreach (var faction in ActorController.Instance.Factions)
         {
@@ -45,7 +45,7 @@ public class TurnController : MonoBehaviour
             {
                 continue;
             }
-               
+
             faction.TakeTurn();
         }
 
