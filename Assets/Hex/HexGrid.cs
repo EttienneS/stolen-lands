@@ -162,7 +162,7 @@ public class HexGrid : MonoBehaviour
                 cell = GetRandomCell();
             }
 
-            faction.Leader.Move(cell);
+            faction.Leader.GetTrait<Mobile>().MoveToCell(cell);
             faction.Leader.TakeTurn();
         }
     }
@@ -209,6 +209,7 @@ public class HexGrid : MonoBehaviour
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.name = cell.coordinates + " Cell";
+        cell.TravelCost = 1;
 
         if (x > 0)
         {
@@ -394,8 +395,9 @@ public class HexGrid : MonoBehaviour
             processedCells.Add(cell);
 
             var path = FindPath(actorLocation, cell);
+            var pathCost = GetPathCost(path) - actorLocation.TravelCost;
 
-            if (path.Count > 0 && GetPathCost(path) <= speed)
+            if (path.Count > 0 && pathCost <= speed)
             {
                 reachableCells.Add(cell);
 
@@ -420,7 +422,7 @@ public class HexGrid : MonoBehaviour
         {
             if (cell != null)
             {
-                cost += 1;
+                cost += cell.TravelCost;
             }
         }
 

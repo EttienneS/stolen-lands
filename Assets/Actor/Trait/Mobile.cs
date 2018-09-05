@@ -9,33 +9,49 @@ public class Mobile : Trait
     {
     }
 
-
-
     public override List<ActorAction> GetActions()
     {
         var actions = new List<ActorAction>();
 
         if (Owner == ActorController.Instance.Player)
         {
-            actions.Add(new ActorAction("Move", Owner, 1, DiscoverReachableCells, MoveToCell));
+            actions.Add(new ActorAction("Move", Owner, 0, DiscoverReachableCells, MoveToCell));
+        }
+        else
+        {
+            // AI MOVEMENT HERE
+            // actions.Add(new ActorAction("Move", Owner, 0, DiscoverReachableCells, MoveToCell));
         }
 
         return actions;
     }
 
-    public static List<HexCell> DiscoverReachableCells(Actor actor)
+    public void MoveToCell(HexCell target)
     {
-        return HexGrid.Instance.GetReachableCells(actor.Location, actor.ActionsAvailable);
+        if (Owner.Location != null)
+        {
+            // if owner is nowhere, move instantly
+            var path = HexGrid.Instance.FindPath(Owner.Location, target);
+            Owner.ActionsAvailable -= (HexGrid.Instance.GetPathCost(path) - Owner.Location.TravelCost);
+        }
+
+        Owner.Location = target;
+        Owner.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
     }
 
-    public static void MoveToCell(Actor actor, List<HexCell> target)
+    private List<HexCell> GetReachableCells()
     {
-        var dest = target[0];
+        return HexGrid.Instance.GetReachableCells(Owner.Location, Owner.ActionsAvailable);
+    }
 
-        var path = HexGrid.Instance.FindPath(actor.Location, dest);
+    private static List<HexCell> DiscoverReachableCells(Actor actor)
+    {
+        return actor.GetTrait<Mobile>().GetReachableCells();
+    }
 
-        actor.ActionsAvailable -= HexGrid.Instance.GetPathCost(path);
-        actor.Move(dest);
+    private static void MoveToCell(Actor actor, List<HexCell> target)
+    {
+        actor.GetTrait<Mobile>().MoveToCell(target[0]);
     }
 
 }

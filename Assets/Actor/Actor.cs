@@ -27,11 +27,7 @@ public class Actor : MonoBehaviour
         }
     }
 
-    public void Move(HexCell location)
-    {
-        Location = location;
-        transform.position = new Vector3(location.transform.position.x, location.transform.position.y, transform.position.z);
-    }
+    
 
     public void Start()
     {
