@@ -68,15 +68,23 @@ public class ActorController : MonoBehaviour
         _init = true;
 
         
-        PlayerFaction = GetFaction(GetActor());
-        PlayerFaction.Leader.Traits.Remove(PlayerFaction.Leader.GetTrait<Sentient>());
-        PlayerFaction.Leader.Traits.Add(new Player(PlayerFaction.Leader));
+        PlayerFaction = GetFaction();
+        PlayerFaction.AddMember(GetActor());
+        PlayerFaction.AddMember(GetActor());
 
-        PlayerFaction.name = "Player";
+        foreach (var actor in PlayerFaction.Members)
+        {
+            actor.Traits.Remove(actor.GetTrait<Sentient>());
+            actor.Traits.Add(new Player(actor));
+        }
 
         for (var i = 0; i < InitialFactions; i++)
         {
-            GetFaction(GetActor());
+            var faction = GetFaction();
+            faction.AddMember(GetActor());
+            faction.AddMember(GetActor());
+
+            faction.Members[0].AddTrait(new HexClaimer(faction.Members[0]));
         }
     }
 
@@ -99,15 +107,14 @@ public class ActorController : MonoBehaviour
         return actor;
     }
 
-    private Faction GetFaction(Actor leader)
+    private Faction GetFaction()
     {
-        var factionName = leader.name + "'s Faction";
+        var factionName = ActorHelper.GetRandomName() + " Corp";
 
         var factionGameObject = new GameObject(factionName);
         factionGameObject.transform.parent = transform;
 
         var faction = factionGameObject.AddComponent(typeof(Faction)) as Faction;
-        faction.SetLeader(leader);
         faction.Instantiate(factionName, TextureHelper.GetRandomColor());
 
         Factions.Add(faction);

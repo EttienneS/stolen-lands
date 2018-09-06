@@ -35,11 +35,26 @@ public class Mobile : Trait
     {
         if (Owner.Location != null)
         {
-            // if owner is nowhere, move instantly
-            var path = HexGrid.Instance.FindPath(Owner.Location, target);
-            Owner.ActionsAvailable -= (HexGrid.Instance.GetPathCost(path) - Owner.Location.TravelCost);
-        }
+            var path = Pathfinder.FindPath(Owner.Location, target);
+            Owner.ActionsAvailable -= (Pathfinder.GetPathCost(path) - Owner.Location.TravelCost);
 
+            // move along path
+            foreach (var cell in path)
+            {
+                Move(cell);
+            }
+        }
+        else
+        {
+            // if owner is nowhere, move instantly
+            Move(target);
+        }
+    }
+
+    private void Move(HexCell target)
+    {
+        // moves instantly to location
+        // use MoveToCell to move along a path
         Owner.Location = target;
         Owner.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
 
@@ -53,7 +68,7 @@ public class Mobile : Trait
 
     private List<HexCell> GetReachableCells()
     {
-        return HexGrid.Instance.GetReachableCells(Owner.Location, Owner.ActionsAvailable);
+        return Pathfinder.GetReachableCells(Owner.Location, Owner.ActionsAvailable);
     }
 
     private static List<HexCell> DiscoverReachableCells(Actor actor)

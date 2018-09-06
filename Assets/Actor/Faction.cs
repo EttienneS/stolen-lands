@@ -9,7 +9,7 @@ public class Faction : MonoBehaviour
 
     public Sprite Sprite;
 
-    public Actor Leader { get; set; }
+    //public Actor Leader { get; set; }
 
     public int Gold { get; set; }
 
@@ -56,22 +56,14 @@ public class Faction : MonoBehaviour
             new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
     }
 
-    public void SetLeader(Actor leader)
-    {
-        Leader = leader;
-        Leader.Faction = this;
-        Leader.AddTrait(new HexClaimer(Leader));
-    }
-
     public void AddMember(Actor person)
     {
         Members.Add(person);
         person.Faction = this;
     }
 
-    public void TakeTurn()
+    public void EndTurn()
     {
-        Leader.TakeTurn();
         foreach (var member in Members)
         {
             member.TakeTurn();
@@ -86,5 +78,13 @@ public class Faction : MonoBehaviour
         }
 
         VisibleHexes.Clear();
+    }
+
+    public void StartTurn()
+    {
+        foreach (var member in Members)
+        {
+            member.StartTurn();
+        }
     }
 }
