@@ -3,9 +3,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MapGenerator
+public static class MapGenerator
 {
-    public static void CreateCell(int x, int y, int i)
+    private static void CreateCell(int x, int y, int i)
     {
         float xpos = x;
         float ypos = y;
@@ -13,8 +13,8 @@ public class MapGenerator
         var position = new Vector2((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
             ypos * (HexMetrics.outerRadius * 1.5f));
 
-        
-        var cell = HexGrid.Instance.cells[i] = Object.Instantiate(HexGrid.Instance.cellPrefab);
+
+        var cell = HexGrid.Instance.Cells[i] = Object.Instantiate(HexGrid.Instance.CellPrefab);
         cell.transform.SetParent(HexGrid.Instance.transform, false);
         cell.transform.localPosition = position;
         cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
@@ -23,26 +23,26 @@ public class MapGenerator
 
         if (x > 0)
         {
-            cell.SetNeighbor(HexDirection.W, HexGrid.Instance.cells[i - 1]);
+            cell.SetNeighbor(HexDirection.W, HexGrid.Instance.Cells[i - 1]);
         }
 
         if (y > 0)
         {
             if ((y & 1) == 0)
             {
-                cell.SetNeighbor(HexDirection.SE, HexGrid.Instance.cells[i - HexGrid.Instance.Width]);
+                cell.SetNeighbor(HexDirection.SE, HexGrid.Instance.Cells[i - HexGrid.Instance.Width]);
 
                 if (x > 0)
                 {
-                    cell.SetNeighbor(HexDirection.SW, HexGrid.Instance.cells[i - HexGrid.Instance.Width - 1]);
+                    cell.SetNeighbor(HexDirection.SW, HexGrid.Instance.Cells[i - HexGrid.Instance.Width - 1]);
                 }
             }
             else
             {
-                cell.SetNeighbor(HexDirection.SW, HexGrid.Instance.cells[i - HexGrid.Instance.Width]);
+                cell.SetNeighbor(HexDirection.SW, HexGrid.Instance.Cells[i - HexGrid.Instance.Width]);
                 if (x < HexGrid.Instance.Width - 1)
                 {
-                    cell.SetNeighbor(HexDirection.SE, HexGrid.Instance.cells[i - HexGrid.Instance.Width + 1]);
+                    cell.SetNeighbor(HexDirection.SE, HexGrid.Instance.Cells[i - HexGrid.Instance.Width + 1]);
                 }
             }
         }
@@ -60,7 +60,7 @@ public class MapGenerator
         label.transform.position = cell.transform.position;
 
         var text = label.AddComponent<Text>();
-        text.font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        text.font = (Font) Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         text.material = text.font.material;
         text.fontSize = 4;
         text.fontStyle = FontStyle.Bold;
@@ -88,7 +88,7 @@ public class MapGenerator
 
     public static void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
     {
-        HexGrid.Instance.cells = new HexCell[HexGrid.Instance.Height * HexGrid.Instance.Width];
+        HexGrid.Instance.Cells = new HexCell[HexGrid.Instance.Height * HexGrid.Instance.Width];
 
         for (int y = 0, i = 0; y < HexGrid.Instance.Height; y++)
         {
@@ -122,11 +122,12 @@ public class MapGenerator
             foreach (var cell in GetMass(massSize))
             {
                 cell.Height = 1;
+                cell.TravelCost = 2;
                 cell.ColorCell(massColor);
             }
         }
 
-        foreach (var cell in HexGrid.Instance.cells.Where(c => c.Height == 0))
+        foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Height == 0))
         {
             // if cell is completely surrounded with water
             // change its height and color to reflect it being deep water
@@ -170,5 +171,29 @@ public class MapGenerator
         }
 
         return mass;
+    }
+
+    public static void PopulateWorld()
+    {
+        // add all actors to the world
+        var allocatedCells = new List<HexCell>();
+        allocatedCells.AddRange(HexGrid.Instance.Cells.Where(c => c.Height == 0).ToList());
+
+        foreach (var faction in ActorController.Instance.Factions)
+        {
+            var origin = HexGrid.Instance.GetRandomCell();
+            while (allocatedCells.Contains(origin) || origin.Height < 0)
+            {
+                origin = HexGrid.Instance.GetRandomCell();
+            }
+
+            foreach (var member in faction.Members)
+            {
+                member.GetTrait<Mobile>().MoveToCell(origin);
+                member.TakeTurn();
+
+                origin = Pathfinder.GetClosestOpenCell(origin);
+            }
+        }
     }
 }

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class HexGrid : MonoBehaviour
 {
@@ -9,8 +8,8 @@ public class HexGrid : MonoBehaviour
 
     private readonly Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
     public ActionDisplay ActionDisplayPrefab;
-    public HexCell cellPrefab;
-    public HexCell[] cells;
+    public HexCell CellPrefab;
+    public HexCell[] Cells;
 
     [Range(1, 250)] public int Height = 2;
     [Range(1, 1000)] public int Masses = 50;
@@ -47,7 +46,7 @@ public class HexGrid : MonoBehaviour
             actionDisplay.transform.localPosition = cell.transform.localPosition;
 
             actionDisplay.Context = cell;
-            actionDisplay.RefreshPlayerAction = player.RefreshActions;
+            actionDisplay.ActionCompleted = player.ActionExecuted;
 
             _playerActions.Add(cell, actionDisplay);
         }
@@ -73,14 +72,14 @@ public class HexGrid : MonoBehaviour
         position = transform.InverseTransformPoint(position);
         var coordinates = HexCoordinates.FromPosition(position);
         var index = coordinates.X + coordinates.Y * Width + coordinates.Y / 2;
-        var cell = cells[index];
+        var cell = Cells[index];
 
         return cell;
     }
 
     public HexCell GetRandomCell()
     {
-        return cells[Random.Range(0, Height * Width)];
+        return Cells[Random.Range(0, Height * Width)];
     }
 
     private void Awake()
@@ -88,30 +87,6 @@ public class HexGrid : MonoBehaviour
         ActorController.Instance.Init();
         MapGenerator.GenerateMap(Masses, MinMassSize, MaxMassSize);
 
-        PopulateWorld();
-    }
-
-    private void PopulateWorld()
-    {
-        // add all actors to the world
-        var allocatedCells = new List<HexCell>();
-        allocatedCells.AddRange(cells.Where(c => c.Height == 0).ToList());
-
-        foreach (var faction in ActorController.Instance.Factions)
-        {
-            var origin = GetRandomCell();
-            while (allocatedCells.Contains(origin) || origin.Height < 0)
-            {
-                origin = GetRandomCell();
-            }
-
-            foreach (var member in faction.Members)
-            {
-                member.GetTrait<Mobile>().MoveToCell(origin);
-                member.TakeTurn();
-
-                origin = Pathfinder.GetClosestOpenCell(origin);
-            }
-        }
+        MapGenerator.PopulateWorld();
     }
 }

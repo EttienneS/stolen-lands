@@ -4,13 +4,15 @@ using UnityEngine.UI;
 
 public class ActionDisplay : MonoBehaviour
 {
-    public delegate void RefreshPlayerActionDelegate(ActorAction executedAction);
+    public delegate void ActionCompletedDelegate(ActorAction executedAction, int cost);
+
+    public SpriteRenderer ActionIndicatorPrefab;
 
     public List<ActorAction> Actions = new List<ActorAction>();
 
     public HexCell Context { get; set; }
 
-    public RefreshPlayerActionDelegate RefreshPlayerAction { get; set; }
+    public ActionCompletedDelegate ActionCompleted { get; set; }
 
     public void Update()
     {
@@ -27,11 +29,25 @@ public class ActionDisplay : MonoBehaviour
     public void OnClick()
     {
         var executedAction = Actions[0];
-        executedAction.ActAction(executedAction.ActorContext, new List<HexCell> {Context});
 
-        if (RefreshPlayerAction != null)
+        ActionCompleted(executedAction, executedAction.ActAction(executedAction.ActorContext, Context));
+    }
+
+    public void Start()
+    {
+        if (Actions.Count == 1)
         {
-            RefreshPlayerAction(executedAction);
+            var action = Actions[0];
+            var cost = action.GetCost(action.ActorContext, Context);
+            var spacing = 6;
+            var offset = cost * spacing / 2;
+            for (var i = 0; i < cost; i++)
+            {
+                var indicator = Instantiate(ActionIndicatorPrefab, transform);
+                indicator.transform.localPosition =
+                    new Vector3(i * spacing - offset, -7, indicator.transform.localPosition.z);
+                indicator.transform.localScale = new Vector3(4, 4);
+            }
         }
     }
 }

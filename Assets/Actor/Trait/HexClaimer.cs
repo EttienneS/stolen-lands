@@ -23,13 +23,10 @@ public class HexClaimer : Trait
         UpdateBorder();
     }
 
-    public static void ClaimAvailableCell(Actor actor, object target)
+    public static int ClaimCell(Actor actor, HexCell target)
     {
-        var potentialCells = target as List<HexCell>;
-        if (potentialCells != null && potentialCells.Any())
-        {
-            actor.GetTrait<HexClaimer>().Claim(potentialCells[Random.Range(0, potentialCells.Count - 1)]);
-        }
+        actor.GetTrait<HexClaimer>().Claim(target);
+        return 1;
     }
 
     public static Dictionary<int, List<HexCell>> GetHexesByThreat(Actor actor)
@@ -157,43 +154,26 @@ public class HexClaimer : Trait
 
     public override List<ActorAction> GetActions()
     {
-        var sentience = Owner.GetTrait<Sentient>();
-        if (sentience == null)
-        {
-            // no brain, no action
-            return new List<ActorAction>();
-        }
-
         var actions = new List<ActorAction>();
 
         if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
-            actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
+            actions.Add(new ActorAction("Claim", Owner, DiscoverAvailableCells, GetCost, ClaimCell));
         }
         else
         {
-            if (sentience.Cunning > 60)
-            {
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-            }
-            else if (sentience.Cunning < 30)
-            {
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
-            }
-            else
-            {
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverMostAgressiveCells, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverAvailableCells, ClaimAvailableCell));
-                actions.Add(new ActorAction("Claim", Owner, 1, DiscoverLeastAggressive, ClaimAvailableCell));
-            }
+            actions.Add(new ActorAction("Claim", Owner, DiscoverAvailableCells, GetCost, ClaimCell));
+            actions.Add(new ActorAction("Claim", Owner, DiscoverMostAgressiveCells, GetCost, ClaimCell));
+            actions.Add(new ActorAction("Claim", Owner, DiscoverLeastAggressive, GetCost, ClaimCell));
         }
 
-
         return actions;
+    }
+
+
+    public int GetCost(Actor actor, HexCell cell)
+    {
+        return 1;
     }
 
     public override void DoPassive()

@@ -6,8 +6,6 @@ public class Player : Sentient
     {
     }
 
-    public int SpentActions { get; set; }
-    
     public override List<ActorAction> GetActions()
     {
         return new List<ActorAction>();
@@ -19,9 +17,9 @@ public class Player : Sentient
 
         foreach (var action in allActions)
         {
-            if (action.Cost <= Owner.ActionsAvailable)
+            foreach (var actionCell in action.DiscoverAction(action.ActorContext))
             {
-                foreach (var actionCell in action.DiscoverAction(action.ActorContext))
+                if (action.CanExecute(Owner, actionCell))
                 {
                     HexGrid.Instance.AddPlayerActionToCanvas(this, actionCell, action);
                 }
@@ -30,9 +28,9 @@ public class Player : Sentient
     }
 
 
-    public void RefreshActions(ActorAction executedAction)
+    public void ActionExecuted(ActorAction executedAction, int cost)
     {
-        SpentActions += executedAction.Cost;
+        Owner.ActionsAvailable -= cost;
         Owner.TakeTurn();
     }
 }

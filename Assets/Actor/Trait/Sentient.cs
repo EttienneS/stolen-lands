@@ -26,24 +26,40 @@ public class Sentient : Trait
 
     public virtual void TakeAction(List<ActorAction> allActions)
     {
-        // 100 mental, 100 cunning == 10 actions
-        // 100 mental, 10 cunning == 1 actions
+        var afforadableActionContexts = new Dictionary<ActorAction.Act, List<HexCell>>();
 
-        var actionsAvailable = Owner.ActionsAvailable;
 
-        while (actionsAvailable > 0)
+        while (true)
         {
-            var availableActions = allActions.Where(a => a.Cost <= actionsAvailable).ToArray();
+            afforadableActionContexts.Clear();
 
-            if (availableActions.Length == 0)
+            foreach (var action in Owner.AvailableActions)
+            {
+                foreach (var context in action.DiscoverAction(Owner))
+                {
+                    if (action.CanExecute(Owner, context))
+                    {
+                        if (!afforadableActionContexts.ContainsKey(action.ActAction))
+                        {
+                            afforadableActionContexts.Add(action.ActAction, new List<HexCell>());
+                        }
+
+                        afforadableActionContexts[action.ActAction].Add(context);
+                    }
+                }
+            }
+
+            if (!afforadableActionContexts.Any())
             {
                 // no actions available that has an effective cost we can affort
                 break;
             }
 
-            var randomAction = availableActions[Random.Range(0, availableActions.Length - 1)];
-            actionsAvailable -= randomAction.Cost;
-            randomAction.Execute();
+            var randomAction =
+                afforadableActionContexts.Keys.ToList()[Random.Range(0, afforadableActionContexts.Keys.Count - 1)];
+            var targets = afforadableActionContexts[randomAction];
+
+            Owner.ActionsAvailable -= randomAction.Invoke(Owner, targets[Random.Range(0, targets.Count - 1)]);
         }
     }
 }

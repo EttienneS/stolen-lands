@@ -1,8 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Emit;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 
 public class Mobile : Trait
 {
@@ -16,7 +12,7 @@ public class Mobile : Trait
 
         if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
-            actions.Add(new ActorAction("Move", Owner, 0, DiscoverReachableCells, MoveToCell));
+            actions.Add(new ActorAction("Move", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
         }
         else
         {
@@ -27,28 +23,35 @@ public class Mobile : Trait
         return actions;
     }
 
+    public int CostToCell(Actor actor, HexCell cell)
+    {
+        return Pathfinder.GetPathCost(Pathfinder.FindPath(actor.Location, cell)) - Owner.Location.TravelCost;
+    }
+
     public override void DoPassive()
     {
     }
 
-    public void MoveToCell(HexCell target)
+    public int MoveToCell(HexCell target)
     {
         if (Owner.Location != null)
         {
             var path = Pathfinder.FindPath(Owner.Location, target);
-            Owner.ActionsAvailable -= (Pathfinder.GetPathCost(path) - Owner.Location.TravelCost);
+            var cost = CostToCell(Owner, target);
 
             // move along path
             foreach (var cell in path)
             {
                 Move(cell);
             }
+
+            return cost;
         }
-        else
-        {
-            // if owner is nowhere, move instantly
-            Move(target);
-        }
+
+        // if owner is nowhere, move instantly
+        Move(target);
+
+        return 0;
     }
 
     private void Move(HexCell target)
@@ -56,7 +59,7 @@ public class Mobile : Trait
         // moves instantly to location
         // use MoveToCell to move along a path
         Owner.Location = target;
-        Owner.transform.position = new Vector3(target.transform.position.x, target.transform.position.y, target.transform.position.z);
+        Owner.transform.position = target.transform.position;
 
         var sighted = Owner.GetTrait<Sighted>();
 
@@ -76,9 +79,8 @@ public class Mobile : Trait
         return actor.GetTrait<Mobile>().GetReachableCells();
     }
 
-    private static void MoveToCell(Actor actor, List<HexCell> target)
+    private static int MoveToCell(Actor actor, HexCell target)
     {
-        actor.GetTrait<Mobile>().MoveToCell(target[0]);
+        return actor.GetTrait<Mobile>().MoveToCell(target);
     }
-
 }

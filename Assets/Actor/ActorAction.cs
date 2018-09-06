@@ -2,30 +2,32 @@ using System.Collections.Generic;
 
 public class ActorAction
 {
-    public delegate void Act(Actor actor, List<HexCell> target);
+    public delegate int Act(Actor actor, HexCell target);
 
     public delegate List<HexCell> Discover(Actor actor);
+
+    public delegate int GetActionCost(Actor actor, HexCell target);
 
     public string ActionName;
 
     public Actor ActorContext;
 
-    public int Cost;
 
-    public ActorAction(string name, Actor actorContext, int cost, Discover discover, Act act)
+    public ActorAction(string name, Actor actorContext, Discover discover, GetActionCost cost, Act act)
     {
         ActorContext = actorContext;
         DiscoverAction = discover;
         ActAction = act;
-        Cost = cost;
+        GetCost = cost;
         ActionName = name;
     }
 
     public Discover DiscoverAction { get; set; }
     public Act ActAction { get; set; }
+    public GetActionCost GetCost { get; set; }
 
-    public void Execute()
+    public bool CanExecute(Actor actor, HexCell context)
     {
-        ActAction(ActorContext, DiscoverAction(ActorContext));
+        return GetCost(actor, context) <= actor.ActionsAvailable;
     }
 }

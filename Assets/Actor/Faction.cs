@@ -72,9 +72,12 @@ public class Faction : MonoBehaviour
 
     public void ResetFog()
     {
-        foreach (var hex in VisibleHexes)
+        if (ActorController.Instance.PlayerFaction == this)
         {
-            hex.Visble = false;
+            foreach (var hex in VisibleHexes)
+            {
+                hex.Visble = false;
+            }
         }
 
         VisibleHexes.Clear();
