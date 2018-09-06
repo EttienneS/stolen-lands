@@ -7,7 +7,11 @@ public class Actor : MonoBehaviour
 {
     private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
+    private readonly List<SpriteRenderer> _indicators = new List<SpriteRenderer>();
+
     private MeshRenderer _meshRenderer;
+
+    public SpriteRenderer ActionIndicatorPrefab;
     public HexCell Location;
 
     public List<Trait> Traits = new List<Trait>();
@@ -29,7 +33,50 @@ public class Actor : MonoBehaviour
         }
     }
 
-    
+    public int ActionsAvailable { get; set; }
+
+    public List<ActorAction> AvailableActions
+    {
+        get
+        {
+            var allActions = new List<ActorAction>();
+            foreach (var trait in Traits)
+            {
+                allActions.AddRange(trait.GetActions());
+            }
+
+            return allActions;
+        }
+    }
+
+    public void Update()
+    {
+        if (Faction != ActorController.Instance.PlayerFaction)
+            return;
+
+        var radius = 2f;
+        if (_indicators.Count != ActionsAvailable)
+        {
+            foreach (var i in _indicators)
+            {
+                Destroy(i.gameObject);
+            }
+
+            _indicators.Clear();
+
+            for (var i = 0; i < ActionsAvailable; i++)
+            {
+                var indicator = Instantiate(ActionIndicatorPrefab, transform);
+
+                var angle = i * Mathf.PI * 2f / ActionsAvailable;
+
+                indicator.transform.localPosition = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius,
+                    indicator.transform.localPosition.z);
+
+                _indicators.Add(indicator);
+            }
+        }
+    }
 
     public void Start()
     {
@@ -41,7 +88,7 @@ public class Actor : MonoBehaviour
         MeshRenderer.material.mainTexture = texture;
     }
 
-    void OnMouseDown()
+    private void OnMouseDown()
     {
         SystemController.Instance.SetSelectedActor(this);
     }
@@ -60,26 +107,9 @@ public class Actor : MonoBehaviour
         MeshRenderer.material.SetFloat("_Outline", 0f);
     }
 
-
-    public int ActionsAvailable { get; set; }
-
-    public List<ActorAction> AvailableActions
-    {
-        get
-        {
-            var allActions = new List<ActorAction>();
-            foreach (var trait in Traits)
-            {
-                allActions.AddRange(trait.GetActions());
-            }
-
-            return allActions;
-        }
-    }
-
     public void StartTurn()
     {
-        ActionsAvailable = 5;
+        ActionsAvailable = 3;
         foreach (var trait in Traits)
         {
             trait.DoPassive();
@@ -112,7 +142,7 @@ public class Actor : MonoBehaviour
         if (TraitCache.ContainsKey(type))
         {
             // should only ever have one trait of a type so return the first value
-            return (T)TraitCache[type];
+            return (T) TraitCache[type];
         }
 
         var trait = Traits.OfType<T>().FirstOrDefault();
