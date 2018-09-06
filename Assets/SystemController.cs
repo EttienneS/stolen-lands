@@ -27,14 +27,41 @@ public class SystemController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()) HandleInput();
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            TurnController.Instance.EndCurrentTurn();
+        }
+        else if (Input.GetKeyUp(KeyCode.Tab))
+        {
+            var index = 0;
+            if (SelectedActor != null)
+            {
+                index = ActorController.Instance.PlayerFaction.Members.IndexOf(SelectedActor);
+            }
+
+            index++;
+
+            if (index > ActorController.Instance.PlayerFaction.Members.Count - 1)
+            {
+                index = 0;
+            }
+
+            SetSelectedActor(ActorController.Instance.PlayerFaction.Members[index]);
+
+            CameraController.Instance.MoveToViewCell(SelectedActor.Location);
+
+        }
+        else if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
+        {
+            HandleInput();
+
+        }
     }
 
     private void HandleInput()
     {
         var inputRay = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
-
         if (Physics.Raycast(inputRay, out hit))
         {
             if (SelectedCell != null)

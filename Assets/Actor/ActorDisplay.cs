@@ -39,5 +39,14 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
     // Update is called once per frame
     private void Update()
     {
+        if (SystemController.Instance.SelectedActor == Actor)
+        {
+            GetComponent<Image>().color = Color.red;
+        }
+        else
+        {
+            GetComponent<Image>().color = Color.grey;
+
+        }
     }
 }

@@ -15,11 +15,6 @@ public class LoadScreen : MonoBehaviour
             StartCoroutine(LoadNewScene());
             LoadNewScene();
         }
-        else
-        {
-            var panel = GameObject.Find("LoadPanel").GetComponent<Image>();
-            panel.color = new Color(0f, Random.Range(0.4f, 0.6f), 0f);
-        }
     }
 
     public static IEnumerator LoadNewScene()
