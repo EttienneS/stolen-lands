@@ -23,39 +23,26 @@ public class TurnController : MonoBehaviour
 
     private void Start()
     {
-        foreach (var faction in ActorController.Instance.Factions)
+        foreach (var member in ActorController.Instance.PlayerFaction.Members)
         {
-            var display = ActorController.Instance.GetDisplayForActor(faction.Leader);
+            var display = ActorController.Instance.GetDisplayForActor(member);
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        CameraController.Instance.MoveToViewCell(ActorController.Instance.Player.Location);
-        SystemController.Instance.SetSelectedActor(ActorController.Instance.Player);
+        CameraController.Instance.MoveToViewCell(ActorController.Instance.PlayerFaction.Members[0].Location);
+        SystemController.Instance.SetSelectedActor(ActorController.Instance.PlayerFaction.Members[0]);
     }
 
     public void EndCurrentTurn()
     {
-        ActorController.Instance.Player.GetTrait<Player>().SpentActions = 0;
-
         foreach (var faction in ActorController.Instance.Factions)
         {
             faction.ResetFog();
-
-            if (faction == ActorController.Instance.PlayerFaction)
-            {
-                continue;
-            }
-               
-            faction.TakeTurn();
+            faction.EndTurn();
+            faction.StartTurn();
         }
 
-        ActorController.Instance.PlayerFaction.TakeTurn();
-
-        foreach (var actor in ActorController.Instance.Actors)
-        {
-            actor.StartTurn();
-        }
-
+        // re-select last selected actor
         SystemController.Instance.SetSelectedActor(SystemController.Instance.SelectedActor);
     }
 }

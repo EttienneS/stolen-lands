@@ -8,9 +8,6 @@ public class ActorController : MonoBehaviour
     private readonly List<Actor> _actors = new List<Actor>();
     private readonly List<Faction> _factions = new List<Faction>();
 
-
-    public Actor ActorPrefab;
-
     private bool _init;
 
     private ActorPanel ActivePanel;
@@ -21,10 +18,12 @@ public class ActorController : MonoBehaviour
 
     public ActorPanel ActorPanelPrefab;
 
+
+    public Actor ActorPrefab;
+
     [Range(1, 200)] public int InitialFactions = 50;
 
     public Faction PlayerFaction { get; set; }
-    public Actor Player { get; set; }
 
     public static ActorController Instance
     {
@@ -68,17 +67,25 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
-        Player = GetActor();
-        Player.Traits.Remove(Player.GetTrait<Sentient>());
-        Player.Traits.Add(new Player(Player));
-        PlayerFaction = GetFaction(Player);
-        PlayerFaction.name = "Player";
+        
+        PlayerFaction = GetFaction();
+        PlayerFaction.AddMember(GetActor());
+        PlayerFaction.AddMember(GetActor());
+
+        foreach (var actor in PlayerFaction.Members)
+        {
+            actor.Traits.Remove(actor.GetTrait<Sentient>());
+            actor.Traits.Add(new Player(actor));
+        }
 
         for (var i = 0; i < InitialFactions; i++)
         {
-            GetFaction(GetActor());
-        }
+            var faction = GetFaction();
+            faction.AddMember(GetActor());
+            faction.AddMember(GetActor());
 
+            faction.Members[0].AddTrait(new HexClaimer(faction.Members[0]));
+        }
     }
 
     private Actor GetActor()
@@ -100,15 +107,14 @@ public class ActorController : MonoBehaviour
         return actor;
     }
 
-    private Faction GetFaction(Actor leader)
+    private Faction GetFaction()
     {
-        var factionName = leader.name + "'s Faction";
+        var factionName = ActorHelper.GetRandomName() + " Corp";
 
         var factionGameObject = new GameObject(factionName);
         factionGameObject.transform.parent = transform;
 
         var faction = factionGameObject.AddComponent(typeof(Faction)) as Faction;
-        faction.SetLeader(leader);
         faction.Instantiate(factionName, TextureHelper.GetRandomColor());
 
         Factions.Add(faction);
