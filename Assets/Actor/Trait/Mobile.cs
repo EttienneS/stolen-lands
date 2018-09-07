@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Mobile : Trait
 {
@@ -60,6 +61,7 @@ public class Mobile : Trait
         // use MoveToCell to move along a path
         Owner.Location = target;
         Owner.transform.position = target.transform.position;
+        Owner.transform.position -= new Vector3(0, 0, 1f);
 
         var sighted = Owner.GetTrait<Sighted>();
 

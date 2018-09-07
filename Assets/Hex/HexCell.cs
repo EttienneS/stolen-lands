@@ -7,7 +7,6 @@ public class HexCell : MonoBehaviour
 {
     public Color Color;
 
-    private List<Color> colors;
     public HexCoordinates coordinates;
 
     private int distance;
@@ -66,7 +65,6 @@ public class HexCell : MonoBehaviour
         meshCollider = gameObject.AddComponent<MeshCollider>();
         hexMesh.name = "Hex Mesh";
         vertices = new List<Vector3>();
-        colors = new List<Color>();
         triangles = new List<int>();
     }
 
@@ -74,24 +72,37 @@ public class HexCell : MonoBehaviour
     {
         hexMesh.Clear();
         vertices.Clear();
-        colors.Clear();
         triangles.Clear();
 
-        var center = new Vector2(0, 0);
+        var center = new Vector3(0, 0);
         for (var i = 0; i < 6; i++)
         {
-            AddTriangle(center, center + HexMetrics.corners[i], center + HexMetrics.corners[i + 1]);
-            AddTriangleColor(Color);
+            var leftCorner = center + HexMetrics.corners[i];
+            var rightCorner = center + HexMetrics.corners[i + 1];
+
+            AddTriangle(center, leftCorner, rightCorner);
+
+            var offset = new Vector3(0, 0, 3f);
+            var lowerLeft = leftCorner + offset;
+            var lowerRight = rightCorner + offset;
+
+            AddTriangle(rightCorner, leftCorner, lowerLeft);
+
+            AddTriangle(lowerLeft, lowerRight, rightCorner);
+
+            
         }
 
         hexMesh.vertices = vertices.ToArray();
-        hexMesh.colors = colors.ToArray();
         hexMesh.triangles = triangles.ToArray();
+
+        MeshRenderer.material.color = Color;
+
         hexMesh.RecalculateNormals();
         meshCollider.sharedMesh = hexMesh;
     }
 
-    private void AddTriangle(Vector2 v1, Vector2 v2, Vector2 v3)
+    private void AddTriangle(Vector3 v1, Vector3 v2, Vector3 v3)
     {
         var vertexIndex = vertices.Count;
         vertices.Add(v1);
@@ -100,13 +111,6 @@ public class HexCell : MonoBehaviour
         triangles.Add(vertexIndex);
         triangles.Add(vertexIndex + 1);
         triangles.Add(vertexIndex + 2);
-    }
-
-    private void AddTriangleColor(Color color)
-    {
-        colors.Add(color);
-        colors.Add(color);
-        colors.Add(color);
     }
 
     public void ColorCell(Color color)
@@ -122,27 +126,40 @@ public class HexCell : MonoBehaviour
 
     public void DisableHighlight()
     {
-        var highlight = transform.Find("Highlight").GetComponent<SpriteRenderer>();
-        highlight.enabled = false;
+        Highlight.enabled = false;
     }
 
 
     public void EnableHighlight(Color color)
     {
-        var highlight = transform.Find("Highlight").GetComponent<SpriteRenderer>();
-        highlight.color = color;
-        highlight.enabled = true;
+        Highlight.color = color;
+        Highlight.enabled = true;
+    }
+
+    public SpriteRenderer Overlay
+    {
+        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>(); }
+    }
+
+    public SpriteRenderer Highlight
+    {
+        get { return transform.Find("Highlight").GetComponent<SpriteRenderer>(); }
     }
 
     public bool Visble
     {
-        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled; }
-        set { transform.Find("Overlay").GetComponent<SpriteRenderer>().enabled = !value; }
+        get { return Overlay.enabled; }
+        set { Overlay.enabled = !value; }
+    }
+
+    public MeshRenderer MeshRenderer
+    {
+        get { return transform.GetComponent<MeshRenderer>(); }
     }
 
     public bool Known
     {
-        get { return transform.GetComponent<MeshRenderer>().enabled; }
-        set { transform.GetComponent<MeshRenderer>().enabled = value; }
+        get { return MeshRenderer.enabled; }
+        set { MeshRenderer.enabled = value; }
     }
 }
