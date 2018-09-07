@@ -47,7 +47,7 @@ public class CameraController : MonoBehaviour
     {
         _startTime = Time.time;
         _panSource = transform.position;
-        _panDesitnation = new Vector3(cell.transform.position.x, cell.transform.position.y - 25, transform.position.z);
+        _panDesitnation = new Vector3(cell.transform.position.x, cell.transform.position.y - (ZoomMax -  Camera.fieldOfView), transform.position.z);
         _journeyLength = Vector3.Distance(_panSource, _panDesitnation);
 
         _panning = true;
@@ -69,14 +69,14 @@ public class CameraController : MonoBehaviour
         }
         else
         {
+            var oldFov = Camera.fieldOfView;
+
 #if UNITY_STANDALONE || UNITY_WEBPLAYER
             float horizontal = 0;
             float vertical = 0;
             var z = transform.position.z;
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
-
-            var oldFov = Camera.fieldOfView;
 
             Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView - (Input.GetAxis("Mouse ScrollWheel") * ZoomStep),
                 ZoomMin, ZoomMax);
@@ -85,7 +85,8 @@ public class CameraController : MonoBehaviour
 
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
-            var speed = 0.25f;
+            var zoomSpeed = 0.4f;
+            var scrollSpeed = 0.05f;
             if (Input.touchCount > 0)
             {
                 var touchZero = Input.GetTouch(0);
@@ -100,9 +101,9 @@ public class CameraController : MonoBehaviour
                     var prevTouchDeltaMag = (touchZeroPrevPos - touchOnePrevPos).magnitude;
                     var touchDeltaMag = (touchZero.position - touchOne.position).magnitude;
 
-                    var deltaMagnitudeDiff = (prevTouchDeltaMag - touchDeltaMag) * speed;
+                    var deltaMagnitudeDiff = (prevTouchDeltaMag - touchDeltaMag) * zoomSpeed;
 
-                    Camera.fieldOfView += deltaMagnitudeDiff * speed;
+                    Camera.fieldOfView += deltaMagnitudeDiff * zoomSpeed;
                     Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView, ZoomMin, ZoomMax);
                 }
                 else
@@ -110,7 +111,7 @@ public class CameraController : MonoBehaviour
                     if (touchZero.phase == TouchPhase.Moved)
                     {
                         var touchDeltaPosition = touchZero.deltaPosition;
-                        transform.Translate(-touchDeltaPosition.x * speed, -touchDeltaPosition.y * speed, 0);
+                        transform.Translate(-touchDeltaPosition.x * scrollSpeed, -touchDeltaPosition.y * scrollSpeed, 0);
                     }
                 }
             }
@@ -124,11 +125,15 @@ public class CameraController : MonoBehaviour
             //transform.position = new Vector3(x, y, z);
 
             // move camera to match with change in FOV
-            transform.position -= new Vector3(0, oldFov - Camera.fieldOfView);
-
-            var zoomPercentage = 1 - Camera.fieldOfView / ZoomMax;
-            transform.eulerAngles = new Vector3(-(5 + 50 * zoomPercentage), 0);
+            RotateAndScale(oldFov);
         }
+    }
 
+    private void RotateAndScale(float oldFov)
+    {
+        transform.position -= new Vector3(0, oldFov - Camera.fieldOfView);
+
+        var zoomPercentage = 1 - Camera.fieldOfView / ZoomMax;
+        transform.eulerAngles = new Vector3(-(5 + 50 * zoomPercentage), 0);
     }
 }
