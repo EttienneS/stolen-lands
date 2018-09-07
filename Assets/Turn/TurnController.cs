@@ -29,8 +29,10 @@ public class TurnController : MonoBehaviour
             display.transform.SetParent(ScrollContentContainer.transform, false);
         }
 
-        CameraController.Instance.MoveToViewCell(ActorController.Instance.PlayerFaction.Members[0].Location);
         SystemController.Instance.SetSelectedActor(ActorController.Instance.PlayerFaction.Members[0]);
+
+        var post = SystemController.Instance.SelectedActor.Location.transform.localPosition;
+        CameraController.Instance.transform.position = new Vector3(post.x, post.y -55, CameraController.Instance.transform.position.z);
     }
 
     public void EndCurrentTurn()
