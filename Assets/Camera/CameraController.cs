@@ -83,7 +83,6 @@ public class CameraController : MonoBehaviour
             transform.position = new Vector3(transform.position.x + horizontal * Speed,
                 transform.position.y + vertical * Speed, z);
 
-            transform.position -= new Vector3(0, oldFov - Camera.fieldOfView);
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             var speed = 0.25f;
@@ -123,6 +122,9 @@ public class CameraController : MonoBehaviour
             //var y = transform.position.y;
 
             //transform.position = new Vector3(x, y, z);
+
+            // move camera to match with change in FOV
+            transform.position -= new Vector3(0, oldFov - Camera.fieldOfView);
 
             var zoomPercentage = 1 - Camera.fieldOfView / ZoomMax;
             transform.eulerAngles = new Vector3(-(5 + 50 * zoomPercentage), 0);
