@@ -7,7 +7,7 @@ public static class MapGenerator
 {
     public static void Elevate(HexCell cell)
     {
-        var elevation = new Vector3(0, 0, Random.Range(0, 3f));
+        var elevation = new Vector3(0, 0, Random.Range(0, 1f));
 
         cell.transform.position -= elevation;
         cell.Overlay.transform.position += elevation;
