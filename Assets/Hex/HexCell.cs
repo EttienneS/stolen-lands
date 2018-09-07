@@ -81,18 +81,13 @@ public class HexCell : MonoBehaviour
         {
             var leftCorner = center + HexMetrics.corners[i];
             var rightCorner = center + HexMetrics.corners[i + 1];
-
-            AddTriangle(center, leftCorner, rightCorner);
-
             var offset = new Vector3(0, 0, 3f);
             var lowerLeft = leftCorner + offset;
             var lowerRight = rightCorner + offset;
 
+            AddTriangle(center, leftCorner, rightCorner);
             AddTriangle(rightCorner, leftCorner, lowerLeft);
-
             AddTriangle(lowerLeft, lowerRight, rightCorner);
-
-
         }
 
         var tangent = new Vector4(1f, 0f, 0f, -1f);

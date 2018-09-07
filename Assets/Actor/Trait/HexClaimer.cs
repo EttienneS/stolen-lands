@@ -100,8 +100,7 @@ public class HexClaimer : Trait
         _border = new GameObject("border " + Owner.name);
         _border.transform.SetParent(SystemController.Instance.GridCanvas.transform);
 
-        const float width = 2.0f;
-        const float borderOffset = 1.1f;
+        const float width = 0.2f;
 
         var points = new List<KeyValuePair<Vector3, Vector3>>();
         foreach (var cell in ControlledCells)
@@ -116,10 +115,6 @@ public class HexClaimer : Trait
                     var face1 = startPoint + new Vector3(HexMetrics.corners[face].x, HexMetrics.corners[face].y, -1);
                     var face2 = startPoint +
                                 new Vector3(HexMetrics.corners[face + 1].x, HexMetrics.corners[face + 1].y, -1);
-
-                    face1 = Vector3.MoveTowards(face1, startPoint, borderOffset);
-                    face2 = Vector3.MoveTowards(face2, startPoint, borderOffset);
-
                     points.Add(new KeyValuePair<Vector3, Vector3>(face1, face2));
                 }
 
