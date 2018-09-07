@@ -75,11 +75,15 @@ public class CameraController : MonoBehaviour
             var z = transform.position.z;
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
-            
-            Camera.fieldOfView =
- Mathf.Clamp(Camera.fieldOfView - (Input.GetAxis("Mouse ScrollWheel") * ZoomStep), ZoomMin, ZoomMax);
-            transform.position =
- new Vector3(transform.position.x + horizontal * Speed, transform.position.y + vertical * Speed, z);
+
+            var oldFov = Camera.fieldOfView;
+
+            Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView - (Input.GetAxis("Mouse ScrollWheel") * ZoomStep),
+                ZoomMin, ZoomMax);
+            transform.position = new Vector3(transform.position.x + horizontal * Speed,
+                transform.position.y + vertical * Speed, z);
+
+            transform.position -= new Vector3(0, oldFov - Camera.fieldOfView);
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             var speed = 0.25f;
@@ -119,6 +123,10 @@ public class CameraController : MonoBehaviour
             //var y = transform.position.y;
 
             //transform.position = new Vector3(x, y, z);
+
+            var zoomPercentage = 1 - Camera.fieldOfView / ZoomMax;
+            transform.eulerAngles = new Vector3(-(5 + 50 * zoomPercentage), 0);
         }
+
     }
 }

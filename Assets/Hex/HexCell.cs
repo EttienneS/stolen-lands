@@ -74,6 +74,8 @@ public class HexCell : MonoBehaviour
         vertices.Clear();
         triangles.Clear();
 
+
+
         var center = new Vector3(0, 0);
         for (var i = 0; i < 6; i++)
         {
@@ -90,11 +92,19 @@ public class HexCell : MonoBehaviour
 
             AddTriangle(lowerLeft, lowerRight, rightCorner);
 
-            
+
+        }
+
+        var tangent = new Vector4(1f, 0f, 0f, -1f);
+        var tangents = new List<Vector4>();
+        for (var i = 0; i < vertices.Count; i++)
+        {
+            tangents.Add(tangent);
         }
 
         hexMesh.vertices = vertices.ToArray();
         hexMesh.triangles = triangles.ToArray();
+        hexMesh.tangents = tangents.ToArray();
 
         MeshRenderer.material.color = Color;
 
