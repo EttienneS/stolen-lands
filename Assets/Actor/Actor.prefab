@@ -108,6 +108,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53600c7eec4d53444aaef4e0a772dbc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Location: {fileID: 0}
   ActionIndicatorPrefab: {fileID: 212242566575537290, guid: 87b43cb336cd81e4fb63ce8a19d11b35,
     type: 2}
+  Location: {fileID: 0}
