@@ -13,14 +13,14 @@ public static class HexMetrics
     public const float innerRadius = outerRadius * 0.866025404f;
 
     // the six corners of the hex (sevenths is to wrap back around)
-    public static Vector2[] corners =
+    public static Vector3[] corners =
     {
-        new Vector2(0f, outerRadius),
-        new Vector2(innerRadius, 0.5f * outerRadius),
-        new Vector2(innerRadius, -0.5f * outerRadius),
-        new Vector2(0f, -outerRadius),
-        new Vector2(-innerRadius, -0.5f * outerRadius),
-        new Vector2(-innerRadius, 0.5f * outerRadius),
-        new Vector2(0f, outerRadius)
+        new Vector3(0f, outerRadius),
+        new Vector3(innerRadius, 0.5f * outerRadius),
+        new Vector3(innerRadius, -0.5f * outerRadius),
+        new Vector3(0f, -outerRadius),
+        new Vector3(-innerRadius, -0.5f * outerRadius),
+        new Vector3(-innerRadius, 0.5f * outerRadius),
+        new Vector3(0f, outerRadius)
     };
 }

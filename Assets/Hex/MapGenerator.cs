@@ -5,14 +5,21 @@ using UnityEngine.UI;
 
 public static class MapGenerator
 {
+    public static void Elevate(HexCell cell)
+    {
+        var elevation = new Vector3(0, 0, Random.Range(0, 3f));
+
+        cell.transform.position -= elevation;
+        cell.Overlay.transform.position += elevation;
+    }
+
     private static void CreateCell(int x, int y, int i)
     {
         float xpos = x;
         float ypos = y;
 
-        var position = new Vector2((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
-            ypos * (HexMetrics.outerRadius * 1.5f));
-
+        var position = new Vector3((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
+            ypos * (HexMetrics.outerRadius * 1.5f), 0);
 
         var cell = HexGrid.Instance.Cells[i] = Object.Instantiate(HexGrid.Instance.CellPrefab);
         cell.transform.SetParent(HexGrid.Instance.transform, false);
@@ -52,7 +59,6 @@ public static class MapGenerator
         AddLabelToCell(cell);
     }
 
-
     private static void AddLabelToCell(HexCell cell)
     {
         var label = new GameObject(cell.coordinates.ToString());
@@ -60,7 +66,7 @@ public static class MapGenerator
         label.transform.position = cell.transform.position;
 
         var text = label.AddComponent<Text>();
-        text.font = (Font) Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
+        text.font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
         text.material = text.font.material;
         text.fontSize = 4;
         text.fontStyle = FontStyle.Bold;
@@ -136,6 +142,11 @@ public static class MapGenerator
                 cell.Height = -1;
                 cell.ColorCell(new Color(0, 0, Random.Range(0.25f, 0.5f)));
             }
+        }
+
+        foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Height > 0))
+        {
+            Elevate(cell);
         }
     }
 
