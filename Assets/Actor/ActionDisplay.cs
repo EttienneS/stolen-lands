@@ -45,7 +45,7 @@ public class ActionDisplay : MonoBehaviour
             {
                 var indicator = Instantiate(ActionIndicatorPrefab, transform);
                 indicator.transform.localPosition =
-                    new Vector3(i * spacing - offset, -7, indicator.transform.localPosition.z);
+                    new Vector3(i * spacing - offset, -20, indicator.transform.localPosition.z);
                 indicator.transform.localScale = new Vector3(4, 4);
             }
         }

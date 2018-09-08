@@ -176,6 +176,11 @@ Prefab:
       propertyPath: Speed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d,
+        type: 2}
+      propertyPath: ZoomStep
+      value: 75
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 2}
   m_IsPrefabAsset: 0
@@ -303,6 +308,36 @@ Prefab:
         type: 2}
       propertyPath: m_AnchoredPosition.x
       value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Width
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Height
+      value: 32
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Masses
+      value: 75
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: MaxMassSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: MinMassSize
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 114754830705209644, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: InitialFactions
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d046710cc135d3448effed977db2354, type: 2}

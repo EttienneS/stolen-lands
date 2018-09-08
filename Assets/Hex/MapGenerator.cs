@@ -120,7 +120,7 @@ public static class MapGenerator
         }
 
         // desert
-        for (var i = 0; i < massCount / 10; i++)
+        for (var i = 0; i < massCount / 20; i++)
         {
             var massSize = Random.Range(massSizeMin, massSizeMax);
             var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
