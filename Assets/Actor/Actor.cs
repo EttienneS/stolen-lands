@@ -54,7 +54,7 @@ public class Actor : MonoBehaviour
         if (Faction != ActorController.Instance.PlayerFaction)
             return;
 
-        var radius = 2f;
+        var radius = 0.5f;
         if (_indicators.Count != ActionsAvailable)
         {
             foreach (var i in _indicators)
@@ -102,7 +102,7 @@ public class Actor : MonoBehaviour
         MeshRenderer.material.SetColor("_OutlineColor", Color.red);
     }
 
-    public void DisableOtline()
+    public void DisableOutline()
     {
         MeshRenderer.material.SetFloat("_Outline", 0f);
     }

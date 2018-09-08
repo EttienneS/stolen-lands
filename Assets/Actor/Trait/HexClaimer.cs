@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 public class HexClaimer : Trait
@@ -17,9 +18,6 @@ public class HexClaimer : Trait
         ControlledCells.Add(cell);
         cell.Owner = Owner;
 
-        // get average of cell color and owner color
-        // cell.ColorCell((Owner.Color + cell.Color)/2);
-        cell.ColorCell(Owner.Faction.Color);
         UpdateBorder();
     }
 
@@ -101,7 +99,7 @@ public class HexClaimer : Trait
         _border.transform.SetParent(SystemController.Instance.GridCanvas.transform);
 
         const float width = 0.2f;
-
+        var height = -1f;
         var points = new List<KeyValuePair<Vector3, Vector3>>();
         foreach (var cell in ControlledCells)
         {
@@ -112,9 +110,8 @@ public class HexClaimer : Trait
                 if (neighbor == null || neighbor.Owner != Owner)
                 {
                     var startPoint = cell.transform.position;
-                    var face1 = startPoint + new Vector3(HexMetrics.corners[face].x, HexMetrics.corners[face].y, -1);
-                    var face2 = startPoint +
-                                new Vector3(HexMetrics.corners[face + 1].x, HexMetrics.corners[face + 1].y, -1);
+                    var face1 = startPoint + new Vector3(HexMetrics.corners[face].x, HexMetrics.corners[face].y, -cell.transform.position.z + height);
+                    var face2 = startPoint + new Vector3(HexMetrics.corners[face + 1].x, HexMetrics.corners[face + 1].y, -cell.transform.position.z + height);
                     points.Add(new KeyValuePair<Vector3, Vector3>(face1, face2));
                 }
 
@@ -125,19 +122,20 @@ public class HexClaimer : Trait
         _border.transform.localPosition = Owner.transform.position;
         _border.transform.SetParent(_border.transform);
 
-        var material = ControlledCells[0].GetComponent<MeshRenderer>().material;
-        material.color = Owner.Faction.Color;
+        var material = AssetDatabase.GetBuiltinExtraResource<Material>("Default-Line.mat");
 
         foreach (var point in points)
         {
             var borderLine = new GameObject("BorderLine");
 
-            borderLine.transform.localPosition = Owner.transform.position;
+            borderLine.transform.localPosition = new Vector3(Owner.transform.position.x, Owner.transform.position.y, 0);
             borderLine.transform.SetParent(_border.transform);
 
             borderLine.AddComponent<LineRenderer>();
             var lr = borderLine.GetComponent<LineRenderer>();
             lr.material = material;
+            lr.startColor = Owner.Faction.Color;
+            lr.endColor = Owner.Faction.Color;
             lr.startWidth = width;
             lr.endWidth = lr.startWidth;
             lr.positionCount = 2;

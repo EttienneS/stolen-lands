@@ -90,12 +90,11 @@ public class SystemController : MonoBehaviour
     {
         if (SelectedActor != null)
         {
-            SelectedActor.DisableOtline();
+            SelectedActor.DisableOutline();
         }
 
         SelectedActor = actor;
         SelectedActor.EnableOutline();
-        SelectedActor.TakeTurn();
 
         var player = actor.GetTrait<Player>();
         if (player != null)
