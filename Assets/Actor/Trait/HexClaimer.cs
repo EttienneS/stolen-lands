@@ -9,10 +9,6 @@ public class HexClaimer : Trait
 
     public List<HexCell> ControlledCells = new List<HexCell>();
 
-    public HexClaimer(Actor owner) : base(owner)
-    {
-    }
-
     public void Claim(HexCell cell)
     {
         ControlledCells.Add(cell);
@@ -52,12 +48,12 @@ public class HexClaimer : Trait
         return cellLookup;
     }
 
-    public static List<HexCell> DiscoverLeastAggressive(Actor actor)
+    public static object DiscoverLeastAggressive(Actor actor)
     {
         return GetHexesByThreat(actor).First().Value;
     }
 
-    public static List<HexCell> DiscoverMostAgressiveCells(Actor actor)
+    public static object DiscoverMostAgressiveCells(Actor actor)
     {
         return GetHexesByThreat(actor).Last().Value;
     }

@@ -4,7 +4,7 @@ public class ActorAction
 {
     public delegate int Act(Actor actor, HexCell target);
 
-    public delegate List<HexCell> Discover(Actor actor);
+    public delegate object Discover(Actor actor);
 
     public delegate int GetActionCost(Actor actor, HexCell target);
 
@@ -28,6 +28,6 @@ public class ActorAction
 
     public bool CanExecute(Actor actor, HexCell context)
     {
-        return GetCost(actor, context) <= actor.ActionsAvailable;
+        return GetCost(actor, context) <= actor.ActionPoints;
     }
 }

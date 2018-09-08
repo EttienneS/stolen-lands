@@ -4,50 +4,59 @@ using UnityEngine.UI;
 
 public class ActionDisplay : MonoBehaviour
 {
-    public delegate void ActionCompletedDelegate(ActorAction executedAction, int cost);
+    public delegate void RevertDelegate();
 
-    public SpriteRenderer ActionIndicatorPrefab;
+    public ActorAction Action;
 
-    public List<ActorAction> Actions = new List<ActorAction>();
+    public RevertDelegate Revert { get; set; }
 
-    public HexCell Context { get; set; }
-
-    public ActionCompletedDelegate ActionCompleted { get; set; }
 
     public void Update()
     {
-        if (Actions.Count == 1)
-        {
-            transform.Find("Text").GetComponent<Text>().text = Actions[0].ActionName;
-        }
-        else
-        {
-            transform.Find("Text").GetComponent<Text>().text = "...";
-        }
+        transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
+    }
+
+    public void Execute(HexCell cell)
+    {
+        Revert();
+
+        Action.ActorContext.ActionPoints -= Action.ActAction(Action.ActorContext, cell);
     }
 
     public void OnClick()
     {
-        var executedAction = Actions[0];
-
-        ActionCompleted(executedAction, executedAction.ActAction(executedAction.ActorContext, Context));
-    }
-
-    public void Start()
-    {
-        if (Actions.Count == 1)
+        if (SystemController.Instance.ActiveAction != null)
         {
-            var action = Actions[0];
-            var cost = action.GetCost(action.ActorContext, Context);
-            var spacing = 6;
-            var offset = cost * spacing / 2;
-            for (var i = 0; i < cost; i++)
+            SystemController.Instance.ActiveAction.Revert();
+        }
+
+        var options = Action.DiscoverAction(Action.ActorContext);
+
+        var cells = options as List<HexCell>;
+
+        if (cells != null)
+        {
+            foreach (var cell in cells)
             {
-                var indicator = Instantiate(ActionIndicatorPrefab, transform);
-                indicator.transform.localPosition =
-                    new Vector3(i * spacing - offset, -20, indicator.transform.localPosition.z);
-                indicator.transform.localScale = new Vector3(4, 4);
+                cell.EnableHighlight(Color.white);
+            }
+
+            Revert = () => { cells.ForEach(c => c.DisableHighlight()); };
+        }
+        else
+        {
+            var cell = options as HexCell;
+
+            if (cell != null)
+            {
+                Revert = () => { cell.DisableHighlight(); };
+            }
+            else
+            {
+                
             }
         }
+
+        SystemController.Instance.ActiveAction = this;
     }
 }

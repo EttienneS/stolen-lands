@@ -3,10 +3,6 @@ using UnityEngine;
 
 public class Mobile : Trait
 {
-    public Mobile(Actor owner) : base(owner)
-    {
-    }
-
     public override List<ActorAction> GetActions()
     {
         var actions = new List<ActorAction>();
@@ -73,7 +69,7 @@ public class Mobile : Trait
 
     private List<HexCell> GetReachableCells()
     {
-        return Pathfinder.GetReachableCells(Owner.Location, Owner.ActionsAvailable);
+        return Pathfinder.GetReachableCells(Owner.Location, Owner.ActionPoints);
     }
 
     private static List<HexCell> DiscoverReachableCells(Actor actor)

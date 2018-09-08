@@ -11,8 +11,12 @@ public class Sentient : Trait
     public int Morality;
     public int Physical;
 
-    public Sentient(Actor owner) : base(owner)
+    public Sentient()
     {
+        Physical = Random.Range(20, 80);
+        Cunning = Random.Range(20, 80);
+        Mental = Random.Range(20, 80);
+        Charisma = Random.Range(20, 80);
     }
 
     public override List<ActorAction> GetActions()
@@ -35,18 +39,24 @@ public class Sentient : Trait
 
             foreach (var action in Owner.AvailableActions)
             {
-                foreach (var context in action.DiscoverAction(Owner))
-                {
-                    if (action.CanExecute(Owner, context))
-                    {
-                        if (!afforadableActionContexts.ContainsKey(action.ActAction))
-                        {
-                            afforadableActionContexts.Add(action.ActAction, new List<HexCell>());
-                        }
+                var cells = action.DiscoverAction(Owner) as List<HexCell>;
 
-                        afforadableActionContexts[action.ActAction].Add(context);
+                if (cells != null)
+                {
+                    foreach (var context in cells)
+                    {
+                        if (action.CanExecute(Owner, context))
+                        {
+                            if (!afforadableActionContexts.ContainsKey(action.ActAction))
+                            {
+                                afforadableActionContexts.Add(action.ActAction, new List<HexCell>());
+                            }
+
+                            afforadableActionContexts[action.ActAction].Add(context);
+                        }
                     }
                 }
+
             }
 
             if (!afforadableActionContexts.Any())
@@ -59,7 +69,7 @@ public class Sentient : Trait
                 afforadableActionContexts.Keys.ToList()[Random.Range(0, afforadableActionContexts.Keys.Count - 1)];
             var targets = afforadableActionContexts[randomAction];
 
-            Owner.ActionsAvailable -= randomAction.Invoke(Owner, targets[Random.Range(0, targets.Count - 1)]);
+            Owner.ActionPoints -= randomAction.Invoke(Owner, targets[Random.Range(0, targets.Count - 1)]);
         }
     }
 }
