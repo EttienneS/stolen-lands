@@ -20,9 +20,9 @@ public class Mobile : Trait
         return actions;
     }
 
-    public int CostToCell(Actor actor, object cell)
+    public int CostToCell(Entity entity, object cell)
     {
-        return Pathfinder.GetPathCost(Pathfinder.FindPath(actor.Location, cell as HexCell)) - Owner.Location.TravelCost;
+        return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) - Owner.Location.TravelCost;
     }
 
     public override void DoPassive()
@@ -77,13 +77,13 @@ public class Mobile : Trait
         return Pathfinder.GetReachableCells(Owner.Location, Owner.ActionPoints);
     }
 
-    private static List<HexCell> DiscoverReachableCells(Actor actor)
+    private static List<HexCell> DiscoverReachableCells(Entity entity)
     {
-        return actor.GetTrait<Mobile>().GetReachableCells();
+        return entity.GetTrait<Mobile>().GetReachableCells();
     }
 
-    private static int MoveToCell(Actor actor, object target)
+    private static int MoveToCell(Entity entity, object target)
     {
-        return actor.GetTrait<Mobile>().MoveToCell(target as HexCell);
+        return entity.GetTrait<Mobile>().MoveToCell(target as HexCell);
     }
 }

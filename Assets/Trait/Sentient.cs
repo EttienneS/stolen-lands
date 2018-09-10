@@ -37,7 +37,7 @@ public class Sentient : Trait
         {
             afforadableActionContexts.Clear();
 
-            foreach (var action in Owner.AvailableActions)
+            foreach (var action in (Owner as Actor).AvailableActions)
             {
                 var cells = action.DiscoverAction(Owner) as List<HexCell>;
 
@@ -45,7 +45,7 @@ public class Sentient : Trait
                 {
                     foreach (var context in cells)
                     {
-                        if (action.CanExecute(Owner, context))
+                        if (action.CanExecute((Owner as Actor), context))
                         {
                             if (!afforadableActionContexts.ContainsKey(action.ActAction))
                             {

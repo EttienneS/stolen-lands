@@ -28,6 +28,8 @@ public class HexCell : MonoBehaviour
 
     public int SearchPhase { get; set; }
 
+    public List<Structure> Structures { get; set; }
+
     public int SearchPriority
     {
         get
@@ -45,7 +47,7 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public Actor Owner { get; set; }
+    public Faction Owner { get; set; }
     public Text Label { get; set; }
 
     public HexCell GetNeighbor(HexDirection direction)

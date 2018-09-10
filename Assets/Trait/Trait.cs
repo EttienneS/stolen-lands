@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 public abstract class Trait
 {
-    public Actor Owner { get; set; }
+    public Entity Owner { get; set; }
 
     public string Name { get; set; }
 

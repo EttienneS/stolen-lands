@@ -2,19 +2,19 @@ using System.Collections.Generic;
 
 public class ActorAction
 {
-    public delegate int Act(Actor actor, object target);
+    public delegate int Act(Entity entity, object target);
 
-    public delegate object Discover(Actor actor);
+    public delegate object Discover(Entity entity);
 
-    public delegate int GetActionCost(Actor actor, object target);
+    public delegate int GetActionCost(Entity entity, object target);
 
     public string ActionName;
 
-    public Actor ActorContext;
+    public Entity EntityContext;
 
-    public ActorAction(string name, Actor actorContext, Discover discover, GetActionCost cost, Act act)
+    public ActorAction(string name, Entity entityContext, Discover discover, GetActionCost cost, Act act)
     {
-        ActorContext = actorContext;
+        EntityContext = entityContext;
         DiscoverAction = discover;
         ActAction = act;
         GetCost = cost;

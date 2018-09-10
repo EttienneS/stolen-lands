@@ -7,31 +7,30 @@ public class HexClaimer : Trait
 {
     private GameObject _border;
 
-    public List<HexCell> ControlledCells = new List<HexCell>();
 
     public void Claim(HexCell cell)
     {
-        ControlledCells.Add(cell);
-        cell.Owner = Owner;
+        Owner.Faction.ControlledCells.Add(cell);
+        cell.Owner = Owner.Faction;
 
         UpdateBorder();
     }
 
-    public static int ClaimCell(Actor actor, object target)
+    public static int ClaimCell(Entity entity, object target)
     {
-        actor.GetTrait<HexClaimer>().Claim(target as HexCell);
+        entity.GetTrait<HexClaimer>().Claim(target as HexCell);
         return 1;
     }
 
-    public static Dictionary<int, List<HexCell>> GetHexesByThreat(Actor actor)
+    public static Dictionary<int, List<HexCell>> GetHexesByThreat(Entity entity)
     {
-        var cells = DiscoverAvailableCells(actor);
+        var cells = DiscoverAvailableCells(entity);
 
         // get the cell along with their neighbours
         var cellLookup = new Dictionary<int, List<HexCell>>();
         foreach (var cell in cells)
         {
-            var neighbors = cell.neighbors.Count(n => n != null && n.Owner != null && n.Owner != actor);
+            var neighbors = cell.neighbors.Count(n => n != null && n.Owner != null && n.Owner != entity.Faction);
             if (!cellLookup.ContainsKey(neighbors))
             {
                 cellLookup.Add(neighbors, new List<HexCell>());
@@ -48,24 +47,24 @@ public class HexClaimer : Trait
         return cellLookup;
     }
 
-    public static object DiscoverLeastAggressive(Actor actor)
+    public static object DiscoverLeastAggressive(Entity entity)
     {
-        return GetHexesByThreat(actor).First().Value;
+        return GetHexesByThreat(entity).First().Value;
     }
 
-    public static object DiscoverMostAgressiveCells(Actor actor)
+    public static object DiscoverMostAgressiveCells(Entity entity)
     {
-        return GetHexesByThreat(actor).Last().Value;
+        return GetHexesByThreat(entity).Last().Value;
     }
 
-    public static List<HexCell> DiscoverAvailableCells(Actor actor)
+    public static List<HexCell> DiscoverAvailableCells(Entity entity)
     {
         var potentialCells = new List<HexCell>();
-        var claimer = actor.GetTrait<HexClaimer>();
+        var claimer = entity.GetTrait<HexClaimer>();
 
-        if (claimer.ControlledCells.Any())
+        if (claimer.Owner.Faction.ControlledCells.Any())
         {
-            foreach (var controlledCell in claimer.ControlledCells)
+            foreach (var controlledCell in claimer.Owner.Faction.ControlledCells)
             {
                 foreach (var cell in controlledCell.neighbors)
                 {
@@ -78,7 +77,7 @@ public class HexClaimer : Trait
         }
         else
         {
-            potentialCells.Add(actor.Location);
+            potentialCells.Add(entity.Location);
         }
 
         return potentialCells;
@@ -97,13 +96,13 @@ public class HexClaimer : Trait
         const float width = 0.2f;
         var height = -1f;
         var points = new List<KeyValuePair<Vector3, Vector3>>();
-        foreach (var cell in ControlledCells)
+        foreach (var cell in Owner.Faction.ControlledCells)
         {
             var face = 0;
 
             foreach (var neighbor in cell.neighbors)
             {
-                if (neighbor == null || neighbor.Owner != Owner)
+                if (neighbor == null || neighbor.Owner != Owner.Faction)
                 {
                     var startPoint = cell.transform.position;
                     var face1 = startPoint + new Vector3(HexMetrics.corners[face].x, HexMetrics.corners[face].y, -cell.transform.position.z + height);
@@ -160,7 +159,7 @@ public class HexClaimer : Trait
     }
 
 
-    public int GetCost(Actor actor, object cell)
+    public int GetCost(Entity entity, object cell)
     {
         return 1;
     }

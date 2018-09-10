@@ -25,9 +25,9 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             Revert();
         }
 
-        Action.ActorContext.ActionPoints -= Action.ActAction(Action.ActorContext, option);
+        Action.EntityContext.ActionPoints -= Action.ActAction(Action.EntityContext, option);
 
-        Action.ActorContext.TakeTurn();
+        (Action.EntityContext as Actor).TakeTurn();
     }
 
     public void SetAction(ActorAction action)
@@ -36,7 +36,7 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         Action = action;
 
-        var options = Action.DiscoverAction(Action.ActorContext);
+        var options = Action.DiscoverAction(Action.EntityContext);
 
         transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
 

@@ -17,9 +17,14 @@ public class Faction : MonoBehaviour
 
     public int Manpower { get; set; }
 
+    public List<Structure> Holdings = new List<Structure>();
+
     public List<HexCell> KnownHexes = new List<HexCell>();
 
     public List<HexCell> VisibleHexes = new List<HexCell>();
+
+    public List<HexCell> ControlledCells = new List<HexCell>();
+
 
     public override string ToString()
     {
@@ -68,6 +73,11 @@ public class Faction : MonoBehaviour
         {
             member.TakeTurn();
         }
+
+        foreach (var holding in Holdings)
+        {
+            holding.EndTurn();
+        }
     }
 
     public void ResetFog()
@@ -89,5 +99,18 @@ public class Faction : MonoBehaviour
         {
             member.StartTurn();
         }
+
+        foreach (var holding in Holdings)
+        {
+            holding.StartTurn();
+        }
+    }
+
+    public void AddHolding(Structure building)
+    {
+        Holdings.Add(building);
+        building.GetComponent<MeshRenderer>().material.color = Color;
+
+        building.Faction = this;
     }
 }
