@@ -13,26 +13,19 @@ public class Builder : Trait
         return actions;
     }
 
-    private int BuildingCost(Actor actor, HexCell target)
+    private int BuildingCost(Actor actor, object target)
     {
-        return 1;
+        return BuildingController.Instance.GetBuilding(target.ToString()).Cost;
     }
 
     private List<object> GetBuildings(Actor actor)
     {
-        var buildings = new List<object>();
-
-        //if (!actor.Location.Buildings.Any())
-        //{
-        //}
-
-        return buildings;
+        return BuildingController.Instance.AvailableBuildings(actor.ActionPoints).Cast<object>().ToList();
     }
 
-    private int Build(Actor actor, HexCell target)
+    private int Build(Actor actor, object target)
     {
-
-        return 1;
+        return BuildingController.Instance.Build(actor, target.ToString()).Cost; ;
     }
 
     public override void DoPassive()

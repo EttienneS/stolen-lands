@@ -24,7 +24,7 @@ public class ControlPanelController : MonoBehaviour
     public void AddAction(ActorAction action)
     {
         var actionDisplay = Instantiate(ActionPrefab, transform);
-        actionDisplay.Action = action;
+        actionDisplay.SetAction(action);
 
         _playerActions.Add(actionDisplay);
     }
@@ -35,7 +35,7 @@ public class ControlPanelController : MonoBehaviour
         number--;
         if (_playerActions.Count - 1 >= number)
         {
-            _playerActions[number].OnClick();
+            _playerActions[number].OnPointerClick(null);
         }
     }
 

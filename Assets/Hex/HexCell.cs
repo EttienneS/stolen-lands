@@ -21,8 +21,6 @@ public class HexCell : MonoBehaviour
     private List<int> triangles;
     private List<Vector3> vertices;
 
-    public List<Building> Buildings;
-
     public HexCell PathFrom { get; set; }
     public int SearchHeuristic { get; set; }
 

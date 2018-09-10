@@ -20,9 +20,9 @@ public class Mobile : Trait
         return actions;
     }
 
-    public int CostToCell(Actor actor, HexCell cell)
+    public int CostToCell(Actor actor, object cell)
     {
-        return Pathfinder.GetPathCost(Pathfinder.FindPath(actor.Location, cell)) - Owner.Location.TravelCost;
+        return Pathfinder.GetPathCost(Pathfinder.FindPath(actor.Location, cell as HexCell)) - Owner.Location.TravelCost;
     }
 
     public override void DoPassive()
@@ -53,6 +53,11 @@ public class Mobile : Trait
 
     private void Move(HexCell target)
     {
+        if (target.transform == null)
+        {
+            return;
+        }
+
         // moves instantly to location
         // use MoveToCell to move along a path
         Owner.Location = target;
@@ -77,8 +82,8 @@ public class Mobile : Trait
         return actor.GetTrait<Mobile>().GetReachableCells();
     }
 
-    private static int MoveToCell(Actor actor, HexCell target)
+    private static int MoveToCell(Actor actor, object target)
     {
-        return actor.GetTrait<Mobile>().MoveToCell(target);
+        return actor.GetTrait<Mobile>().MoveToCell(target as HexCell);
     }
 }

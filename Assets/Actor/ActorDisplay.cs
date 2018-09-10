@@ -49,4 +49,5 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
 
         }
     }
+
 }

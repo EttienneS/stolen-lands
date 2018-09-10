@@ -1,62 +1,116 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionDisplay : MonoBehaviour
+public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public delegate void RevertDelegate();
-
     public ActorAction Action;
 
+    public delegate void RevertDelegate();
+    public List<HexCell> CellTargets { get; set; }
+    public Dropdown Dropdown
+    {
+        get { return transform.Find("Dropdown").GetComponent<Dropdown>(); }
+    }
+
+    public Dictionary<string, object> Options { get; set; }
     public RevertDelegate Revert { get; set; }
 
-
-    public void Update()
+    public void Execute(object option)
     {
+        if (Revert != null)
+        {
+            Revert();
+        }
+
+        Action.ActorContext.ActionPoints -= Action.ActAction(Action.ActorContext, option);
+
+        Action.ActorContext.TakeTurn();
+    }
+
+    public void SetAction(ActorAction action)
+    {
+        _baseColor = Background.color;
+
+        Action = action;
+
+        var options = Action.DiscoverAction(Action.ActorContext);
+
         transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
+
+        CellTargets = new List<HexCell>();
+        Options = new Dictionary<string, object>();
+
+        var cells = options as List<HexCell>;
+
+        if (cells != null)
+        {
+            CellTargets.AddRange(cells);
+        }
+        else
+        {
+            var cell = options as HexCell;
+            if (cell != null)
+            {
+                CellTargets.Add(cell);
+            }
+            else
+            {
+                Dropdown.gameObject.SetActive(true);
+
+                foreach (var option in options as List<object>)
+                {
+                    Options.Add(option.ToString(), option);
+                    Dropdown.options.Add(new Dropdown.OptionData(Options.Last().Key));
+                }
+            }
+        }
     }
 
-    public void Execute(HexCell cell)
+    private Color _baseColor;
+
+    private Image Background
     {
-        Revert();
-
-        Action.ActorContext.ActionPoints -= Action.ActAction(Action.ActorContext, cell);
+        get { return GetComponent<Image>(); }
     }
 
-    public void OnClick()
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        Background.color = Color.red;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Background.color = _baseColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
     {
         if (SystemController.Instance.ActiveAction != null)
         {
             SystemController.Instance.ActiveAction.Revert();
         }
 
-        var options = Action.DiscoverAction(Action.ActorContext);
-
-        var cells = options as List<HexCell>;
-
-        if (cells != null)
+        if (Options.Any())
         {
-            foreach (var cell in cells)
-            {
-                cell.EnableHighlight(Color.white);
-            }
-
-            Revert = () => { cells.ForEach(c => c.DisableHighlight()); };
+            Execute(Options[Dropdown.options[Dropdown.value].text]);
         }
         else
         {
-            var cell = options as HexCell;
+            if (CellTargets.Any())
+            {
+                foreach (var cell in CellTargets)
+                {
+                    cell.EnableHighlight(Color.white);
+                }
 
-            if (cell != null)
-            {
-                Revert = () => { cell.DisableHighlight(); };
+                Revert = () => { CellTargets.ForEach(c => c.DisableHighlight()); };
             }
-            else
-            {
-                
-            }
+
+            SystemController.Instance.ActiveAction = this;
         }
-
-        SystemController.Instance.ActiveAction = this;
     }
 }
