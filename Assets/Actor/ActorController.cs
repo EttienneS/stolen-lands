@@ -67,41 +67,31 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
-        
-        PlayerFaction = GetFaction();
-        PlayerFaction.AddMember(GetActor());
-        PlayerFaction.AddMember(GetActor());
 
-        foreach (var actor in PlayerFaction.Members)
-        {
-            actor.Traits.Remove(actor.GetTrait<Sentient>());
-            actor.Traits.Add(new Player(actor));
-        }
+        PlayerFaction = GetFaction();
+        PlayerFaction.AddMember(GetActor(new Player()));
+        PlayerFaction.AddMember(GetActor(new Player()));
+
 
         for (var i = 0; i < InitialFactions; i++)
         {
             var faction = GetFaction();
-            faction.AddMember(GetActor());
-            faction.AddMember(GetActor());
+            faction.AddMember(GetActor(new Sentient()));
+            faction.AddMember(GetActor(new Sentient()));
 
-            faction.Members[0].AddTrait(new HexClaimer(faction.Members[0]));
+            faction.Members[0].AddTrait(new HexClaimer());
         }
     }
 
-    private Actor GetActor()
+    private Actor GetActor(Trait brain)
     {
         var actor = Instantiate(ActorPrefab, transform);
         actor.name = ActorHelper.GetRandomName();
-        actor.AddTrait(new Sentient(actor)
-        {
-            Physical = Random.Range(20, 80),
-            Cunning = Random.Range(20, 80),
-            Mental = Random.Range(20, 80),
-            Charisma = Random.Range(20, 80)
-        });
+        actor.AddTrait(brain);
         Actors.Add(actor);
-        actor.AddTrait(new Sighted(actor, 2));
-        actor.AddTrait(new Mobile(actor));
+        actor.AddTrait(new Sighted(3));
+        actor.AddTrait(new Mobile());
+        actor.AddTrait(new Builder());
         actor.StartTurn();
 
         return actor;
@@ -109,7 +99,7 @@ public class ActorController : MonoBehaviour
 
     private Faction GetFaction()
     {
-        var factionName = ActorHelper.GetRandomName() + " Corp";
+        var factionName = ActorHelper.GetRandomName();
 
         var factionGameObject = new GameObject(factionName);
         factionGameObject.transform.parent = transform;

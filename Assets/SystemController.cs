@@ -10,8 +10,6 @@ public class SystemController : MonoBehaviour
 
     public Canvas UICanvas;
 
-    public HexCell SelectedCell { get; set; }
-
     public static SystemController Instance
     {
         get
@@ -54,7 +52,17 @@ public class SystemController : MonoBehaviour
         else if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
             HandleInput();
-
+        }
+        else
+        {
+            for (int i = 1; i < 10; i++)
+            {
+                if (Input.GetKeyUp("" + i))
+                {
+                    ControlPanelController.Instance.InvokeAction(i);
+                    break;
+                }
+            }
         }
     }
 
@@ -64,18 +72,15 @@ public class SystemController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(inputRay, out hit))
         {
-            if (SelectedCell != null)
+            if (ActiveAction != null)
             {
-                // remove highlight
-                SelectedCell.DisableHighlight();
-                SelectedCell = null;
-            }
+                var selectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
 
-            SelectedCell = HexGrid.Instance.GetCellAtPoint(hit.point);
-        }
-        else
-        {
-            SelectedCell = null;
+                if (selectedCell.Highlight.enabled)
+                {
+                    ActiveAction.Execute(selectedCell);
+                }
+            }
         }
     }
 
@@ -85,6 +90,8 @@ public class SystemController : MonoBehaviour
     }
 
     public Actor SelectedActor;
+
+    public ActionDisplay ActiveAction { get; set; }
 
     public void SetSelectedActor(Actor actor)
     {

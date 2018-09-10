@@ -33,7 +33,7 @@ public class Actor : MonoBehaviour
         }
     }
 
-    public int ActionsAvailable { get; set; }
+    public int ActionPoints { get; set; }
 
     public List<ActorAction> AvailableActions
     {
@@ -55,7 +55,7 @@ public class Actor : MonoBehaviour
             return;
 
         var radius = 0.5f;
-        if (_indicators.Count != ActionsAvailable)
+        if (_indicators.Count != ActionPoints)
         {
             foreach (var i in _indicators)
             {
@@ -64,11 +64,11 @@ public class Actor : MonoBehaviour
 
             _indicators.Clear();
 
-            for (var i = 0; i < ActionsAvailable; i++)
+            for (var i = 0; i < ActionPoints; i++)
             {
                 var indicator = Instantiate(ActionIndicatorPrefab, transform);
 
-                var angle = i * Mathf.PI * 2f / ActionsAvailable;
+                var angle = i * Mathf.PI * 2f / ActionPoints;
 
                 indicator.transform.localPosition = new Vector3(Mathf.Cos(angle) * radius, Mathf.Sin(angle) * radius,
                     indicator.transform.localPosition.z);
@@ -80,7 +80,7 @@ public class Actor : MonoBehaviour
 
     public void Start()
     {
-        var res = 16;
+        var res = 32;
 
         var texture = TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor());
         Sprite = Sprite.Create(texture, new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
@@ -98,8 +98,8 @@ public class Actor : MonoBehaviour
         var outline = Shader.Find("Custom/Outline");
 
         MeshRenderer.material.shader = outline;
-        MeshRenderer.material.SetFloat("_Outline", 0.04f);
-        MeshRenderer.material.SetColor("_OutlineColor", Color.red);
+        MeshRenderer.material.SetFloat("_Outline", 0.05f);
+        MeshRenderer.material.SetColor("_OutlineColor", Faction.Color);
     }
 
     public void DisableOutline()
@@ -109,7 +109,7 @@ public class Actor : MonoBehaviour
 
     public void StartTurn()
     {
-        ActionsAvailable = 3;
+        ActionPoints = 3;
         foreach (var trait in Traits)
         {
             trait.DoPassive();
@@ -161,6 +161,7 @@ public class Actor : MonoBehaviour
         if (newTrait == null)
         {
             Traits.Add(trait);
+            trait.Owner = this;
         }
 
         newTrait = GetTrait<T>();

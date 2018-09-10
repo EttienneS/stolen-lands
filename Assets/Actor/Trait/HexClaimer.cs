@@ -9,10 +9,6 @@ public class HexClaimer : Trait
 
     public List<HexCell> ControlledCells = new List<HexCell>();
 
-    public HexClaimer(Actor owner) : base(owner)
-    {
-    }
-
     public void Claim(HexCell cell)
     {
         ControlledCells.Add(cell);
@@ -21,9 +17,9 @@ public class HexClaimer : Trait
         UpdateBorder();
     }
 
-    public static int ClaimCell(Actor actor, HexCell target)
+    public static int ClaimCell(Actor actor, object target)
     {
-        actor.GetTrait<HexClaimer>().Claim(target);
+        actor.GetTrait<HexClaimer>().Claim(target as HexCell);
         return 1;
     }
 
@@ -52,12 +48,12 @@ public class HexClaimer : Trait
         return cellLookup;
     }
 
-    public static List<HexCell> DiscoverLeastAggressive(Actor actor)
+    public static object DiscoverLeastAggressive(Actor actor)
     {
         return GetHexesByThreat(actor).First().Value;
     }
 
-    public static List<HexCell> DiscoverMostAgressiveCells(Actor actor)
+    public static object DiscoverMostAgressiveCells(Actor actor)
     {
         return GetHexesByThreat(actor).Last().Value;
     }
@@ -122,7 +118,7 @@ public class HexClaimer : Trait
         _border.transform.localPosition = Owner.transform.position;
         _border.transform.SetParent(_border.transform);
 
-        var material = AssetDatabase.GetBuiltinExtraResource<Material>("Default-Line.mat");
+        var material = Resources.Load<Material>("Line");
 
         foreach (var point in points)
         {
@@ -164,7 +160,7 @@ public class HexClaimer : Trait
     }
 
 
-    public int GetCost(Actor actor, HexCell cell)
+    public int GetCost(Actor actor, object cell)
     {
         return 1;
     }

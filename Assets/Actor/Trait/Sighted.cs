@@ -9,7 +9,7 @@ public class Sighted : Trait
 
     private List<HexCell> _visibleCells = new List<HexCell>();
 
-    public Sighted(Actor owner, int visionRange) : base(owner)
+    public Sighted(int visionRange) 
     {
         _visionRange = visionRange;
     }

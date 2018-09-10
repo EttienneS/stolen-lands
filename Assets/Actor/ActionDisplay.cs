@@ -1,53 +1,116 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ActionDisplay : MonoBehaviour
+public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    public delegate void ActionCompletedDelegate(ActorAction executedAction, int cost);
+    public ActorAction Action;
 
-    public SpriteRenderer ActionIndicatorPrefab;
-
-    public List<ActorAction> Actions = new List<ActorAction>();
-
-    public HexCell Context { get; set; }
-
-    public ActionCompletedDelegate ActionCompleted { get; set; }
-
-    public void Update()
+    public delegate void RevertDelegate();
+    public List<HexCell> CellTargets { get; set; }
+    public Dropdown Dropdown
     {
-        if (Actions.Count == 1)
+        get { return transform.Find("Dropdown").GetComponent<Dropdown>(); }
+    }
+
+    public Dictionary<string, object> Options { get; set; }
+    public RevertDelegate Revert { get; set; }
+
+    public void Execute(object option)
+    {
+        if (Revert != null)
         {
-            transform.Find("Text").GetComponent<Text>().text = Actions[0].ActionName;
+            Revert();
+        }
+
+        Action.ActorContext.ActionPoints -= Action.ActAction(Action.ActorContext, option);
+
+        Action.ActorContext.TakeTurn();
+    }
+
+    public void SetAction(ActorAction action)
+    {
+        _baseColor = Background.color;
+
+        Action = action;
+
+        var options = Action.DiscoverAction(Action.ActorContext);
+
+        transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
+
+        CellTargets = new List<HexCell>();
+        Options = new Dictionary<string, object>();
+
+        var cells = options as List<HexCell>;
+
+        if (cells != null)
+        {
+            CellTargets.AddRange(cells);
         }
         else
         {
-            transform.Find("Text").GetComponent<Text>().text = "...";
+            var cell = options as HexCell;
+            if (cell != null)
+            {
+                CellTargets.Add(cell);
+            }
+            else
+            {
+                Dropdown.gameObject.SetActive(true);
+
+                foreach (var option in options as List<object>)
+                {
+                    Options.Add(option.ToString(), option);
+                    Dropdown.options.Add(new Dropdown.OptionData(Options.Last().Key));
+                }
+            }
         }
     }
 
-    public void OnClick()
-    {
-        var executedAction = Actions[0];
+    private Color _baseColor;
 
-        ActionCompleted(executedAction, executedAction.ActAction(executedAction.ActorContext, Context));
+    private Image Background
+    {
+        get { return GetComponent<Image>(); }
     }
 
-    public void Start()
+
+    public void OnPointerEnter(PointerEventData eventData)
     {
-        if (Actions.Count == 1)
+        Background.color = Color.red;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        Background.color = _baseColor;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (SystemController.Instance.ActiveAction != null)
         {
-            var action = Actions[0];
-            var cost = action.GetCost(action.ActorContext, Context);
-            var spacing = 6;
-            var offset = cost * spacing / 2;
-            for (var i = 0; i < cost; i++)
+            SystemController.Instance.ActiveAction.Revert();
+        }
+
+        if (Options.Any())
+        {
+            Execute(Options[Dropdown.options[Dropdown.value].text]);
+        }
+        else
+        {
+            if (CellTargets.Any())
             {
-                var indicator = Instantiate(ActionIndicatorPrefab, transform);
-                indicator.transform.localPosition =
-                    new Vector3(i * spacing - offset, -20, indicator.transform.localPosition.z);
-                indicator.transform.localScale = new Vector3(4, 4);
+                foreach (var cell in CellTargets)
+                {
+                    cell.EnableHighlight(Color.white);
+                }
+
+                Revert = () => { CellTargets.ForEach(c => c.DisableHighlight()); };
             }
+
+            SystemController.Instance.ActiveAction = this;
         }
     }
 }

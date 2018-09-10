@@ -6,8 +6,6 @@ public class HexGrid : MonoBehaviour
 {
     private static HexGrid _instance;
 
-    private readonly Dictionary<HexCell, ActionDisplay> _playerActions = new Dictionary<HexCell, ActionDisplay>();
-    public ActionDisplay ActionDisplayPrefab;
     public HexCell CellPrefab;
     public HexCell[] Cells;
 
@@ -30,42 +28,6 @@ public class HexGrid : MonoBehaviour
         }
     }
 
-    public void AddPlayerActionToCanvas(Player player, HexCell cell, ActorAction action)
-    {
-        if (!ActorController.Instance.PlayerFaction.KnownHexes.Contains(cell))
-        {
-            // do not add actions to unknown hexes
-            return;
-        }
-
-        if (!_playerActions.ContainsKey(cell))
-        {
-            var actionDisplay = Instantiate(ActionDisplayPrefab);
-            actionDisplay.name = "ActionDisplay - " + cell.coordinates;
-            actionDisplay.transform.SetParent(SystemController.Instance.GridCanvas.transform);
-            actionDisplay.transform.localPosition = cell.transform.localPosition;
-
-            actionDisplay.Context = cell;
-            actionDisplay.ActionCompleted = player.ActionExecuted;
-
-            _playerActions.Add(cell, actionDisplay);
-        }
-
-        if (_playerActions[cell].Actions.All(a => a.ActionName != action.ActionName))
-        {
-            _playerActions[cell].Actions.Add(action);
-        }
-    }
-
-    public void ClearPlayerActions()
-    {
-        foreach (var action in _playerActions.Values)
-        {
-            Destroy(action.gameObject, 0);
-        }
-
-        _playerActions.Clear();
-    }
 
     public HexCell GetCellAtPoint(Vector3 position)
     {
