@@ -326,7 +326,7 @@ GameObject:
   - component: {fileID: 4539634410846062}
   - component: {fileID: 114655421108700614}
   m_Layer: 0
-  m_Name: BuildingController
+  m_Name: StructureController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2131,7 +2131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 396a1dc03914c604d8c2e83bb4944aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BuildingPrefabs:
+  StructurePrefabs:
   - {fileID: 114067676599185492, guid: e17b9b04576f0b34dbcb4e16fcc9854b, type: 2}
 --- !u!114 &114660546594293440
 MonoBehaviour:

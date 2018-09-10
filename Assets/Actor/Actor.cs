@@ -1,22 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Actor : MonoBehaviour
+public class Actor : Entity
 {
-    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
-
     private readonly List<SpriteRenderer> _indicators = new List<SpriteRenderer>();
 
     private MeshRenderer _meshRenderer;
 
     public SpriteRenderer ActionIndicatorPrefab;
-    public HexCell Location;
-
-    public List<Trait> Traits = new List<Trait>();
-
-    public Faction Faction { get; set; }
 
     public Sprite Sprite { get; set; }
 
@@ -33,7 +24,6 @@ public class Actor : MonoBehaviour
         }
     }
 
-    public int ActionPoints { get; set; }
 
     public List<ActorAction> AvailableActions
     {
@@ -134,38 +124,5 @@ public class Actor : MonoBehaviour
                 player.TakeAction(AvailableActions);
             }
         }
-    }
-
-    public T GetTrait<T>() where T : Trait
-    {
-        var type = typeof(T);
-        if (TraitCache.ContainsKey(type))
-        {
-            // should only ever have one trait of a type so return the first value
-            return (T) TraitCache[type];
-        }
-
-        var trait = Traits.OfType<T>().FirstOrDefault();
-        if (trait != null)
-        {
-            TraitCache.Add(type, trait);
-            return trait;
-        }
-
-        return null;
-    }
-
-    public T AddTrait<T>(T trait) where T : Trait
-    {
-        var newTrait = GetTrait<T>();
-        if (newTrait == null)
-        {
-            Traits.Add(trait);
-            trait.Owner = this;
-        }
-
-        newTrait = GetTrait<T>();
-
-        return newTrait;
     }
 }
