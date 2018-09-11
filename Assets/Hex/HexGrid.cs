@@ -9,11 +9,8 @@ public class HexGrid : MonoBehaviour
     public HexCell CellPrefab;
     public HexCell[] Cells;
 
-    [Range(1, 250)] public int Height = 2;
-    [Range(1, 1000)] public int Masses = 50;
-    [Range(1, 500)] public int MaxMassSize = 100;
-    [Range(1, 500)] public int MinMassSize = 50;
-    [Range(1, 250)] public int Width = 2;
+    [Range(1, 250)] public int Height = 32;
+    [Range(1, 250)] public int Width = 32;
 
     public static HexGrid Instance
     {
@@ -47,7 +44,7 @@ public class HexGrid : MonoBehaviour
     private void Awake()
     {
         ActorController.Instance.Init();
-        MapGenerator.GenerateMap(Masses, MinMassSize, MaxMassSize);
+        MapGenerator.GenerateMap();
 
         MapGenerator.PopulateWorld();
     }

@@ -167,6 +167,16 @@ Prefab:
       propertyPath: m_FontData.m_FontStyle
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Height
+      value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 114598888896121218, guid: 7d046710cc135d3448effed977db2354,
+        type: 2}
+      propertyPath: Width
+      value: 64
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d046710cc135d3448effed977db2354, type: 2}
   m_IsPrefabAsset: 0

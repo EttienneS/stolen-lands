@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Mobile : Trait
@@ -17,7 +18,7 @@ public class Mobile : Trait
 
         if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
-            actions.Add(new ActorAction("Move", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
+            actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
             actions.Add(new ActorAction("+Move", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
         }
 
@@ -88,7 +89,7 @@ public class Mobile : Trait
 
     private void Move(HexCell target)
     {
-        if (target.transform == null)
+        if (target == null || target.transform == null)
         {
             return;
         }
