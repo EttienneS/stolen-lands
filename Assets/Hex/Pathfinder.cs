@@ -122,12 +122,12 @@ public static class Pathfinder
 
     public static List<HexCell> GetReachableCells(HexCell actorLocation, int speed)
     {
-        var reachableCells = (from cell in 
-            HexGrid.Instance.Cells.Where(c => c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
-            let path = FindPath(actorLocation, cell)
-            let pathCost = GetPathCost(path) - actorLocation.TravelCost
-            where path.Count > 0 && pathCost <= speed
-            select cell)
+        var reachableCells = (from cell in
+            HexGrid.Instance.Cells.Where(c => c != null && c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
+                              let path = FindPath(actorLocation, cell)
+                              let pathCost = GetPathCost(path) - actorLocation.TravelCost
+                              where path.Count > 0 && pathCost <= speed
+                              select cell)
             .Distinct()
             .ToList();
 
