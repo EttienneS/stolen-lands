@@ -102,7 +102,7 @@ public class Actor : Entity
         ActionPoints = 3;
         foreach (var trait in Traits)
         {
-            trait.DoPassive();
+            trait.Start();
         }
     }
 
@@ -123,6 +123,14 @@ public class Actor : Entity
             {
                 player.TakeAction(AvailableActions);
             }
+        }
+    }
+
+    public void EndTurn()
+    {
+        foreach (var trait in Traits)
+        {
+            trait.Finish();
         }
     }
 }

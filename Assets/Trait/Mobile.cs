@@ -3,6 +3,15 @@ using UnityEngine;
 
 public class Mobile : Trait
 {
+    public int Speed;
+
+    public int Moved;
+
+    public Mobile(int speed)
+    {
+        Speed = speed;
+    }
+
     public override List<ActorAction> GetActions()
     {
         var actions = new List<ActorAction>();
@@ -25,8 +34,13 @@ public class Mobile : Trait
         return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) - Owner.Location.TravelCost;
     }
 
-    public override void DoPassive()
+    public override void Start()
     {
+    }
+
+    public override void Finish()
+    {
+        Moved = 0;
     }
 
     public int MoveToCell(HexCell target)
@@ -34,7 +48,7 @@ public class Mobile : Trait
         if (Owner.Location != null)
         {
             var path = Pathfinder.FindPath(Owner.Location, target);
-            var cost = CostToCell(Owner, target);
+            Moved += CostToCell(Owner, target);
 
             // move along path
             foreach (var cell in path)
@@ -42,7 +56,8 @@ public class Mobile : Trait
                 Move(cell);
             }
 
-            return cost;
+            // no "cost" we subtract the moved from the current available moves
+            return 0;
         }
 
         // if owner is nowhere, move instantly
@@ -74,7 +89,7 @@ public class Mobile : Trait
 
     private List<HexCell> GetReachableCells()
     {
-        return Pathfinder.GetReachableCells(Owner.Location, Owner.ActionPoints);
+        return Pathfinder.GetReachableCells(Owner.Location, Speed - Moved);
     }
 
     private static List<HexCell> DiscoverReachableCells(Entity entity)

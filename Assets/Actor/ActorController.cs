@@ -90,7 +90,7 @@ public class ActorController : MonoBehaviour
         actor.AddTrait(brain);
         Actors.Add(actor);
         actor.AddTrait(new Sighted(3));
-        actor.AddTrait(new Mobile());
+        actor.AddTrait(new Mobile(3));
         actor.AddTrait(new Builder());
         actor.StartTurn();
 

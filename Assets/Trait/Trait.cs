@@ -8,6 +8,8 @@ public abstract class Trait
 
     public abstract List<ActorAction> GetActions();
 
-    public abstract void DoPassive();
+    public abstract void Start();
+
+    public abstract void Finish();
 
 }

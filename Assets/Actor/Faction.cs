@@ -72,6 +72,7 @@ public class Faction : MonoBehaviour
         foreach (var member in Members)
         {
             member.TakeTurn();
+            member.EndTurn();
         }
 
         foreach (var holding in Holdings)
