@@ -164,7 +164,11 @@ public class HexClaimer : Trait
         return 1;
     }
 
-    public override void DoPassive()
+    public override void Start()
+    {
+    }
+
+    public override void Finish()
     {
     }
 }

@@ -11,7 +11,7 @@
     {
         foreach (var trait in Traits)
         {
-            trait.DoPassive();
+            trait.Start();
         }
     }
 
@@ -23,7 +23,7 @@
     {
         //foreach (var trait in Traits)
         //{
-        //    trait.DoPassive();
+        //    trait.Start();
         //}
     }
 }

@@ -24,8 +24,13 @@ public class Sentient : Trait
         return new List<ActorAction>();
     }
 
-    public override void DoPassive()
+    public override void Start()
     {
+    }
+
+    public override void Finish()
+    {
+        
     }
 
     public virtual void TakeAction(List<ActorAction> allActions)

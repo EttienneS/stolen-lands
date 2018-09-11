@@ -28,8 +28,12 @@ public class Builder : Trait
         return StructureController.Instance.Build(entity, target.ToString()).Cost;
     }
 
-    public override void DoPassive()
+    public override void Start()
     {
 
+    }
+
+    public override void Finish()
+    {
     }
 }

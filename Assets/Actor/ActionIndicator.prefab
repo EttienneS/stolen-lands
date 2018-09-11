@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4252379675975484}
   - component: {fileID: 212242566575537290}
-  - component: {fileID: 122961399114700788}
   m_Layer: 0
   m_Name: ActionIndicator
   m_TagString: Untagged
@@ -41,17 +40,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!122 &122961399114700788
-Halo:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1592799626218204}
-  m_Enabled: 0
-  m_Color:
-    serializedVersion: 2
-    rgba: 4286611584
-  m_Size: 2
 --- !u!212 &212242566575537290
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -88,7 +76,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: a53e89c2aaec9bd4996034de40241811, type: 3}
-  m_Color: {r: 0, g: 0.91636705, b: 1, a: 0.7490196}
+  m_Color: {r: 1, g: 0.9864793, b: 0, a: 0.7490196}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

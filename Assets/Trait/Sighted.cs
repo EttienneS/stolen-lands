@@ -64,9 +64,14 @@ public class Sighted : Trait
         return actions;
     }
 
-    public override void DoPassive()
+    public override void Start()
     {
         See();
+    }
+
+    public override void Finish()
+    {
+        
     }
 
     public void See()
