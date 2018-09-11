@@ -5,22 +5,36 @@ public class Actor : Entity
 {
     private readonly List<SpriteRenderer> _indicators = new List<SpriteRenderer>();
 
-    private MeshRenderer _meshRenderer;
+    private MeshRenderer _head;
+    private MeshRenderer _body;
 
     public SpriteRenderer ActionIndicatorPrefab;
 
     public Sprite Sprite { get; set; }
 
-    private MeshRenderer MeshRenderer
+    private MeshRenderer Head
     {
         get
         {
-            if (_meshRenderer == null)
+            if (_head == null)
             {
-                _meshRenderer = GetComponent<MeshRenderer>();
+                _head = transform.Find("head").GetComponent<MeshRenderer>();
             }
 
-            return _meshRenderer;
+            return _head;
+        }
+    }
+
+    private MeshRenderer Body
+    {
+        get
+        {
+            if (_body == null)
+            {
+                _body = transform.Find("body").GetComponent<MeshRenderer>();
+            }
+
+            return _body;
         }
     }
 
@@ -43,6 +57,12 @@ public class Actor : Entity
     {
         if (Faction != ActorController.Instance.PlayerFaction)
             return;
+
+
+        if (SystemController.Instance.SelectedActor == this)
+        {
+            MoveHead();
+        }
 
         var radius = 0.5f;
         if (_indicators.Count != ActionPoints)
@@ -68,6 +88,18 @@ public class Actor : Entity
         }
     }
 
+    private void MoveHead()
+    {
+        var mousePosition = CameraController.Instance.Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
+                Input.mousePosition.y, Input.mousePosition.z - CameraController.Instance.Camera.transform.position.z));
+
+        //Rotates toward the mouse
+        Head.transform.eulerAngles = new Vector3(0, 0,
+            Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) *
+            Mathf.Rad2Deg - 90);
+
+    }
+
     public void Start()
     {
         var res = 32;
@@ -75,7 +107,8 @@ public class Actor : Entity
         var texture = TextureCreator.GetTexture(null, res, TextureHelper.GetRandomColor());
         Sprite = Sprite.Create(texture, new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
 
-        MeshRenderer.material.mainTexture = texture;
+        Head.material.mainTexture = texture;
+        Body.material.color = Faction.Color;
     }
 
     private void OnMouseDown()
@@ -87,14 +120,14 @@ public class Actor : Entity
     {
         var outline = Shader.Find("Custom/Outline");
 
-        MeshRenderer.material.shader = outline;
-        MeshRenderer.material.SetFloat("_Outline", 0.05f);
-        MeshRenderer.material.SetColor("_OutlineColor", Faction.Color);
+        Head.material.shader = outline;
+        Head.material.SetFloat("_Outline", 0.05f);
+        Head.material.SetColor("_OutlineColor", Faction.Color);
     }
 
     public void DisableOutline()
     {
-        MeshRenderer.material.SetFloat("_Outline", 0f);
+        Head.material.SetFloat("_Outline", 0f);
     }
 
     public void StartTurn()
