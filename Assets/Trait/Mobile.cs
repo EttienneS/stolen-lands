@@ -3,9 +3,8 @@ using UnityEngine;
 
 public class Mobile : Trait
 {
-    public int Speed;
-
     public int Moved;
+    public int Speed;
 
     public Mobile(int speed)
     {
@@ -19,19 +18,40 @@ public class Mobile : Trait
         if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
             actions.Add(new ActorAction("Move", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
-        }
-        else
-        {
-            // AI MOVEMENT HERE
-            // actions.Add(new ActorAction("Move", Owner, 0, DiscoverReachableCells, MoveToCell));
+            actions.Add(new ActorAction("+Move", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
         }
 
         return actions;
     }
 
+    private static int ConvertActionToMoves(Entity entity, object target)
+    {
+        var points = int.Parse(target.ToString());
+        entity.GetTrait<Mobile>().Moved -= points;
+
+        return points;
+    }
+
+    private static int ConvertCost(Entity entity, object target)
+    {
+        return int.Parse(target.ToString());
+    }
+
+    private static object DiscoverConvert(Entity entity)
+    {
+        var options = new List<object>();
+        for (var i = 0; i < entity.ActionPoints; i++)
+        {
+            options.Add(i + 1);
+        }
+
+        return options;
+    }
+
     public int CostToCell(Entity entity, object cell)
     {
-        return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) - Owner.Location.TravelCost;
+        return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) -
+               Owner.Location.TravelCost;
     }
 
     public override void Start()
