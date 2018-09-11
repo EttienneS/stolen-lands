@@ -122,34 +122,18 @@ public static class Pathfinder
 
     public static List<HexCell> GetReachableCells(HexCell actorLocation, int speed)
     {
-        var reachableCells = new List<HexCell>();
-        var availableCells = actorLocation.neighbors.Where(n => n != null).ToList();
-        var processedCells = new List<HexCell> {actorLocation};
+        var reachableCells = (from cell in 
+            HexGrid.Instance.Cells.Where(c => c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
+            let path = FindPath(actorLocation, cell)
+            let pathCost = GetPathCost(path) - actorLocation.TravelCost
+            where path.Count > 0 && pathCost <= speed
+            select cell)
+            .Distinct()
+            .ToList();
 
-        while (availableCells.Any())
-        {
-            var cell = availableCells[0];
-            availableCells.RemoveAt(0);
-            processedCells.Add(cell);
+        reachableCells.Remove(actorLocation);
 
-            var path = FindPath(actorLocation, cell);
-            var pathCost = GetPathCost(path) - actorLocation.TravelCost;
-
-            if (path.Count > 0 && pathCost <= speed)
-            {
-                reachableCells.Add(cell);
-
-                foreach (var neighbor in cell.neighbors)
-                {
-                    if (neighbor != null && !processedCells.Contains(neighbor))
-                    {
-                        availableCells.Add(neighbor);
-                    }
-                }
-            }
-        }
-
-        return reachableCells.Distinct().ToList();
+        return reachableCells;
     }
 
     public static int GetPathCost(List<HexCell> path)

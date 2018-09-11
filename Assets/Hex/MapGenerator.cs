@@ -93,8 +93,12 @@ public static class MapGenerator
         return newCell;
     }
 
-    public static void GenerateMap(int massCount, int massSizeMin, int massSizeMax)
+    public static void GenerateMap()
     {
+        var masses = HexGrid.Instance.Height * 3;
+        var maxMassSize = HexGrid.Instance.Height * 2;
+        var minMassSize = HexGrid.Instance.Height;
+
         HexGrid.Instance.Cells = new HexCell[HexGrid.Instance.Height * HexGrid.Instance.Width];
 
         for (int y = 0, i = 0; y < HexGrid.Instance.Height; y++)
@@ -107,9 +111,9 @@ public static class MapGenerator
 
         // nice color index chart: http://prideout.net/archive/colors.php
         // grassland
-        for (var i = 0; i < massCount; i++)
+        for (var i = 0; i < masses; i++)
         {
-            var massSize = Random.Range(massSizeMin, massSizeMax);
+            var massSize = Random.Range(minMassSize, maxMassSize);
             var rb = Random.Range(0.1f, 0.2f);
             var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
 
@@ -125,12 +129,12 @@ public static class MapGenerator
         }
 
         // desert
-        for (var i = 0; i < massCount / 20; i++)
+        for (var i = 0; i < masses / 20; i++)
         {
-            var massSize = Random.Range(massSizeMin, massSizeMax);
+            var massSize = Random.Range(minMassSize, maxMassSize);
             var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
 
-            var massElevation = Random.Range(-1f, 0);
+            var massElevation = Random.Range(-1.5f, 0);
 
             foreach (var cell in GetMass(massSize))
             {
@@ -152,8 +156,6 @@ public static class MapGenerator
                 cell.ColorCell(new Color(0, 0, Random.Range(0.25f, 0.5f)));
             }
         }
-
-       
     }
 
     private static List<HexCell> GetMass(int massSize)

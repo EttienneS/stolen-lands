@@ -30,29 +30,9 @@ public class Sighted : Trait
             }
 
             _lastViewPoint = Owner.Location;
-            _visibleCells = new List<HexCell>();
             var center = Owner.Location;
+            _visibleCells = HexGrid.Instance.Cells.Where(c => c.coordinates.DistanceTo(center.coordinates) <= _visionRange).ToList();
             _visibleCells.Add(center);
-
-            var frontier = center.neighbors.ToList();
-            var done = new List<HexCell> {center};
-
-            while (frontier.Any())
-            {
-                var cell = frontier.First();
-                frontier.RemoveAt(0);
-
-                if (cell != null && !done.Contains(cell))
-                {
-                    if (cell.coordinates.DistanceTo(Owner.Location.coordinates) <= _visionRange)
-                    {
-                        _visibleCells.Add(cell);
-                        frontier.AddRange(cell.neighbors);
-                    }
-                }
-
-                done.Add(cell);
-            }
 
             return _visibleCells;
         }
@@ -71,11 +51,12 @@ public class Sighted : Trait
 
     public override void Finish()
     {
-        
+        See();
     }
 
     public void See()
     {
+
         foreach (var hex in VisibleCells)
         {
             Owner.Faction.LearnHex(hex);
