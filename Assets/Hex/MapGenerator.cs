@@ -5,12 +5,13 @@ using UnityEngine.UI;
 
 public static class MapGenerator
 {
-    public static void Elevate(HexCell cell)
+    public static void Elevate(HexCell cell, float elevation)
     {
-        var elevation = new Vector3(0, 0, Random.Range(0, 1f));
+        elevation = Mathf.Clamp(elevation, 0, 3f);
+        var elevationVector = new Vector3(0, 0, elevation);
 
-        cell.transform.position -= elevation;
-        cell.Overlay.transform.position += elevation;
+        cell.transform.position -= elevationVector;
+        cell.Overlay.transform.position += elevationVector;
     }
 
     private static void CreateCell(int x, int y, int i)
@@ -112,10 +113,14 @@ public static class MapGenerator
             var rb = Random.Range(0.1f, 0.2f);
             var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
 
+            var massElevation = Random.Range(0, 1.5f);
+
             foreach (var cell in GetMass(massSize))
             {
                 cell.Height = 1;
                 cell.ColorCell(massColor);
+
+                Elevate(cell, massElevation);
             }
         }
 
@@ -125,11 +130,15 @@ public static class MapGenerator
             var massSize = Random.Range(massSizeMin, massSizeMax);
             var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
 
+            var massElevation = Random.Range(-1f, 0);
+
             foreach (var cell in GetMass(massSize))
             {
                 cell.Height = 1;
                 cell.TravelCost = 2;
                 cell.ColorCell(massColor);
+
+                Elevate(cell, massElevation);
             }
         }
 
@@ -144,10 +153,7 @@ public static class MapGenerator
             }
         }
 
-        foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Height > 0))
-        {
-            Elevate(cell);
-        }
+       
     }
 
     private static List<HexCell> GetMass(int massSize)

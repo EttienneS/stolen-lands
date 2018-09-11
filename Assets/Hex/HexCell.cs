@@ -76,14 +76,12 @@ public class HexCell : MonoBehaviour
         vertices.Clear();
         triangles.Clear();
 
-
-
         var center = new Vector3(0, 0);
         for (var i = 0; i < 6; i++)
         {
             var leftCorner = center + HexMetrics.corners[i];
             var rightCorner = center + HexMetrics.corners[i + 1];
-            var offset = new Vector3(0, 0, 3f);
+            var offset = new Vector3(0, 0, 6f);
             var lowerLeft = leftCorner + offset;
             var lowerRight = rightCorner + offset;
 
