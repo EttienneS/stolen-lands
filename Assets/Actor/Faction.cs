@@ -45,6 +45,17 @@ public class Faction : MonoBehaviour
 
         if (ActorController.Instance.PlayerFaction == this)
         {
+            foreach (var item in hex.CellContents)
+            {
+                foreach (var renderer in GameHelpers.GetAllRenderersForObject(item))
+                {
+                    renderer.enabled = true;
+                }
+            }
+        }
+
+        if (ActorController.Instance.PlayerFaction == this)
+        {
             hex.Known = true;
             hex.Visble = true;
         }
@@ -88,6 +99,17 @@ public class Faction : MonoBehaviour
             foreach (var hex in VisibleHexes)
             {
                 hex.Visble = false;
+
+                foreach (var item in hex.CellContents)
+                {
+                    if (item.GetComponent<Actor>() != null)
+                    {
+                        foreach (var renderer in GameHelpers.GetAllRenderersForObject(item))
+                        {
+                            renderer.enabled = false;
+                        }
+                    }
+                }
             }
         }
 

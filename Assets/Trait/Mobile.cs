@@ -89,16 +89,23 @@ public class Mobile : Trait
 
     private void Move(HexCell target)
     {
+        // moves instantly to location
+        // use MoveToCell to move along a path
+
         if (target == null || target.transform == null)
         {
             return;
         }
 
-        // moves instantly to location
-        // use MoveToCell to move along a path
+        if (Owner.Location != null)
+        {
+            Owner.Location.Entities.Remove(Owner);
+        }
+
         Owner.Location = target;
-        Owner.transform.position = target.transform.position;
-        Owner.transform.position -= new Vector3(0, 0, 2.5f);
+        target.Entities.Add(Owner);
+
+        target.MoveGameObjectToCell(Owner.gameObject);
 
         var sighted = Owner.GetTrait<Sighted>();
 

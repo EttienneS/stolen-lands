@@ -42,7 +42,7 @@ public class StructureController : MonoBehaviour
         building.Location = cell;
 
         entity.Faction.AddHolding(building);
-
+        cell.Entities.Add(building);
         return building;
     }
 }

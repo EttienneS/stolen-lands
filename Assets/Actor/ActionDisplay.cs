@@ -76,7 +76,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         get { return GetComponent<Image>(); }
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         Background.color = Color.red;
@@ -89,7 +88,7 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (SystemController.Instance.ActiveAction != null)
+        if (SystemController.Instance.ActiveAction != null  && SystemController.Instance.ActiveAction.Revert != null)
         {
             SystemController.Instance.ActiveAction.Revert();
         }
