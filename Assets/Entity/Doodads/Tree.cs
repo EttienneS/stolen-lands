@@ -38,8 +38,11 @@ public class Tree : MonoBehaviour
     {
         Leaves.transform.localScale = new Vector3(Random.Range(0.8f, 1.2f), Random.Range(0.8f, 1.8f), Random.Range(0.8f, 1.2f));
         Leaves.transform.localPosition += new Vector3(0, (Leaves.transform.localScale.y / 2) - 0.5f, 0);
+        
+        transform.eulerAngles = new Vector3(-90, 0, 0);
 
-        transform.eulerAngles = new Vector3(-90, 0, 0);// Random.Range(5, 85)
+        Trunk.transform.localEulerAngles = new Vector3(0, Random.Range(5, 85), 0);
+        Leaves.transform.localEulerAngles = new Vector3(0, Random.Range(5, 85), 0);
     }
 
 }

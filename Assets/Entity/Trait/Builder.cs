@@ -5,10 +5,12 @@ public class Builder : Trait
 {
     public override List<ActorAction> GetActions()
     {
-        var actions = new List<ActorAction>
+        var actions = new List<ActorAction>();
+
+        if (Owner.ActionPoints > 0)
         {
-            new ActorAction("Build", Owner, GetBuildableStructures, GetStructureCost, Build)
-        };
+            actions.Add(new ActorAction("Build", Owner, GetBuildableStructures, GetStructureCost, Build));
+        }
 
         return actions;
     }
