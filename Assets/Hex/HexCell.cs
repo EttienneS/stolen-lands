@@ -2,6 +2,26 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+public class GameHelpers
+{
+    public static Renderer[] GetAllRenderersForObject(GameObject objectToCheck)
+    {
+        return objectToCheck.GetComponentsInChildren<Renderer>();
+    }
+
+    public static Vector3 CalculateSizeForObject(GameObject objectToMove)
+    {
+        var size = new Vector3();
+
+        foreach (var renderer in GetAllRenderersForObject(objectToMove))
+        {
+            size += renderer.bounds.size;
+        }
+
+        return size;
+    }
+}
+
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
@@ -9,46 +29,84 @@ public class HexCell : MonoBehaviour
 
     public HexCoordinates coordinates;
 
-    private int distance;
+    public List<GameObject> Doodads = new List<GameObject>();
     public int Height = 0;
+    [SerializeField] public HexCell[] neighbors;
+    public int TravelCost;
     private Mesh hexMesh;
     private MeshCollider meshCollider;
-
-    [SerializeField] public HexCell[] neighbors;
-
-    public int TravelCost;
-
     private List<int> triangles;
     private List<Vector3> vertices;
 
-    public HexCell PathFrom { get; set; }
-    public int SearchHeuristic { get; set; }
-
-    public HexCell NextWithSamePriority { get; set; }
-
-    public int SearchPhase { get; set; }
-
-    public List<Structure> Structures { get; set; }
-
-    public int SearchPriority
+    public int Distance { get; set; }
+    public SpriteRenderer Highlight
     {
-        get
-        {
-            return distance + SearchHeuristic;
-        }
+        get { return transform.Find("Highlight").GetComponent<SpriteRenderer>(); }
     }
 
-    public int Distance
+    public bool Known
     {
-        get { return distance; }
-        set
-        {
-            distance = value;
-        }
+        get { return MeshRenderer.enabled; }
+        set { MeshRenderer.enabled = value; }
+    }
+
+    public Text Label { get; set; }
+    public MeshRenderer MeshRenderer
+    {
+        get { return transform.GetComponent<MeshRenderer>(); }
+    }
+
+    public HexCell NextWithSamePriority { get; set; }
+    public SpriteRenderer Overlay
+    {
+        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>(); }
     }
 
     public Faction Owner { get; set; }
-    public Text Label { get; set; }
+    public HexCell PathFrom { get; set; }
+    public int SearchHeuristic { get; set; }
+    public int SearchPhase { get; set; }
+
+    public List<Entity> Entities = new List<Entity>();
+
+    public List<GameObject> CellContents
+    {
+        get
+        {
+            var contents = new List<GameObject>();
+
+            contents.AddRange(Doodads);
+            Entities.ForEach(e => contents.Add(e.gameObject));
+
+            return contents;
+        }
+    }
+
+    public int SearchPriority
+    {
+        get { return Distance + SearchHeuristic; }
+    }
+    public bool Visble
+    {
+        get { return Overlay.enabled; }
+        set { Overlay.enabled = !value; }
+    }
+    public void ColorCell(Color color)
+    {
+        Color = color;
+        Triangulate();
+    }
+
+    public void DisableHighlight()
+    {
+        Highlight.enabled = false;
+    }
+
+    public void EnableHighlight(Color color)
+    {
+        Highlight.color = color;
+        Highlight.enabled = true;
+    }
 
     public HexCell GetNeighbor(HexDirection direction)
     {
@@ -59,15 +117,6 @@ public class HexCell : MonoBehaviour
     {
         neighbors[(int)direction] = cell;
         cell.neighbors[(int)direction.Opposite()] = this;
-    }
-
-    private void Awake()
-    {
-        GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
-        meshCollider = gameObject.AddComponent<MeshCollider>();
-        hexMesh.name = "Hex Mesh";
-        vertices = new List<Vector3>();
-        triangles = new List<int>();
     }
 
     public void Triangulate()
@@ -118,53 +167,24 @@ public class HexCell : MonoBehaviour
         triangles.Add(vertexIndex + 2);
     }
 
-    public void ColorCell(Color color)
+    private void Awake()
     {
-        Color = color;
-        Triangulate();
+        GetComponent<MeshFilter>().mesh = hexMesh = new Mesh();
+        meshCollider = gameObject.AddComponent<MeshCollider>();
+        hexMesh.name = "Hex Mesh";
+        vertices = new List<Vector3>();
+        triangles = new List<int>();
     }
-
     private void SetLabel(string message)
     {
         Label.text = message;
     }
 
-    public void DisableHighlight()
+    public void MoveGameObjectToCell(GameObject objectToMove)
     {
-        Highlight.enabled = false;
-    }
+        var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
 
-
-    public void EnableHighlight(Color color)
-    {
-        Highlight.color = color;
-        Highlight.enabled = true;
-    }
-
-    public SpriteRenderer Overlay
-    {
-        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>(); }
-    }
-
-    public SpriteRenderer Highlight
-    {
-        get { return transform.Find("Highlight").GetComponent<SpriteRenderer>(); }
-    }
-
-    public bool Visble
-    {
-        get { return Overlay.enabled; }
-        set { Overlay.enabled = !value; }
-    }
-
-    public MeshRenderer MeshRenderer
-    {
-        get { return transform.GetComponent<MeshRenderer>(); }
-    }
-
-    public bool Known
-    {
-        get { return MeshRenderer.enabled; }
-        set { MeshRenderer.enabled = value; }
+        objectToMove.transform.position = transform.position;
+        objectToMove.transform.position -= new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), size / 2);
     }
 }

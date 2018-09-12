@@ -95,6 +95,7 @@ public static class MapGenerator
 
     public static void GenerateMap()
     {
+        // nice color index chart: http://prideout.net/archive/colors.php
         var masses = HexGrid.Instance.Height * 3;
         var maxMassSize = HexGrid.Instance.Height * 2;
         var minMassSize = HexGrid.Instance.Height;
@@ -106,25 +107,6 @@ public static class MapGenerator
             for (var x = 0; x < HexGrid.Instance.Width; x++)
             {
                 CreateCell(x, y, i++);
-            }
-        }
-
-        // nice color index chart: http://prideout.net/archive/colors.php
-        // grassland
-        for (var i = 0; i < masses; i++)
-        {
-            var massSize = Random.Range(minMassSize, maxMassSize);
-            var rb = Random.Range(0.1f, 0.2f);
-            var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
-
-            var massElevation = Random.Range(0, 1.5f);
-
-            foreach (var cell in GetMass(massSize))
-            {
-                cell.Height = 1;
-                cell.ColorCell(massColor);
-
-                Elevate(cell, massElevation);
             }
         }
 
@@ -146,6 +128,33 @@ public static class MapGenerator
             }
         }
 
+        // grassland
+        for (var i = 0; i < masses; i++)
+        {
+            var massSize = Random.Range(minMassSize, maxMassSize);
+            var rb = Random.Range(0.1f, 0.2f);
+            var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
+
+            var massElevation = Random.Range(0, 1.5f);
+
+            foreach (var cell in GetMass(massSize))
+            {
+                cell.Height = 1;
+                cell.ColorCell(massColor);
+                cell.TravelCost = 1;
+
+                Elevate(cell, massElevation);
+
+                if (Random.Range(0, 100) > 75)
+                {
+                    for (var d = 0; d < Random.Range(1, 3); d++)
+                    {
+                        DoodadController.Instance.CreateDoodadInCell("Tree", cell);
+                    }
+                }
+            }
+        }
+
         foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Height == 0))
         {
             // if cell is completely surrounded with water
@@ -155,6 +164,19 @@ public static class MapGenerator
                 cell.Height = -1;
                 cell.ColorCell(new Color(0, 0, Random.Range(0.25f, 0.5f)));
             }
+        }
+
+        foreach (var cell in HexGrid.Instance.Cells)
+        {
+            foreach (var content in cell.CellContents)
+            {
+                foreach (var renderer in GameHelpers.GetAllRenderersForObject(content))
+                {
+                    renderer.enabled = false;
+                }
+            }
+
+            GameHelpers.GetAllRenderersForObject(cell.gameObject)[0].enabled = false;
         }
     }
 

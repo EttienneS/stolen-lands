@@ -76,7 +76,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         get { return GetComponent<Image>(); }
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
         Background.color = Color.red;

@@ -20,6 +20,11 @@ public class Builder : Trait
 
     private List<object> GetBuildableStructures(Entity entity)
     {
+        if (entity.Location.Entities.OfType<Structure>().Any())
+        {
+            return new List<object>();
+        }
+
         return StructureController.Instance.AvailableBuildings(entity.ActionPoints).Cast<object>().ToList();
     }
 
