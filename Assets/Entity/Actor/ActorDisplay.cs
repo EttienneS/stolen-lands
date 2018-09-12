@@ -41,11 +41,11 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
     {
         if (SystemController.Instance.SelectedActor == Actor)
         {
-            GetComponent<Image>().color = Color.red;
+            GetComponent<Image>().color = Colors.Highlight;
         }
         else
         {
-            GetComponent<Image>().color = Color.grey;
+            GetComponent<Image>().color = Colors.Default;
 
         }
     }

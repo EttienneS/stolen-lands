@@ -92,7 +92,6 @@ public class SystemController : MonoBehaviour
     public Actor SelectedActor;
 
     public ActionDisplay ActiveAction { get; set; }
-
     public void SetSelectedActor(Actor actor)
     {
         if (SelectedActor != null)

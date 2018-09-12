@@ -41,8 +41,8 @@ public static class Pathfinder
                 cell.EnableHighlight(Color.white);
             }
 
-            path.First().EnableHighlight(Color.blue);
-            path.Last().EnableHighlight(Color.red);
+            path.First().EnableHighlight(Colors.Default);
+            path.Last().EnableHighlight(Colors.Highlight);
         }
     }
 

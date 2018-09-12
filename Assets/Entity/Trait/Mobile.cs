@@ -18,8 +18,17 @@ public class Mobile : Trait
 
         if (Owner.Faction == ActorController.Instance.PlayerFaction)
         {
-            actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
-            actions.Add(new ActorAction("+Move", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
+            if (Speed - Moved > 0)
+            {
+                actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell,
+                    MoveToCell));
+            }
+
+
+            if (Owner.ActionPoints > 0)
+            {
+                actions.Add(new ActorAction("Move +", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
+            }
         }
 
         return actions;
@@ -40,13 +49,7 @@ public class Mobile : Trait
 
     private static object DiscoverConvert(Entity entity)
     {
-        var options = new List<object>();
-        for (var i = 0; i < entity.ActionPoints; i++)
-        {
-            options.Add(i + 1);
-        }
-
-        return options;
+        return new List<object> { entity.ActionPoints };
     }
 
     public int CostToCell(Entity entity, object cell)

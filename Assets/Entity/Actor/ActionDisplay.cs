@@ -38,7 +38,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         var options = Action.DiscoverAction(Action.EntityContext);
 
-        transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
 
         CellTargets = new List<HexCell>();
         Options = new Dictionary<string, object>();
@@ -58,15 +57,27 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             }
             else
             {
-                Dropdown.gameObject.SetActive(true);
+                var objectList = options as List<object>;
 
-                foreach (var option in options as List<object>)
+                foreach (var option in objectList)
                 {
                     Options.Add(option.ToString(), option);
                     Dropdown.options.Add(new Dropdown.OptionData(Options.Last().Key));
                 }
+
+                if (Options.Count > 1)
+                {
+                    Dropdown.gameObject.SetActive(true);
+                }
+                else if (Options.Count == 1)
+                {
+                    Action.ActionName += " (" + Options.First().Key + ")";
+                }
             }
         }
+
+        transform.Find("Text").GetComponent<Text>().text = Action.ActionName;
+
     }
 
     private Color _baseColor;
@@ -78,7 +89,7 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        Background.color = Color.red;
+        Background.color = Colors.Highlight;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -88,7 +99,7 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (SystemController.Instance.ActiveAction != null  && SystemController.Instance.ActiveAction.Revert != null)
+        if (SystemController.Instance.ActiveAction != null && SystemController.Instance.ActiveAction.Revert != null)
         {
             SystemController.Instance.ActiveAction.Revert();
         }
