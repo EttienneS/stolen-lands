@@ -17,11 +17,11 @@ public class AI : Mind
                 .ToDictionary(g => g.Key, v => v.ToList());
 
             var keys = groupedActions.Keys.ToList();
-            var randomAction = keys[Random.Range(0, keys.Count - 1)];
+            var randomAction = keys[Random.Range(0, keys.Count)];
 
             var actions = groupedActions[randomAction];
 
-            actions[Random.Range(0, actions.Count - 1)].Invoke();
+            actions[Random.Range(0, actions.Count)].Invoke();
         }
     }
 }

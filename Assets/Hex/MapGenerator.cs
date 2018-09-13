@@ -85,7 +85,7 @@ public static class MapGenerator
 
         if (openCells.Any())
         {
-            newCell = openCells[Random.Range(0, openCells.Count() - 1)];
+            newCell = openCells[Random.Range(0, openCells.Count)];
         }
 
         return newCell;
@@ -145,7 +145,7 @@ public static class MapGenerator
 
                 if (Random.Range(0, 100) > 75)
                 {
-                    for (var d = 0; d < Random.Range(1, 3); d++)
+                    for (var d = 0; d < Random.Range(1, 4); d++)
                     {
                         DoodadController.Instance.CreateDoodadInCell("Tree", cell);
                     }

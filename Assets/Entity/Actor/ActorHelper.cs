@@ -21,9 +21,9 @@ public class ActorHelper
 
         var name = string.Empty;
 
-        name += front[Random.Range(0, front.Length - 1)];
-        name += mid[Random.Range(0, mid.Length - 1)];
-        name += end[Random.Range(0, end.Length - 1)];
+        name += front[Random.Range(0, front.Length)];
+        name += mid[Random.Range(0, mid.Length)];
+        name += end[Random.Range(0, end.Length)];
 
         return name;
     }
