@@ -1,19 +1,11 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
 public class StructureController : MonoBehaviour
 {
-    public List<Structure> StructurePrefabs;
-
-
-    public List<string> AvailableBuildings(int budget)
-    {
-        return StructurePrefabs.Where(b => b.Cost <= budget).Select(b => b.name).ToList();
-    }
-
     public static StructureController _instance;
+    public List<Structure> StructurePrefabs;
 
     public static StructureController Instance
     {
@@ -28,6 +20,11 @@ public class StructureController : MonoBehaviour
         }
     }
 
+    public List<string> AvailableBuildings(int budget)
+    {
+        return StructurePrefabs.Where(b => b.Cost <= budget).Select(b => b.name).ToList();
+    }
+
     public Structure GetBuilding(string buildingName)
     {
         return StructurePrefabs.First(p => p.name == buildingName);
@@ -38,8 +35,10 @@ public class StructureController : MonoBehaviour
         var cell = entity.Location;
 
         var building = Instantiate(GetBuilding(buildingName), cell.transform);
-        building.transform.position = cell.transform.position;
+
         building.Location = cell;
+
+        cell.MoveGameObjectToCell(building.gameObject);
 
         entity.Faction.AddHolding(building);
         cell.Entities.Add(building);

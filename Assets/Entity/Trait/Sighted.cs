@@ -40,8 +40,7 @@ public class Sighted : Trait
 
     public override List<ActorAction> GetActions()
     {
-        var actions = new List<ActorAction>();
-        return actions;
+        return new List<ActorAction>();
     }
 
     public override void Start()

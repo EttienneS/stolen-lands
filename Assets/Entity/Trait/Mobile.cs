@@ -1,6 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
 
 public class Mobile : Trait
 {
@@ -12,23 +10,23 @@ public class Mobile : Trait
         Speed = speed;
     }
 
+    public int MovesLeft => Speed - Moved;
+
     public override List<ActorAction> GetActions()
     {
         var actions = new List<ActorAction>();
 
-        if (Owner.Faction == ActorController.Instance.PlayerFaction)
+        if (MovesLeft > 0)
         {
-            if (Speed - Moved > 0)
+            foreach (var cell in GetReachableCells())
             {
-                actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell,
-                    MoveToCell));
+                actions.Add(new ActorAction("Move (" + MovesLeft + ")", Owner, MoveToCell, cell));
             }
+        }
 
-
-            if (Owner.ActionPoints > 0)
-            {
-                actions.Add(new ActorAction("Move +", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
-            }
+        if (Owner.ActionPoints > 0)
+        {
+            actions.Add(new ActorAction("Move +", Owner, ConvertActionToMoves, Owner.ActionPoints));
         }
 
         return actions;
@@ -40,16 +38,6 @@ public class Mobile : Trait
         entity.GetTrait<Mobile>().Moved -= points;
 
         return points;
-    }
-
-    private static int ConvertCost(Entity entity, object target)
-    {
-        return int.Parse(target.ToString());
-    }
-
-    private static object DiscoverConvert(Entity entity)
-    {
-        return new List<object> { entity.ActionPoints };
     }
 
     public int CostToCell(Entity entity, object cell)
@@ -110,22 +98,12 @@ public class Mobile : Trait
 
         target.MoveGameObjectToCell(Owner.gameObject);
 
-        var sighted = Owner.GetTrait<Sighted>();
-
-        if (sighted != null)
-        {
-            sighted.See();
-        }
+        Owner.GetTrait<Sighted>()?.See();
     }
 
     private List<HexCell> GetReachableCells()
     {
-        return Pathfinder.GetReachableCells(Owner.Location, Speed - Moved);
-    }
-
-    private static List<HexCell> DiscoverReachableCells(Entity entity)
-    {
-        return entity.GetTrait<Mobile>().GetReachableCells();
+        return Pathfinder.GetReachableCells(Owner.Location, MovesLeft);
     }
 
     private static int MoveToCell(Entity entity, object target)

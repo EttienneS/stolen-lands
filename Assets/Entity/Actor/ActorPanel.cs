@@ -22,14 +22,12 @@ public class ActorPanel : MonoBehaviour
 
         var stats = transform.Find("Stats").transform;
 
-        var sentience = actor.GetTrait<Sentient>();
-
-        if (sentience != null)
+        if (actor.Mind != null)
         {
-            stats.Find("Physical").GetComponent<Text>().text = sentience.Physical.ToString();
-            stats.Find("Cunning").GetComponent<Text>().text = sentience.Cunning.ToString();
-            stats.Find("Mental").GetComponent<Text>().text = sentience.Mental.ToString();
-            stats.Find("Charisma").GetComponent<Text>().text = sentience.Charisma.ToString();
+            stats.Find("Physical").GetComponent<Text>().text = actor.Mind.Physical.ToString();
+            stats.Find("Cunning").GetComponent<Text>().text = actor.Mind.Cunning.ToString();
+            stats.Find("Mental").GetComponent<Text>().text = actor.Mind.Mental.ToString();
+            stats.Find("Charisma").GetComponent<Text>().text = actor.Mind.Charisma.ToString();
         }
 
         stats.Find("Location").GetComponent<Text>().text = Actor.Location.ToString();

@@ -3,12 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Entity : MonoBehaviour
+public abstract class Entity : MonoBehaviour
 {
+    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
     public HexCell Location;
+
+    public Mind Mind;
 
     public List<Trait> Traits = new List<Trait>();
     public Faction Faction { get; set; }
+
+    public int ActionPoints { get; set; }
+
+    public List<ActorAction> AvailableActions
+    {
+        get
+        {
+            var allActions = new List<ActorAction>();
+            foreach (var trait in Traits)
+            {
+                allActions.AddRange(trait.GetActions());
+            }
+
+            return allActions;
+        }
+    }
 
     public T GetTrait<T>() where T : Trait
     {
@@ -28,7 +47,6 @@ public class Entity : MonoBehaviour
 
         return null;
     }
-    private readonly Dictionary<Type, Trait> TraitCache = new Dictionary<Type, Trait>();
 
     public T AddTrait<T>(T trait) where T : Trait
     {
@@ -44,6 +62,7 @@ public class Entity : MonoBehaviour
         return newTrait;
     }
 
-    public int ActionPoints { get; set; }
-
+    public abstract void TakeTurn();
+    public abstract void StartTurn();
+    public abstract void EndTurn();
 }

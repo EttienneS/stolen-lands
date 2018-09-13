@@ -78,7 +78,8 @@ public class SystemController : MonoBehaviour
 
                 if (selectedCell.Highlight.enabled)
                 {
-                    ActiveAction.Execute(selectedCell);
+                    ActiveAction.SelectedOption = selectedCell;
+                    ActiveAction.Execute();
                 }
             }
         }
@@ -102,10 +103,10 @@ public class SystemController : MonoBehaviour
         SelectedActor = actor;
         SelectedActor.EnableOutline();
 
-        var player = actor.GetTrait<Player>();
+        var player = actor.Mind is Player;
         if (player != null)
         {
-            player.TakeAction(actor.AvailableActions);
+            actor.Mind.Act();
         }
     }
 }

@@ -7,7 +7,7 @@
         AddTrait(new Sighted(1));
     }
 
-    public void StartTurn()
+    public override void StartTurn()
     {
         foreach (var trait in Traits)
         {
@@ -15,15 +15,12 @@
         }
     }
 
-    public void TakeTurn()
+    public override void TakeTurn()
     {
     }
 
-    public void EndTurn()
+    public override void EndTurn()
     {
-        //foreach (var trait in Traits)
-        //{
-        //    trait.Start();
-        //}
+      
     }
 }

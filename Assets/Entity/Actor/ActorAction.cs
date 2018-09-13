@@ -1,32 +1,31 @@
-using System.Collections.Generic;
-
 public class ActorAction
 {
     public delegate int Act(Entity entity, object target);
-
-    public delegate object Discover(Entity entity);
-
-    public delegate int GetActionCost(Entity entity, object target);
 
     public string ActionName;
 
     public Entity EntityContext;
 
-    public ActorAction(string name, Entity entityContext, Discover discover, GetActionCost cost, Act act)
+    public object Target;
+
+    public ActorAction(string name, Entity entityContext, Act act, object target)
     {
         EntityContext = entityContext;
-        DiscoverAction = discover;
         ActAction = act;
-        GetCost = cost;
         ActionName = name;
+
+        Target = target;
     }
 
-    public Discover DiscoverAction { get; set; }
-    public Act ActAction { get; set; }
-    public GetActionCost GetCost { get; set; }
+    private Act ActAction { get; }
 
-    public bool CanExecute(Actor actor, HexCell context)
+    public void Invoke()
     {
-        return GetCost(actor, context) <= actor.ActionPoints;
+        EntityContext.ActionPoints -= ActAction(EntityContext, Target);
+    }
+
+    public override string ToString()
+    {
+        return ActionName + " >> " + Target;
     }
 }
