@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
 public class Player : Mind
 {
-  public override void Act()
+    public override void Act()
     {
         ControlPanelController.Instance.ClearPlayerActions();
 

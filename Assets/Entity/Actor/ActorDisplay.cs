@@ -46,8 +46,6 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
         else
         {
             GetComponent<Image>().color = Colors.Default;
-
         }
     }
-
 }

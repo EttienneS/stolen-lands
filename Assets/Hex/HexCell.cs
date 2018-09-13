@@ -30,44 +30,38 @@ public class HexCell : MonoBehaviour
     public HexCoordinates coordinates;
 
     public List<GameObject> Doodads = new List<GameObject>();
+
+    public List<Entity> Entities = new List<Entity>();
     public int Height = 0;
-    [SerializeField] public HexCell[] neighbors;
-    public int TravelCost;
     private Mesh hexMesh;
     private MeshCollider meshCollider;
+    [SerializeField] public HexCell[] neighbors;
+    public int TravelCost;
     private List<int> triangles;
     private List<Vector3> vertices;
 
     public int Distance { get; set; }
-    public SpriteRenderer Highlight
-    {
-        get { return transform.Find("Highlight").GetComponent<SpriteRenderer>(); }
-    }
+
+    public SpriteRenderer Highlight => transform.Find("Highlight").GetComponent<SpriteRenderer>();
 
     public bool Known
     {
-        get { return MeshRenderer.enabled; }
-        set { MeshRenderer.enabled = value; }
+        get => MeshRenderer.enabled;
+        set => MeshRenderer.enabled = value;
     }
 
     public Text Label { get; set; }
-    public MeshRenderer MeshRenderer
-    {
-        get { return transform.GetComponent<MeshRenderer>(); }
-    }
+
+    public MeshRenderer MeshRenderer => transform.GetComponent<MeshRenderer>();
 
     public HexCell NextWithSamePriority { get; set; }
-    public SpriteRenderer Overlay
-    {
-        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>(); }
-    }
+
+    public SpriteRenderer Overlay => transform.Find("Overlay").GetComponent<SpriteRenderer>();
 
     public Faction Owner { get; set; }
     public HexCell PathFrom { get; set; }
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
-
-    public List<Entity> Entities = new List<Entity>();
 
     public List<GameObject> CellContents
     {
@@ -82,15 +76,14 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public int SearchPriority
-    {
-        get { return Distance + SearchHeuristic; }
-    }
+    public int SearchPriority => Distance + SearchHeuristic;
+
     public bool Visble
     {
-        get { return Overlay.enabled; }
-        set { Overlay.enabled = !value; }
+        get => Overlay.enabled;
+        set => Overlay.enabled = !value;
     }
+
     public void ColorCell(Color color)
     {
         Color = color;
@@ -175,6 +168,7 @@ public class HexCell : MonoBehaviour
         vertices = new List<Vector3>();
         triangles = new List<int>();
     }
+
     private void SetLabel(string message)
     {
         Label.text = message;

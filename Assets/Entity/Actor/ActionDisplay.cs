@@ -14,8 +14,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
     private Color _baseColor;
 
-    private delegate void RevertDelegate();
-
     public string ActionId { get; set; }
     public object SelectedOption { get; set; }
 
@@ -37,14 +35,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     private Dropdown Dropdown => transform.Find("Dropdown").GetComponent<Dropdown>();
     private RevertDelegate Revert { get; set; }
     private ActorAction SelectedAction => _actions[SelectedOption];
-
-    public void Execute()
-    {
-        Revert?.Invoke();
-
-        SelectedAction.Invoke();
-        SelectedAction.EntityContext.Mind.Act();
-    }
 
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -85,6 +75,14 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         Background.color = _baseColor;
     }
 
+    public void Execute()
+    {
+        Revert?.Invoke();
+
+        SelectedAction.Invoke();
+        SelectedAction.EntityContext.Mind.Act();
+    }
+
     public void SetAction(ActorAction action)
     {
         ActionId = action.ActionName;
@@ -111,6 +109,8 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
 
         transform.Find("Text").GetComponent<Text>().text = DisplayName;
     }
+
+    private delegate void RevertDelegate();
 
     private class DataDropDown : Dropdown.OptionData
     {

@@ -2,15 +2,15 @@
 
 public class Mobile : Trait
 {
-    public int Moved;
-    public int Speed;
+    private int _moved;
+    private readonly int _speed;
 
     public Mobile(int speed)
     {
-        Speed = speed;
+        _speed = speed;
     }
 
-    public int MovesLeft => Speed - Moved;
+    private int MovesLeft => _speed - _moved;
 
     public override List<ActorAction> GetActions()
     {
@@ -35,12 +35,12 @@ public class Mobile : Trait
     private static int ConvertActionToMoves(Entity entity, object target)
     {
         var points = int.Parse(target.ToString());
-        entity.GetTrait<Mobile>().Moved -= points;
+        entity.GetTrait<Mobile>()._moved -= points;
 
         return points;
     }
 
-    public int CostToCell(Entity entity, object cell)
+    private int CostToCell(Entity entity, object cell)
     {
         return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) -
                Owner.Location.TravelCost;
@@ -52,7 +52,7 @@ public class Mobile : Trait
 
     public override void Finish()
     {
-        Moved = 0;
+        _moved = 0;
     }
 
     public int MoveToCell(HexCell target)
@@ -60,7 +60,7 @@ public class Mobile : Trait
         if (Owner.Location != null)
         {
             var path = Pathfinder.FindPath(Owner.Location, target);
-            Moved += CostToCell(Owner, target);
+            _moved += CostToCell(Owner, target);
 
             // move along path
             foreach (var cell in path)
@@ -101,7 +101,7 @@ public class Mobile : Trait
         Owner.GetTrait<Sighted>()?.See();
     }
 
-    private List<HexCell> GetReachableCells()
+    private IEnumerable<HexCell> GetReachableCells()
     {
         return Pathfinder.GetReachableCells(Owner.Location, MovesLeft);
     }

@@ -8,6 +8,8 @@ public class SystemController : MonoBehaviour
 
     public Canvas GridCanvas;
 
+    public Actor SelectedActor;
+
     public Canvas UICanvas;
 
     public static SystemController Instance
@@ -22,6 +24,8 @@ public class SystemController : MonoBehaviour
             return _instance;
         }
     }
+
+    public ActionDisplay ActiveAction { get; set; }
 
     private void Update()
     {
@@ -47,7 +51,6 @@ public class SystemController : MonoBehaviour
             SetSelectedActor(ActorController.Instance.PlayerFaction.Members[index]);
 
             CameraController.Instance.MoveToViewCell(SelectedActor.Location);
-
         }
         else if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject())
         {
@@ -55,7 +58,7 @@ public class SystemController : MonoBehaviour
         }
         else
         {
-            for (int i = 1; i < 10; i++)
+            for (var i = 1; i < 10; i++)
             {
                 if (Input.GetKeyUp("" + i))
                 {
@@ -90,9 +93,6 @@ public class SystemController : MonoBehaviour
         SceneManager.LoadScene("Loading");
     }
 
-    public Actor SelectedActor;
-
-    public ActionDisplay ActiveAction { get; set; }
     public void SetSelectedActor(Actor actor)
     {
         if (SelectedActor != null)

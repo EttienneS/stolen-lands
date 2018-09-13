@@ -4,9 +4,9 @@ using UnityEngine;
 public class Actor : Entity
 {
     private readonly List<SpriteRenderer> _indicators = new List<SpriteRenderer>();
+    private MeshRenderer _body;
 
     private MeshRenderer _head;
-    private MeshRenderer _body;
 
     public SpriteRenderer ActionIndicatorPrefab;
 
@@ -38,14 +38,10 @@ public class Actor : Entity
         }
     }
 
-
-   
-
     public void Update()
     {
         if (Faction != ActorController.Instance.PlayerFaction)
             return;
-
 
         if (SystemController.Instance.SelectedActor == this)
         {
@@ -79,13 +75,12 @@ public class Actor : Entity
     private void MoveHead()
     {
         var mousePosition = CameraController.Instance.Camera.ScreenToWorldPoint(new Vector3(Input.mousePosition.x,
-                Input.mousePosition.y, Input.mousePosition.z - CameraController.Instance.Camera.transform.position.z));
+            Input.mousePosition.y, Input.mousePosition.z - CameraController.Instance.Camera.transform.position.z));
 
         //Rotates toward the mouse
         Head.transform.eulerAngles = new Vector3(0, 0,
-            Mathf.Atan2((mousePosition.y - transform.position.y), (mousePosition.x - transform.position.x)) *
+            Mathf.Atan2(mousePosition.y - transform.position.y, mousePosition.x - transform.position.x) *
             Mathf.Rad2Deg - 90);
-
     }
 
     public void Start()

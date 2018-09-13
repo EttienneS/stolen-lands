@@ -5,9 +5,17 @@ public class Faction : MonoBehaviour
 {
     public Color Color;
 
+    public List<HexCell> ControlledCells = new List<HexCell>();
+
+    public List<Structure> Holdings = new List<Structure>();
+
+    public List<HexCell> KnownHexes = new List<HexCell>();
+
     public List<Actor> Members = new List<Actor>();
 
     public Sprite Sprite;
+
+    public List<HexCell> VisibleHexes = new List<HexCell>();
 
     //public Actor Leader { get; set; }
 
@@ -16,15 +24,6 @@ public class Faction : MonoBehaviour
     public int Food { get; set; }
 
     public int Manpower { get; set; }
-
-    public List<Structure> Holdings = new List<Structure>();
-
-    public List<HexCell> KnownHexes = new List<HexCell>();
-
-    public List<HexCell> VisibleHexes = new List<HexCell>();
-
-    public List<HexCell> ControlledCells = new List<HexCell>();
-
 
     public override string ToString()
     {

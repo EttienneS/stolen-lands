@@ -31,7 +31,8 @@ public class Sighted : Trait
 
             _lastViewPoint = Owner.Location;
             var center = Owner.Location;
-            _visibleCells = HexGrid.Instance.Cells.Where(c => c != null && c.coordinates.DistanceTo(center.coordinates) <= _visionRange).ToList();
+            _visibleCells = HexGrid.Instance.Cells
+                .Where(c => c != null && c.coordinates.DistanceTo(center.coordinates) <= _visionRange).ToList();
             _visibleCells.Add(center);
 
             return _visibleCells;
@@ -55,7 +56,6 @@ public class Sighted : Trait
 
     public void See()
     {
-
         foreach (var hex in VisibleCells)
         {
             Owner.Faction.LearnHex(hex);

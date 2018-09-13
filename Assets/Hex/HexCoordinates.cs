@@ -8,20 +8,11 @@ public struct HexCoordinates
 
     [SerializeField] private readonly int y;
 
-    public int X
-    {
-        get { return x; }
-    }
+    public int X => x;
 
-    public int Y
-    {
-        get { return y; }
-    }
+    public int Y => y;
 
-    public int Z
-    {
-        get { return -X - Y; }
-    }
+    public int Z => -X - Y;
 
     public HexCoordinates(int x, int y)
     {
