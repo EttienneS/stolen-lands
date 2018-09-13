@@ -166,11 +166,7 @@ public static class MapGenerator
 
         foreach (var cell in HexGrid.Instance.Cells)
         {
-            GameHelpers.ChangeLayer(cell.gameObject, GameHelpers.UnkownLayer);
-            foreach (var content in cell.CellContents)
-            {
-                GameHelpers.ChangeLayer(content, GameHelpers.UnkownLayer);
-            }
+            cell.MoveToLayer(GameHelpers.KnownLayer);
         }
     }
 

@@ -43,12 +43,7 @@ public class Faction : MonoBehaviour
 
         if (ActorController.Instance.PlayerFaction == this)
         {
-            GameHelpers.ChangeLayer(hex.gameObject, GameHelpers.VisibleLayer);
-
-            foreach (var item in hex.CellContents)
-            {
-                GameHelpers.ChangeLayer(item, GameHelpers.VisibleLayer);
-            }
+            hex.MoveToLayer(GameHelpers.VisibleLayer);
         }
     }
 
@@ -89,16 +84,11 @@ public class Faction : MonoBehaviour
         {
             foreach (var hex in VisibleHexes)
             {
-                GameHelpers.ChangeLayer(hex.gameObject, GameHelpers.KnownLayer);
-
-                foreach (var item in hex.CellContents)
-                {
-                    GameHelpers.ChangeLayer(item, GameHelpers.KnownLayer);
-                }
+                hex.MoveToLayer(GameHelpers.KnownLayer);
 
                 foreach (var item in hex.Entities.OfType<Actor>())
                 {
-                    GameHelpers.ChangeLayer(item.gameObject, GameHelpers.UnkownLayer);
+                    item.gameObject.MoveToUnknownLayer();
                 }
             }
         }
