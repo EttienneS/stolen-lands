@@ -6,8 +6,6 @@ public class Faction : MonoBehaviour
 {
     public Color Color;
 
-    public List<HexCell> ControlledCells = new List<HexCell>();
-
     public List<Structure> Holdings = new List<Structure>();
 
     public List<HexCell> KnownHexes = new List<HexCell>();

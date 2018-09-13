@@ -161,6 +161,8 @@ public class HexCell : MonoBehaviour
         {
             Entities.Add(entity);
             MoveGameObjectToCell(entity.gameObject);
+
+            entity.Location = this;
         }
     }
 

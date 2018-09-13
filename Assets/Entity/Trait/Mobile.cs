@@ -88,9 +88,8 @@ public class Mobile : Trait
             return;
         }
 
-        target.MoveGameObjectToCell(Owner.gameObject);
+        target.AddEntity(Owner);
 
-        Owner.Location = target;
         Owner.GetTrait<Sighted>()?.See();
     }
 
