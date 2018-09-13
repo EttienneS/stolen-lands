@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class TopPanelController : MonoBehaviour
 {
@@ -23,6 +22,5 @@ public class TopPanelController : MonoBehaviour
 
     private void Update()
     {
-     
     }
 }

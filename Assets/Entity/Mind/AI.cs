@@ -1,6 +1,5 @@
-using System;
 using System.Linq;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 public class AI : Mind
 {

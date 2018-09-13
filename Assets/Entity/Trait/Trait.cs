@@ -11,5 +11,4 @@ public abstract class Trait
     public abstract void Start();
 
     public abstract void Finish();
-
 }

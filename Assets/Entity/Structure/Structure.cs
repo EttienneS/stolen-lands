@@ -21,6 +21,5 @@
 
     public override void EndTurn()
     {
-      
     }
 }

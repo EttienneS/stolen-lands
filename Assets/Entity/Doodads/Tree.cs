@@ -1,10 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Tree : MonoBehaviour
 {
-
     private MeshRenderer _leaves;
     private MeshRenderer _trunk;
 
@@ -34,15 +31,15 @@ public class Tree : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
-        Leaves.transform.localScale = new Vector3(Random.Range(0.8f, 1.2f), Random.Range(0.8f, 1.8f), Random.Range(0.8f, 1.2f));
-        Leaves.transform.localPosition += new Vector3(0, (Leaves.transform.localScale.y / 2) - 0.5f, 0);
-        
+        Leaves.transform.localScale =
+            new Vector3(Random.Range(0.8f, 1.2f), Random.Range(0.8f, 1.8f), Random.Range(0.8f, 1.2f));
+        Leaves.transform.localPosition += new Vector3(0, Leaves.transform.localScale.y / 2 - 0.5f, 0);
+
         transform.eulerAngles = new Vector3(-90, 0, 0);
 
         Trunk.transform.localEulerAngles = new Vector3(0, Random.Range(5, 85), 0);
         Leaves.transform.localEulerAngles = new Vector3(0, Random.Range(5, 85), 0);
     }
-
 }

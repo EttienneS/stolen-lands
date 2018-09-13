@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 public static class Pathfinder
 {
     private static HexCellPriorityQueue _searchFrontier;
     private static int _searchFrontierPhase;
-    private static List<HexCell> _displayedPath;
 
     public static List<HexCell> FindPath(HexCell fromCell, HexCell toCell)
     {
@@ -30,32 +28,33 @@ public static class Pathfinder
         return path;
     }
 
-    public static void ShowPath(List<HexCell> path)
-    {
-        ClearPath();
+    // private static List<HexCell> _displayedPath;
+    //public static void ShowPath(List<HexCell> path)
+    //{
+    //    ClearPath();
 
-        if (_displayedPath != null)
-        {
-            foreach (var cell in path)
-            {
-                cell.EnableHighlight(Color.white);
-            }
+    //    if (_displayedPath != null)
+    //    {
+    //        foreach (var cell in path)
+    //        {
+    //            cell.EnableHighlight(Color.white);
+    //        }
 
-            path.First().EnableHighlight(Colors.Default);
-            path.Last().EnableHighlight(Colors.Highlight);
-        }
-    }
+    //        path.First().EnableHighlight(Colors.Default);
+    //        path.Last().EnableHighlight(Colors.Highlight);
+    //    }
+    //}
 
-    public static void ClearPath()
-    {
-        if (_displayedPath != null)
-        {
-            foreach (var cell in _displayedPath)
-            {
-                cell.DisableHighlight();
-            }
-        }
-    }
+    //public static void ClearPath()
+    //{
+    //    if (_displayedPath != null)
+    //    {
+    //        foreach (var cell in _displayedPath)
+    //        {
+    //            cell.DisableHighlight();
+    //        }
+    //    }
+    //}
 
     private static bool Search(HexCell fromCell, HexCell toCell)
     {
@@ -120,10 +119,11 @@ public static class Pathfinder
         return false;
     }
 
-    public static List<HexCell> GetReachableCells(HexCell actorLocation, int speed)
+    public static IEnumerable<HexCell> GetReachableCells(HexCell actorLocation, int speed)
     {
         var reachableCells = (from cell in
-            HexGrid.Instance.Cells.Where(c => c != null && c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
+                    HexGrid.Instance.Cells.Where(c =>
+                        c != null && c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
                               let path = FindPath(actorLocation, cell)
                               let pathCost = GetPathCost(path) - actorLocation.TravelCost
                               where path.Count > 0 && pathCost <= speed
@@ -136,19 +136,9 @@ public static class Pathfinder
         return reachableCells;
     }
 
-    public static int GetPathCost(List<HexCell> path)
+    public static int GetPathCost(IEnumerable<HexCell> path)
     {
-        var cost = 0;
-
-        foreach (var cell in path)
-        {
-            if (cell != null)
-            {
-                cost += cell.TravelCost;
-            }
-        }
-
-        return cost;
+        return path.Where(cell => cell != null).Sum(cell => cell.TravelCost);
     }
 
     public static HexCell GetClosestOpenCell(HexCell origin)

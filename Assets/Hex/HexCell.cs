@@ -2,26 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameHelpers
-{
-    public static Renderer[] GetAllRenderersForObject(GameObject objectToCheck)
-    {
-        return objectToCheck.GetComponentsInChildren<Renderer>();
-    }
-
-    public static Vector3 CalculateSizeForObject(GameObject objectToMove)
-    {
-        var size = new Vector3();
-
-        foreach (var renderer in GetAllRenderersForObject(objectToMove))
-        {
-            size += renderer.bounds.size;
-        }
-
-        return size;
-    }
-}
-
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
@@ -30,44 +10,31 @@ public class HexCell : MonoBehaviour
     public HexCoordinates coordinates;
 
     public List<GameObject> Doodads = new List<GameObject>();
+
+    public List<Entity> Entities = new List<Entity>();
     public int Height = 0;
-    [SerializeField] public HexCell[] neighbors;
-    public int TravelCost;
     private Mesh hexMesh;
     private MeshCollider meshCollider;
+    [SerializeField] public HexCell[] neighbors;
+    public int TravelCost;
     private List<int> triangles;
     private List<Vector3> vertices;
 
     public int Distance { get; set; }
-    public SpriteRenderer Highlight
-    {
-        get { return transform.Find("Highlight").GetComponent<SpriteRenderer>(); }
-    }
 
-    public bool Known
-    {
-        get { return MeshRenderer.enabled; }
-        set { MeshRenderer.enabled = value; }
-    }
+    public SpriteRenderer Highlight => transform.Find("Highlight").GetComponent<SpriteRenderer>();
 
     public Text Label { get; set; }
-    public MeshRenderer MeshRenderer
-    {
-        get { return transform.GetComponent<MeshRenderer>(); }
-    }
+
+    public MeshRenderer MeshRenderer => transform.GetComponent<MeshRenderer>();
 
     public HexCell NextWithSamePriority { get; set; }
-    public SpriteRenderer Overlay
-    {
-        get { return transform.Find("Overlay").GetComponent<SpriteRenderer>(); }
-    }
+
 
     public Faction Owner { get; set; }
     public HexCell PathFrom { get; set; }
     public int SearchHeuristic { get; set; }
     public int SearchPhase { get; set; }
-
-    public List<Entity> Entities = new List<Entity>();
 
     public List<GameObject> CellContents
     {
@@ -82,15 +49,9 @@ public class HexCell : MonoBehaviour
         }
     }
 
-    public int SearchPriority
-    {
-        get { return Distance + SearchHeuristic; }
-    }
-    public bool Visble
-    {
-        get { return Overlay.enabled; }
-        set { Overlay.enabled = !value; }
-    }
+    public int SearchPriority => Distance + SearchHeuristic;
+
+
     public void ColorCell(Color color)
     {
         Color = color;
@@ -175,6 +136,7 @@ public class HexCell : MonoBehaviour
         vertices = new List<Vector3>();
         triangles = new List<int>();
     }
+
     private void SetLabel(string message)
     {
         Label.text = message;
@@ -186,5 +148,30 @@ public class HexCell : MonoBehaviour
 
         objectToMove.transform.position = transform.position;
         objectToMove.transform.position -= new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), size / 2);
+    }
+
+    public void AddEntity(Entity entity)
+    {
+        if (entity.Location != null && entity.Location.Entities.Contains(entity))
+        {
+            entity.Location.Entities.Remove(entity);
+        }
+
+        if (!Entities.Contains(entity))
+        {
+            Entities.Add(entity);
+            MoveGameObjectToCell(entity.gameObject);
+
+            entity.Location = this;
+        }
+    }
+
+    public void AddDoodad(GameObject doodad)
+    {
+        if (!Doodads.Contains(doodad))
+        {
+            MoveGameObjectToCell(doodad);
+            Doodads.Add(doodad);
+        }
     }
 }

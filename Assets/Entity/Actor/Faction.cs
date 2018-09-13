@@ -1,13 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Faction : MonoBehaviour
 {
     public Color Color;
 
+    public List<Structure> Holdings = new List<Structure>();
+
+    public List<HexCell> KnownHexes = new List<HexCell>();
+
     public List<Actor> Members = new List<Actor>();
 
     public Sprite Sprite;
+
+    public List<HexCell> VisibleHexes = new List<HexCell>();
 
     //public Actor Leader { get; set; }
 
@@ -16,15 +23,6 @@ public class Faction : MonoBehaviour
     public int Food { get; set; }
 
     public int Manpower { get; set; }
-
-    public List<Structure> Holdings = new List<Structure>();
-
-    public List<HexCell> KnownHexes = new List<HexCell>();
-
-    public List<HexCell> VisibleHexes = new List<HexCell>();
-
-    public List<HexCell> ControlledCells = new List<HexCell>();
-
 
     public override string ToString()
     {
@@ -45,19 +43,12 @@ public class Faction : MonoBehaviour
 
         if (ActorController.Instance.PlayerFaction == this)
         {
+            GameHelpers.ChangeLayer(hex.gameObject, GameHelpers.VisibleLayer);
+
             foreach (var item in hex.CellContents)
             {
-                foreach (var renderer in GameHelpers.GetAllRenderersForObject(item))
-                {
-                    renderer.enabled = true;
-                }
+                GameHelpers.ChangeLayer(item, GameHelpers.VisibleLayer);
             }
-        }
-
-        if (ActorController.Instance.PlayerFaction == this)
-        {
-            hex.Known = true;
-            hex.Visble = true;
         }
     }
 
@@ -98,17 +89,16 @@ public class Faction : MonoBehaviour
         {
             foreach (var hex in VisibleHexes)
             {
-                hex.Visble = false;
+                GameHelpers.ChangeLayer(hex.gameObject, GameHelpers.KnownLayer);
 
                 foreach (var item in hex.CellContents)
                 {
-                    if (item.GetComponent<Actor>() != null)
-                    {
-                        foreach (var renderer in GameHelpers.GetAllRenderersForObject(item))
-                        {
-                            renderer.enabled = false;
-                        }
-                    }
+                    GameHelpers.ChangeLayer(item, GameHelpers.KnownLayer);
+                }
+
+                foreach (var item in hex.Entities.OfType<Actor>())
+                {
+                    GameHelpers.ChangeLayer(item.gameObject, GameHelpers.UnkownLayer);
                 }
             }
         }

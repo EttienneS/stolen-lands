@@ -63,6 +63,8 @@ public abstract class Entity : MonoBehaviour
     }
 
     public abstract void TakeTurn();
+
     public abstract void StartTurn();
+
     public abstract void EndTurn();
 }

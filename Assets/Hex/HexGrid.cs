@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
@@ -24,7 +22,6 @@ public class HexGrid : MonoBehaviour
             return _instance;
         }
     }
-
 
     public HexCell GetCellAtPoint(Vector3 position)
     {

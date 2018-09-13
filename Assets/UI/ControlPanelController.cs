@@ -30,8 +30,6 @@ public class ControlPanelController : MonoBehaviour
         {
             group = Instantiate(ActionPrefab, transform);
             _playerActions.Add(group);
-
-
         }
 
         group.SetAction(action);

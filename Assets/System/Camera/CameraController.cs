@@ -7,7 +7,6 @@ public class CameraController : MonoBehaviour
     private float _journeyLength;
     private Vector3 _panDesitnation;
 
-
     private bool _panning;
 
     private Vector3 _panSource;
@@ -15,7 +14,6 @@ public class CameraController : MonoBehaviour
     private float _startTime;
 
     public Camera Camera;
-
 
     [Range(1, 20)] public int Speed = 2;
 
@@ -47,7 +45,8 @@ public class CameraController : MonoBehaviour
     {
         _startTime = Time.time;
         _panSource = transform.position;
-        _panDesitnation = new Vector3(cell.transform.position.x, cell.transform.position.y - (ZoomMax -  Camera.fieldOfView), transform.position.z);
+        _panDesitnation = new Vector3(cell.transform.position.x,
+            cell.transform.position.y - (ZoomMax - Camera.fieldOfView), transform.position.z);
         _journeyLength = Vector3.Distance(_panSource, _panDesitnation);
 
         _panning = true;
@@ -78,11 +77,10 @@ public class CameraController : MonoBehaviour
             horizontal = Input.GetAxis("Horizontal");
             vertical = Input.GetAxis("Vertical");
 
-            Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView - (Input.GetAxis("Mouse ScrollWheel") * ZoomStep),
+            Camera.fieldOfView = Mathf.Clamp(Camera.fieldOfView - Input.GetAxis("Mouse ScrollWheel") * ZoomStep,
                 ZoomMin, ZoomMax);
             transform.position = new Vector3(transform.position.x + horizontal * Speed,
                 transform.position.y + vertical * Speed, z);
-
 
 #elif UNITY_IOS || UNITY_ANDROID || UNITY_WP8 || UNITY_IPHONE
             var zoomSpeed = 0.4f;
