@@ -88,16 +88,9 @@ public class Mobile : Trait
             return;
         }
 
-        if (Owner.Location != null)
-        {
-            Owner.Location.Entities.Remove(Owner);
-        }
-
-        Owner.Location = target;
-        target.Entities.Add(Owner);
-
         target.MoveGameObjectToCell(Owner.gameObject);
 
+        Owner.Location = target;
         Owner.GetTrait<Sighted>()?.See();
     }
 

@@ -38,10 +38,9 @@ public class StructureController : MonoBehaviour
 
         building.Location = cell;
 
-        cell.MoveGameObjectToCell(building.gameObject);
-
         entity.Faction.AddHolding(building);
-        cell.Entities.Add(building);
+        cell.AddEntity(entity);
+
         return building;
     }
 }

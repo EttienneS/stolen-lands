@@ -2,26 +2,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class GameHelpers
-{
-    public static Renderer[] GetAllRenderersForObject(GameObject objectToCheck)
-    {
-        return objectToCheck.GetComponentsInChildren<Renderer>();
-    }
-
-    public static Vector3 CalculateSizeForObject(GameObject objectToMove)
-    {
-        var size = new Vector3();
-
-        foreach (var renderer in GetAllRenderersForObject(objectToMove))
-        {
-            size += renderer.bounds.size;
-        }
-
-        return size;
-    }
-}
-
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
@@ -44,19 +24,12 @@ public class HexCell : MonoBehaviour
 
     public SpriteRenderer Highlight => transform.Find("Highlight").GetComponent<SpriteRenderer>();
 
-    public bool Known
-    {
-        get => MeshRenderer.enabled;
-        set => MeshRenderer.enabled = value;
-    }
-
     public Text Label { get; set; }
 
     public MeshRenderer MeshRenderer => transform.GetComponent<MeshRenderer>();
 
     public HexCell NextWithSamePriority { get; set; }
 
-    public SpriteRenderer Overlay => transform.Find("Overlay").GetComponent<SpriteRenderer>();
 
     public Faction Owner { get; set; }
     public HexCell PathFrom { get; set; }
@@ -78,11 +51,6 @@ public class HexCell : MonoBehaviour
 
     public int SearchPriority => Distance + SearchHeuristic;
 
-    public bool Visble
-    {
-        get => Overlay.enabled;
-        set => Overlay.enabled = !value;
-    }
 
     public void ColorCell(Color color)
     {
@@ -180,5 +148,28 @@ public class HexCell : MonoBehaviour
 
         objectToMove.transform.position = transform.position;
         objectToMove.transform.position -= new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), size / 2);
+    }
+
+    public void AddEntity(Entity entity)
+    {
+        if (entity.Location != null && entity.Location.Entities.Contains(entity))
+        {
+            entity.Location.Entities.Remove(entity);
+        }
+
+        if (!Entities.Contains(entity))
+        {
+            Entities.Add(entity);
+            MoveGameObjectToCell(entity.gameObject);
+        }
+    }
+
+    public void AddDoodad(GameObject doodad)
+    {
+        if (!Doodads.Contains(doodad))
+        {
+            MoveGameObjectToCell(doodad);
+            Doodads.Add(doodad);
+        }
     }
 }

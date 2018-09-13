@@ -155,8 +155,73 @@ PrefabInstance:
       propertyPath: Camera
       value: 
       objectReference: {fileID: 1085177958}
+    - target: {fileID: 20643877438397294, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1568
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+--- !u!1001 &859640179
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.12940958
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.12940958
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.017037101
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.98296297
+      objectReference: {fileID: 0}
+    - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151098371441608, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Name
+      value: FogLight
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Color.r
+      value: 0.047169805
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Color.g
+      value: 0.047169805
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Color.b
+      value: 0.047169805
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
 --- !u!20 &1085177958 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20643877438397294, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
@@ -201,6 +266,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 1335
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
 --- !u!1001 &1981984047
@@ -240,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4827714092591536, guid: b8398711a3c0a57418820fe92d300092, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8398711a3c0a57418820fe92d300092, type: 3}
@@ -307,7 +376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 612446673747806032, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 612446673747806032, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -372,7 +441,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1673870329606089997, guid: 0cae5df287a277547a084236bd5534eb, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1673870329606089997, guid: 0cae5df287a277547a084236bd5534eb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -433,7 +502,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1705753378770819677, guid: c56923151dd31ff4e9e62989acdf2d38, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1705753378770819677, guid: c56923151dd31ff4e9e62989acdf2d38, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -502,7 +571,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2947352446161461178, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
       propertyPath: m_RootOrder
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2947352446161461178, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -563,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4009954234862459697, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4009954234862459697, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

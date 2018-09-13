@@ -9,9 +9,7 @@ public static class MapGenerator
     {
         elevation = Mathf.Clamp(elevation, 0, 3f);
         var elevationVector = new Vector3(0, 0, elevation);
-
         cell.transform.position -= elevationVector;
-        cell.Overlay.transform.position += elevationVector;
     }
 
     private static void CreateCell(int x, int y, int i)
@@ -168,15 +166,11 @@ public static class MapGenerator
 
         foreach (var cell in HexGrid.Instance.Cells)
         {
+            GameHelpers.ChangeLayer(cell.gameObject, GameHelpers.UnkownLayer);
             foreach (var content in cell.CellContents)
             {
-                foreach (var renderer in GameHelpers.GetAllRenderersForObject(content))
-                {
-                    renderer.enabled = false;
-                }
+                GameHelpers.ChangeLayer(content, GameHelpers.UnkownLayer);
             }
-
-            GameHelpers.GetAllRenderersForObject(cell.gameObject)[0].enabled = false;
         }
     }
 
