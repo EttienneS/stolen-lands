@@ -7,27 +7,20 @@ public class Builder : Trait
     {
         var actions = new List<ActorAction>();
 
-        if (Owner.ActionPoints > 0)
+        if (!Owner.Location.Entities.OfType<Structure>().Any() && Owner.ActionPoints > 0)
         {
-            actions.Add(new ActorAction("Build", Owner, GetBuildableStructures, GetStructureCost, Build));
+            foreach (var sturcture in GetBuildableStructures())
+            {
+                actions.Add(new ActorAction("Build", Owner, Build, sturcture));
+            }
         }
 
         return actions;
     }
 
-    private int GetStructureCost(Entity entity, object target)
+    private List<object> GetBuildableStructures()
     {
-        return StructureController.Instance.GetBuilding(target.ToString()).Cost;
-    }
-
-    private List<object> GetBuildableStructures(Entity entity)
-    {
-        if (entity.Location.Entities.OfType<Structure>().Any())
-        {
-            return new List<object>();
-        }
-
-        return StructureController.Instance.AvailableBuildings(entity.ActionPoints).Cast<object>().ToList();
+        return StructureController.Instance.AvailableBuildings(Owner.ActionPoints).Cast<object>().ToList();
     }
 
     private int Build(Entity entity, object target)
@@ -37,7 +30,6 @@ public class Builder : Trait
 
     public override void Start()
     {
-
     }
 
     public override void Finish()

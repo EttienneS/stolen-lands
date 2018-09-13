@@ -5,9 +5,6 @@ public class ActorController : MonoBehaviour
 {
     private static ActorController _instance;
 
-    private readonly List<Actor> _actors = new List<Actor>();
-    private readonly List<Faction> _factions = new List<Faction>();
-
     private bool _init;
 
     private ActorPanel ActivePanel;
@@ -17,7 +14,6 @@ public class ActorController : MonoBehaviour
     public GameObject ActorPanelContainer;
 
     public ActorPanel ActorPanelPrefab;
-
 
     public Actor ActorPrefab;
 
@@ -38,15 +34,9 @@ public class ActorController : MonoBehaviour
         }
     }
 
-    public List<Actor> Actors
-    {
-        get { return _actors; }
-    }
+    public List<Actor> Actors { get; } = new List<Actor>();
 
-    public List<Faction> Factions
-    {
-        get { return _factions; }
-    }
+    public List<Faction> Factions { get; } = new List<Faction>();
 
     public ActorDisplay GetDisplayForActor(Actor actor)
     {
@@ -67,15 +57,12 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
-
         PlayerFaction = GetFaction();
-        PlayerFaction.AddMember(GetActor(new Player()));
         PlayerFaction.AddMember(GetActor(new Player()));
 
         for (var i = 0; i < InitialFactions; i++)
         {
             var faction = GetFaction();
-            faction.AddMember(GetActor(new AI()));
             faction.AddMember(GetActor(new AI()));
         }
     }
@@ -110,7 +97,6 @@ public class ActorController : MonoBehaviour
         Factions.Add(faction);
         return faction;
     }
-
 
     public void ShowActorPanel(Actor actor)
     {

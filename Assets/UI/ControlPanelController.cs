@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ControlPanelController : MonoBehaviour
@@ -23,10 +24,17 @@ public class ControlPanelController : MonoBehaviour
 
     public void AddAction(ActorAction action)
     {
-        var actionDisplay = Instantiate(ActionPrefab, transform);
-        actionDisplay.SetAction(action);
+        var group = _playerActions.FirstOrDefault(p => p.ActionId == action.ActionName);
 
-        _playerActions.Add(actionDisplay);
+        if (group == null)
+        {
+            group = Instantiate(ActionPrefab, transform);
+            _playerActions.Add(group);
+
+
+        }
+
+        group.SetAction(action);
     }
 
     public void InvokeAction(int number)

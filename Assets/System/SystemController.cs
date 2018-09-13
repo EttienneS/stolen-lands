@@ -78,7 +78,8 @@ public class SystemController : MonoBehaviour
 
                 if (selectedCell.Highlight.enabled)
                 {
-                    ActiveAction.Execute(selectedCell);
+                    ActiveAction.SelectedOption = selectedCell;
+                    ActiveAction.Execute();
                 }
             }
         }

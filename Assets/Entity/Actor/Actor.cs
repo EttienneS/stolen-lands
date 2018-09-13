@@ -118,7 +118,7 @@ public class Actor : Entity
         Head.material.SetFloat("_Outline", 0f);
     }
 
-    public void StartTurn()
+    public override void StartTurn()
     {
         ActionPoints = 3;
         foreach (var trait in Traits)
@@ -127,7 +127,7 @@ public class Actor : Entity
         }
     }
 
-    public void TakeTurn()
+    public override void TakeTurn()
     {
         if (Mind == null)
         {
@@ -147,7 +147,7 @@ public class Actor : Entity
         }
     }
 
-    public void EndTurn()
+    public override void EndTurn()
     {
         foreach (var trait in Traits)
         {
