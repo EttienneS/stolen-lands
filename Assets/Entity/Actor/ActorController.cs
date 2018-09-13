@@ -72,22 +72,22 @@ public class ActorController : MonoBehaviour
         PlayerFaction.AddMember(GetActor(new Player()));
         PlayerFaction.AddMember(GetActor(new Player()));
 
-
         for (var i = 0; i < InitialFactions; i++)
         {
             var faction = GetFaction();
-            faction.AddMember(GetActor(new Sentient()));
-            faction.AddMember(GetActor(new Sentient()));
-
-            faction.Members[0].AddTrait(new HexClaimer());
+            faction.AddMember(GetActor(new AI()));
+            faction.AddMember(GetActor(new AI()));
         }
     }
 
-    private Actor GetActor(Trait brain)
+    private Actor GetActor(Mind mind)
     {
         var actor = Instantiate(ActorPrefab, transform);
         actor.name = ActorHelper.GetRandomName();
-        actor.AddTrait(brain);
+
+        actor.Mind = mind;
+        mind.Entity = actor;
+
         Actors.Add(actor);
         actor.AddTrait(new Sighted(3));
         actor.AddTrait(new Mobile(3));

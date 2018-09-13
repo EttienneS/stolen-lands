@@ -25,8 +25,4 @@ public class ActorAction
     public Act ActAction { get; set; }
     public GetActionCost GetCost { get; set; }
 
-    public bool CanExecute(Actor actor, HexCell context)
-    {
-        return GetCost(actor, context) <= actor.ActionPoints;
-    }
 }

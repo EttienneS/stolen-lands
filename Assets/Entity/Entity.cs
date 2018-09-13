@@ -10,6 +10,8 @@ public class Entity : MonoBehaviour
     public List<Trait> Traits = new List<Trait>();
     public Faction Faction { get; set; }
 
+    public Mind Mind;
+
     public T GetTrait<T>() where T : Trait
     {
         var type = typeof(T);
@@ -46,4 +48,17 @@ public class Entity : MonoBehaviour
 
     public int ActionPoints { get; set; }
 
+    public List<ActorAction> AvailableActions
+    {
+        get
+        {
+            var allActions = new List<ActorAction>();
+            foreach (var trait in Traits)
+            {
+                allActions.AddRange(trait.GetActions());
+            }
+
+            return allActions;
+        }
+    }
 }

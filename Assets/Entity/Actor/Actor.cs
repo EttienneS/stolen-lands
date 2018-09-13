@@ -39,19 +39,7 @@ public class Actor : Entity
     }
 
 
-    public List<ActorAction> AvailableActions
-    {
-        get
-        {
-            var allActions = new List<ActorAction>();
-            foreach (var trait in Traits)
-            {
-                allActions.AddRange(trait.GetActions());
-            }
-
-            return allActions;
-        }
-    }
+   
 
     public void Update()
     {
@@ -141,21 +129,21 @@ public class Actor : Entity
 
     public void TakeTurn()
     {
-        var player = GetTrait<Player>();
-        if (player == null)
+        if (Mind == null)
         {
-            var sentient = GetTrait<Sentient>();
-            if (sentient != null)
+            return;
+        }
+
+        if (Mind is Player)
+        {
+            if (SystemController.Instance.SelectedActor == this)
             {
-                sentient.TakeAction(AvailableActions);
+                Mind.Act();
             }
         }
         else
         {
-            if (SystemController.Instance.SelectedActor == this)
-            {
-                player.TakeAction(AvailableActions);
-            }
+            Mind.Act();
         }
     }
 

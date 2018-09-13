@@ -16,19 +16,14 @@ public class Mobile : Trait
     {
         var actions = new List<ActorAction>();
 
-        if (Owner.Faction == ActorController.Instance.PlayerFaction)
+        if (Speed - Moved > 0)
         {
-            if (Speed - Moved > 0)
-            {
-                actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell,
-                    MoveToCell));
-            }
+            actions.Add(new ActorAction("Move (" + (Speed - Moved) + ")", Owner, DiscoverReachableCells, CostToCell, MoveToCell));
+        }
 
-
-            if (Owner.ActionPoints > 0)
-            {
-                actions.Add(new ActorAction("Move +", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
-            }
+        if (Owner.ActionPoints > 0)
+        {
+            actions.Add(new ActorAction("Move +", Owner, DiscoverConvert, ConvertCost, ConvertActionToMoves));
         }
 
         return actions;
