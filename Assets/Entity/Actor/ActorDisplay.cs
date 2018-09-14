@@ -29,7 +29,7 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
         Actor = actor;
 
         // on init set the values to match the given Actor
-        Icon = transform.Find("Icon").GetComponent<Image>();
+        Icon = GetComponent<Image>();
         Name = transform.Find("Name").GetComponent<Text>();
 
         Icon.sprite = Actor.Sprite;
@@ -41,11 +41,11 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
     {
         if (SystemController.Instance.SelectedActor == Actor)
         {
-            GetComponent<Image>().color = Colors.Highlight;
+            Name.color = Colors.Highlight;
         }
         else
         {
-            GetComponent<Image>().color = Colors.Default;
+            Name.color = Colors.Text;
         }
     }
 }

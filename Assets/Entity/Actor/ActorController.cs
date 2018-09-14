@@ -17,7 +17,7 @@ public class ActorController : MonoBehaviour
 
     public Actor ActorPrefab;
 
-    [Range(1, 200)] public int InitialFactions = 50;
+    [Range(0, 200)] public int InitialFactions = 50;
 
     public Faction PlayerFaction { get; set; }
 
@@ -57,7 +57,14 @@ public class ActorController : MonoBehaviour
 
         _init = true;
 
+        if (InitialFactions == 0)
+        {
+            return;
+        }
+
         PlayerFaction = GetFaction();
+        PlayerFaction.AddMember(GetActor(new Player()));
+        PlayerFaction.AddMember(GetActor(new Player()));
         PlayerFaction.AddMember(GetActor(new Player()));
 
         for (var i = 0; i < InitialFactions; i++)
