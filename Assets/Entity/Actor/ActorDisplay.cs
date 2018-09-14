@@ -12,7 +12,7 @@ public class ActorDisplay : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData data)
     {
         SystemController.Instance.SetSelectedActor(Actor);
-        ActorController.Instance.ShowActorPanel(Actor);
+        //ActorController.Instance.ShowActorPanel(Actor);
         CameraController.Instance.MoveToViewCell(Actor.Location);
     }
 

@@ -30,16 +30,16 @@ public abstract class Structure : Entity
 
     public void RotateOnY()
     {
-        transform.localEulerAngles += new Vector3(0, Random.Range(5, 85), 0);
+        transform.localEulerAngles += new Vector3(0, Random.Range(0, 180), 0);
     }
 
     public void RotateOnX()
     {
-        transform.localEulerAngles += new Vector3(Random.Range(5, 85), 0, 0);
+        transform.localEulerAngles += new Vector3(Random.Range(0, 180), 0, 0);
     }
 
     public void RotateOnZ()
     {
-        transform.localEulerAngles += new Vector3(0, 0, Random.Range(5, 85));
+        transform.localEulerAngles += new Vector3(0, 0, Random.Range(0, 180));
     }
 }
