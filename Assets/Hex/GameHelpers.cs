@@ -2,17 +2,10 @@
 
 public static class GameHelpers
 {
-    public static int UnkownLayer => 8;
     public static int KnownLayer => 9;
-
+    public static int UnknownLayer => 8;
     public static int VisibleLayer => 10;
 
-
-
-    public static Renderer[] GetAllRenderersForObject(GameObject objectToCheck)
-    {
-        return objectToCheck.GetComponentsInChildren<Renderer>();
-    }
 
     public static Vector3 CalculateSizeForObject(GameObject objectToMove)
     {
@@ -26,7 +19,17 @@ public static class GameHelpers
         return size;
     }
 
-    public static void ChangeLayer(GameObject item, int visibleLayer)
+    public static Renderer[] GetAllRenderersForObject(GameObject objectToCheck)
+    {
+        return objectToCheck.GetComponentsInChildren<Renderer>();
+    }
+
+    public static void MoveToKnownLayer(this GameObject item)
+    {
+        MoveToLayer(item, KnownLayer);
+    }
+
+    public static void MoveToLayer(this GameObject item, int visibleLayer)
     {
         item.layer = visibleLayer;
 
@@ -37,7 +40,17 @@ public static class GameHelpers
                 continue;
             }
 
-            ChangeLayer(child.gameObject, visibleLayer);
+            MoveToLayer(child.gameObject, visibleLayer);
         }
+    }
+
+    public static void MoveToUnknownLayer(this GameObject item)
+    {
+        MoveToLayer(item, UnknownLayer);
+    }
+
+    public static void MoveToVisibleLayer(this GameObject item)
+    {
+        MoveToLayer(item, VisibleLayer);
     }
 }

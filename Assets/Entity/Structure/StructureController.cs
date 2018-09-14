@@ -37,7 +37,7 @@ public class StructureController : MonoBehaviour
         var building = Instantiate(GetBuilding(buildingName), cell.transform);
 
         entity.Faction.AddHolding(building);
-        cell.AddEntity(entity);
+        cell.AddEntity(building);
 
         return building;
     }

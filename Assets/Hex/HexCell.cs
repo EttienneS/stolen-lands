@@ -144,10 +144,13 @@ public class HexCell : MonoBehaviour
 
     public void MoveGameObjectToCell(GameObject objectToMove)
     {
-        var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
-
         objectToMove.transform.position = transform.position;
-        objectToMove.transform.position -= new Vector3(Random.Range(-1, 1), Random.Range(-1, 1), size / 2);
+
+        // cater for offset based on size and move around in the hex
+        var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
+        objectToMove.transform.position -= new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), size / 2);
+
+        objectToMove.MoveToLayer(gameObject.layer);
     }
 
     public void AddEntity(Entity entity)
@@ -161,7 +164,6 @@ public class HexCell : MonoBehaviour
         {
             Entities.Add(entity);
             MoveGameObjectToCell(entity.gameObject);
-
             entity.Location = this;
         }
     }
@@ -172,6 +174,16 @@ public class HexCell : MonoBehaviour
         {
             MoveGameObjectToCell(doodad);
             Doodads.Add(doodad);
+        }
+    }
+
+    public void MoveToLayer(int layer)
+    {
+        gameObject.MoveToLayer(layer);
+
+        foreach (var content in CellContents)
+        {
+            content.MoveToLayer(layer);
         }
     }
 }

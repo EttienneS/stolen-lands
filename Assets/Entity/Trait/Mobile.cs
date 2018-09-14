@@ -82,15 +82,22 @@ public class Mobile : Trait
     {
         // moves instantly to location
         // use MoveToCell to move along a path
-
         if (target == null || target.transform == null)
         {
             return;
         }
 
         target.AddEntity(Owner);
-
         Owner.GetTrait<Sighted>()?.See();
+
+        // hide AI players in the fog of war
+        if (!(Owner.Mind is Player))
+        {
+            if (target.gameObject.layer == GameHelpers.KnownLayer)
+            {
+                Owner.gameObject.MoveToUnknownLayer();
+            }
+        }
     }
 
     private IEnumerable<HexCell> GetReachableCells()
