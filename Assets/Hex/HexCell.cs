@@ -150,6 +150,7 @@ public class HexCell : MonoBehaviour
         var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
         objectToMove.transform.position -= new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), size / 2);
 
+
         objectToMove.MoveToLayer(gameObject.layer);
     }
 

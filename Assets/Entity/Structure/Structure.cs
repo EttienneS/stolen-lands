@@ -1,10 +1,15 @@
-﻿public class Structure : Entity
+﻿using UnityEngine;
+
+public abstract class Structure : Entity
 {
     public int Cost;
 
+    public abstract void Init();
+
     private void Start()
     {
-        AddTrait(new Sighted(1));
+        Init();
+        StartTurn();
     }
 
     public override void StartTurn()
@@ -21,5 +26,20 @@
 
     public override void EndTurn()
     {
+    }
+
+    public void RotateOnY()
+    {
+        transform.localEulerAngles += new Vector3(0, Random.Range(5, 85), 0);
+    }
+
+    public void RotateOnX()
+    {
+        transform.localEulerAngles += new Vector3(Random.Range(5, 85), 0, 0);
+    }
+
+    public void RotateOnZ()
+    {
+        transform.localEulerAngles += new Vector3(0, 0, Random.Range(5, 85));
     }
 }
