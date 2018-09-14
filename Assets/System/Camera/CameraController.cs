@@ -19,7 +19,7 @@ public class CameraController : MonoBehaviour
 
     [Range(50, 100)] public int ZoomMax = 100;
 
-    [Range(10, 50)] public int ZoomMin = 10;
+    [Range(1, 50)] public int ZoomMin = 10;
 
     [Range(50, 300)] public int ZoomStep = 100;
 

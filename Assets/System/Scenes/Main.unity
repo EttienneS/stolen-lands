@@ -159,6 +159,14 @@ PrefabInstance:
       propertyPath: m_CullingMask.m_Bits
       value: 1568
       objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+      propertyPath: ZoomMin
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+      propertyPath: ZoomStep
+      value: 50
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
 --- !u!1001 &859640179
@@ -210,15 +218,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
       propertyPath: m_Color.r
-      value: 0.26415092
+      value: 0.41509432
       objectReference: {fileID: 0}
     - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
       propertyPath: m_Color.g
-      value: 0.26415092
+      value: 0.41509432
       objectReference: {fileID: 0}
     - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
       propertyPath: m_Color.b
-      value: 0.26415092
+      value: 0.41509432
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db96cb73447df548b507d99233cfcef, type: 3}

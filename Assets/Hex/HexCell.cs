@@ -148,7 +148,7 @@ public class HexCell : MonoBehaviour
 
         // cater for offset based on size and move around in the hex
         var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
-        objectToMove.transform.position -= new Vector3(Random.Range(-2, 2), Random.Range(-2, 2), size / 2);
+        objectToMove.transform.position -= new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), size / 2);
 
         objectToMove.MoveToLayer(gameObject.layer);
     }
