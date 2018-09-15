@@ -22,10 +22,10 @@ public struct HexCoordinates
 
     public static HexCoordinates FromPosition(Vector3 position)
     {
-        var x = position.x / (HexMetrics.innerRadius * 2f);
+        var x = position.x / (HexMetrics.InnerRadius * 2f);
         var z = -x;
 
-        var offset = position.y / (HexMetrics.outerRadius * 3f);
+        var offset = position.y / (HexMetrics.OuterRadius * 3f);
         x -= offset;
         z -= offset;
 

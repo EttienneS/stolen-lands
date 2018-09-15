@@ -8,7 +8,7 @@ public class SystemController : MonoBehaviour
 
     public Canvas GridCanvas;
 
-    public Actor SelectedActor;
+    public Actor SelectedActor { get; set; }
 
     public Canvas UICanvas;
 
@@ -88,9 +88,14 @@ public class SystemController : MonoBehaviour
         }
     }
 
-    public void Reset()
+    public void LoadMain()
     {
-        SceneManager.LoadScene("Loading");
+        SceneManager.LoadScene("Main");
+    }
+
+    public void LoadMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void SetSelectedActor(Actor actor)
@@ -103,8 +108,7 @@ public class SystemController : MonoBehaviour
         SelectedActor = actor;
         SelectedActor.EnableOutline();
 
-        var player = actor.Mind is Player;
-        if (player != null)
+        if (actor.Mind is Player)
         {
             actor.Mind.Act();
         }

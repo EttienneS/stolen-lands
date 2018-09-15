@@ -33,7 +33,7 @@ public class TurnController : MonoBehaviour
 
         var post = SystemController.Instance.SelectedActor.Location.transform.localPosition;
         CameraController.Instance.transform.position =
-            new Vector3(post.x, post.y - 55, CameraController.Instance.transform.position.z);
+            new Vector3(post.x, post.y - 82, CameraController.Instance.transform.position.z);
     }
 
     public void EndCurrentTurn()

@@ -17,8 +17,8 @@ public static class MapGenerator
         float xpos = x;
         float ypos = y;
 
-        var position = new Vector3((xpos + y * 0.5f - y / 2) * (HexMetrics.innerRadius * 2f),
-            ypos * (HexMetrics.outerRadius * 1.5f), 0);
+        var position = new Vector3((xpos + y * 0.5f - y / 2) * (HexMetrics.InnerRadius * 2f),
+            ypos * (HexMetrics.OuterRadius * 1.5f), 0);
 
         var cell = HexGrid.Instance.Cells[i] = Object.Instantiate(HexGrid.Instance.CellPrefab);
         cell.transform.SetParent(HexGrid.Instance.transform, false);

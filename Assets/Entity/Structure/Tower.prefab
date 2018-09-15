@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4799718144505867199}
   - component: {fileID: 4799718144505867198}
   - component: {fileID: 4799718144505867193}
-  - component: {fileID: 4799718144505867192}
+  - component: {fileID: 1954574793250287183}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -93,7 +93,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!114 &4799718144505867192
+--- !u!114 &1954574793250287183
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +102,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4799718144505867195}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 645eb12807d36344f80856a7328a48d9, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ef67e137998285429ed26e94cc3a1a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Location: {fileID: 0}

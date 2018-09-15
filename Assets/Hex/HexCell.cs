@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -89,8 +90,8 @@ public class HexCell : MonoBehaviour
         var center = new Vector3(0, 0);
         for (var i = 0; i < 6; i++)
         {
-            var leftCorner = center + HexMetrics.corners[i];
-            var rightCorner = center + HexMetrics.corners[i + 1];
+            var leftCorner = center + HexMetrics.Corners[i];
+            var rightCorner = center + HexMetrics.Corners[i + 1];
             var offset = new Vector3(0, 0, 6f);
             var lowerLeft = leftCorner + offset;
             var lowerRight = rightCorner + offset;
@@ -135,20 +136,76 @@ public class HexCell : MonoBehaviour
         hexMesh.name = "Hex Mesh";
         vertices = new List<Vector3>();
         triangles = new List<int>();
+
+        for (var i = 0; i < 9; i++)
+        {
+            int counter = 0;
+            while (true)
+            {
+                counter++;
+                var point = GetRandomPointInCell();
+
+                var tooClose = false;
+                foreach (var currentPoint in Hardpoints)
+                {
+                    if (Vector3.Distance(point, currentPoint) < 1f)
+                    {
+                        tooClose = true;
+                        break;
+                    }
+                }
+
+                if (!tooClose)
+                {
+                    Hardpoints.Add(point);
+                    break;
+                }
+
+                if (counter > 50)
+                {
+                    break;
+                }
+            }
+        }
     }
+
+    private static Vector3 GetRandomPointInCell()
+    {
+        var radius = HexMetrics.InnerRadius - 0.5f;
+
+        return new Vector3(Random.Range(-radius, radius),
+            Random.Range(-radius, radius), 0);
+    }
+
+    private List<Vector3> Hardpoints = new List<Vector3>();
+
+    private int usedHardpoints = 0;
 
     private void SetLabel(string message)
     {
         Label.text = message;
     }
 
-    public void MoveGameObjectToCell(GameObject objectToMove)
+    public void MoveGameObjectToCell(GameObject objectToMove, bool useHardpoint)
     {
         objectToMove.transform.position = transform.position;
 
         // cater for offset based on size and move around in the hex
-        var size = GameHelpers.CalculateSizeForObject(objectToMove).z;
-        objectToMove.transform.position -= new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f), size / 2);
+        objectToMove.transform.position -= new Vector3(0, 0, GameHelpers.CalculateSizeForObject(objectToMove).z / 2);
+
+        if (useHardpoint)
+        {
+            if (usedHardpoints < Hardpoints.Count)
+            {
+                var pos = Hardpoints[usedHardpoints];
+                objectToMove.transform.position -= pos; ;
+                usedHardpoints++;
+            }
+            else
+            {
+                objectToMove.transform.position -= new Vector3(Random.Range(-1.5f, 1.5f), Random.Range(-1.5f, 1.5f));
+            }
+        }
 
         objectToMove.MoveToLayer(gameObject.layer);
     }
@@ -163,7 +220,9 @@ public class HexCell : MonoBehaviour
         if (!Entities.Contains(entity))
         {
             Entities.Add(entity);
-            MoveGameObjectToCell(entity.gameObject);
+
+            // actors do not use the hardpoints, they always go to the center
+            MoveGameObjectToCell(entity.gameObject, !(entity is Actor));
             entity.Location = this;
         }
     }
@@ -172,7 +231,7 @@ public class HexCell : MonoBehaviour
     {
         if (!Doodads.Contains(doodad))
         {
-            MoveGameObjectToCell(doodad);
+            MoveGameObjectToCell(doodad, true);
             Doodads.Add(doodad);
         }
     }
