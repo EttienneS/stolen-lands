@@ -137,9 +137,10 @@ public class HexCell : MonoBehaviour
         vertices = new List<Vector3>();
         triangles = new List<int>();
 
+        Hardpoints.Add(new Vector3(0, 0));
         for (var i = 0; i < 9; i++)
         {
-            int counter = 0;
+            var counter = 0;
             while (true)
             {
                 counter++;
@@ -167,6 +168,8 @@ public class HexCell : MonoBehaviour
                 }
             }
         }
+
+        Hardpoints.RemoveAt(0);
     }
 
     private static Vector3 GetRandomPointInCell()
