@@ -32,7 +32,7 @@ public class Sighted : Trait
             _lastViewPoint = Owner.Location;
             var center = Owner.Location;
             _visibleCells = HexGrid.Instance.Cells
-                .Where(c => c != null && c.coordinates.DistanceTo(center.coordinates) <= _visionRange).ToList();
+                .Where(c => c != null && c.Coordinates.DistanceTo(center.Coordinates) <= _visionRange).ToList();
             _visibleCells.Add(center);
 
             return _visibleCells;

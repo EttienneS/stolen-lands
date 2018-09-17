@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 public class HexGrid : MonoBehaviour
 {
@@ -36,6 +37,12 @@ public class HexGrid : MonoBehaviour
     public HexCell GetRandomCell()
     {
         return Cells[Random.Range(0, Height * Width)];
+    }
+
+    public HexCell GetRandomPathableCell()
+    {
+        var pathableCells = Cells.Where(c => c.Type.TravelCost > 0).ToList();
+        return pathableCells[Random.Range(0, pathableCells.Count)];
     }
 
     private void Awake()
