@@ -5,12 +5,7 @@ using UnityEngine.UI;
 
 public static class MapGenerator
 {
-    public static void Elevate(HexCell cell, float elevation)
-    {
-        elevation = Mathf.Clamp(elevation, 0, 0.25f);
-        var elevationVector = new Vector3(0, 0, elevation);
-        cell.transform.position -= elevationVector;
-    }
+
 
     private static void CreateCell(int x, int y, int i)
     {
@@ -23,9 +18,8 @@ public static class MapGenerator
         var cell = HexGrid.Instance.Cells[i] = Object.Instantiate(HexGrid.Instance.CellPrefab);
         cell.transform.SetParent(HexGrid.Instance.transform, false);
         cell.transform.localPosition = position;
-        cell.coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
-        cell.name = cell.coordinates + " Cell";
-        cell.TravelCost = 1;
+        cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
+        cell.name = cell.Coordinates + " Cell";
 
         if (x > 0)
         {
@@ -53,34 +47,12 @@ public static class MapGenerator
             }
         }
 
-        cell.ColorCell(new Color(0f, 0f, Random.Range(0.8f, 1.0f)));
-
-        AddLabelToCell(cell);
-    }
-
-    private static void AddLabelToCell(HexCell cell)
-    {
-        var label = new GameObject(cell.coordinates.ToString());
-        label.transform.SetParent(SystemController.Instance.GridCanvas.transform);
-        label.transform.position = cell.transform.position;
-
-        var text = label.AddComponent<Text>();
-        text.font = (Font)Resources.GetBuiltinResource(typeof(Font), "Arial.ttf");
-        text.material = text.font.material;
-        text.fontSize = 4;
-        text.fontStyle = FontStyle.Bold;
-        text.alignment = TextAnchor.MiddleCenter;
-
-        var rect = label.GetComponent<RectTransform>();
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 20);
-        rect.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 20);
-
-        cell.Label = text;
+        cell.Type = MapData.HexTypes[MapData.Type.Water];
     }
 
     private static HexCell GetRandomNeighbourNotInMass(HexCell cell, List<HexCell> mass)
     {
-        var openCells = cell.neighbors.Where(c => c != null && !mass.Contains(c)).ToList();
+        var openCells = cell.Neighbors.Where(c => c != null && !mass.Contains(c)).ToList();
         HexCell newCell = null;
 
         if (openCells.Any())
@@ -108,69 +80,40 @@ public static class MapGenerator
             }
         }
 
-        // desert
-        for (var i = 0; i < masses / 20; i++)
+        var recipe = MapData.Recipes[Random.Range(0, MapData.Recipes.Count)];
+
+        // build the map using the selected recipe
+        foreach (var kvp in recipe)
         {
-            var massSize = Random.Range(minMassSize, maxMassSize);
-            var massColor = new Color(1, Random.Range(0.8f, 0.95f), Random.Range(0.8f, 0.90f));
+            var m = masses * kvp.Value;
 
-            var massElevation = Random.Range(-1.5f, 0);
-
-            foreach (var cell in GetMass(massSize))
+            for (var i = 0; i < m; i++)
             {
-                cell.Height = 1;
-                cell.TravelCost = 2;
-                cell.ColorCell(massColor);
-
-                Elevate(cell, massElevation);
-            }
-        }
-
-        // grassland
-        for (var i = 0; i < masses; i++)
-        {
-            var massSize = Random.Range(minMassSize, maxMassSize);
-            var rb = Random.Range(0.1f, 0.2f);
-            var massColor = new Color(rb, Random.Range(0.5f, 0.8f), rb);
-
-            var massElevation = Random.Range(0, 1.5f);
-
-            foreach (var cell in GetMass(massSize))
-            {
-                cell.Height = 1;
-                cell.ColorCell(massColor);
-                cell.TravelCost = 1;
-
-                Elevate(cell, massElevation);
-
-                if (Random.Range(0, 100) > 75)
+                foreach (var cell in GetMass(Random.Range(minMassSize, maxMassSize)))
                 {
-                    for (var d = 0; d < Random.Range(1, 4); d++)
-                    {
-                        DoodadController.Instance.CreateDoodadInCell("Tree", cell);
-                    }
+                    cell.Type = MapData.HexTypes[kvp.Key];
                 }
             }
         }
-
-        foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Height == 0))
+        
+        foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Type.TypeName == MapData.Type.Water))
         {
             // if cell is completely surrounded with water
-            // change its height and color to reflect it being deep water
-            if (cell.neighbors.All(c => c == null || c.Height <= 0))
+            if (cell.Neighbors.All(c => c == null || c.Type.TypeName == MapData.Type.Water || c.Type.TypeName == MapData.Type.DeepWater))
             {
-                cell.Height = -1;
-                cell.ColorCell(new Color(0, 0, Random.Range(0.25f, 0.5f)));
+                cell.Type = MapData.HexTypes[MapData.Type.DeepWater];
             }
         }
 
         foreach (var cell in HexGrid.Instance.Cells)
         {
             cell.MoveToLayer(GameHelpers.KnownLayer);
+            cell.Elevate();
+            cell.AddDoodads();
         }
     }
 
-    private static List<HexCell> GetMass(int massSize)
+    private static IEnumerable<HexCell> GetMass(int massSize)
     {
         var mass = new List<HexCell>();
 
@@ -208,22 +151,37 @@ public static class MapGenerator
     {
         // add all actors to the world
         var allocatedCells = new List<HexCell>();
-        allocatedCells.AddRange(HexGrid.Instance.Cells.Where(c => c.Height == 0).ToList());
 
         foreach (var faction in ActorController.Instance.Factions)
         {
-            var origin = HexGrid.Instance.GetRandomCell();
-            while (allocatedCells.Contains(origin) || origin.Height < 0)
+            var origin = HexGrid.Instance.GetRandomPathableCell();
+
+            var counter = 0;
+            while (allocatedCells.Contains(origin))
             {
-                origin = HexGrid.Instance.GetRandomCell();
+                counter++;
+                origin = HexGrid.Instance.GetRandomPathableCell();
+
+                if (counter > 10)
+                {
+                    // counters infinite loop
+                    origin = null;
+                    break;
+                }
             }
 
-            foreach (var member in faction.Members)
+            if (origin != null)
             {
-                member.GetTrait<Mobile>().MoveToCell(origin);
-                member.TakeTurn();
+                allocatedCells.Add(origin);
 
-                origin = Pathfinder.GetClosestOpenCell(origin);
+                foreach (var member in faction.Members)
+                {
+                    member.GetTrait<Mobile>().MoveToCell(origin);
+                    member.TakeTurn();
+
+                    origin = Pathfinder.GetClosestOpenCell(origin);
+                    allocatedCells.Add(origin);
+                }
             }
         }
     }

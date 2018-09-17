@@ -42,8 +42,7 @@ public class Mobile : Trait
 
     private int CostToCell(Entity entity, object cell)
     {
-        return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) -
-               Owner.Location.TravelCost;
+        return Pathfinder.GetPathCost(Pathfinder.FindPath(entity.Location, cell as HexCell)) - Owner.Location.Type.TravelCost;
     }
 
     public override void Start()

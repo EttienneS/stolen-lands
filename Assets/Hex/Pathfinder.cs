@@ -92,18 +92,18 @@ public static class Pathfinder
                     continue;
                 }
 
-                if (neighbor.Height <= 0)
+                if (neighbor.Type.TravelCost < 0)
                 {
                     continue;
                 }
 
-                var distance = current.Distance + neighbor.TravelCost;
+                var distance = current.Distance + neighbor.Type.TravelCost;
                 if (neighbor.SearchPhase < _searchFrontierPhase)
                 {
                     neighbor.SearchPhase = _searchFrontierPhase;
                     neighbor.Distance = distance;
                     neighbor.PathFrom = current;
-                    neighbor.SearchHeuristic = neighbor.coordinates.DistanceTo(toCell.coordinates);
+                    neighbor.SearchHeuristic = neighbor.Coordinates.DistanceTo(toCell.Coordinates);
                     _searchFrontier.Enqueue(neighbor);
                 }
                 else if (distance < neighbor.Distance)
@@ -121,11 +121,16 @@ public static class Pathfinder
 
     public static IEnumerable<HexCell> GetReachableCells(HexCell actorLocation, int speed)
     {
+        if (actorLocation == null)
+        {
+            return new List<HexCell>();
+        }
+
         var reachableCells = (from cell in
                     HexGrid.Instance.Cells.Where(c =>
-                        c != null && c.coordinates.DistanceTo(actorLocation.coordinates) <= speed)
+                        c != null && c.Coordinates.DistanceTo(actorLocation.Coordinates) <= speed)
                               let path = FindPath(actorLocation, cell)
-                              let pathCost = GetPathCost(path) - actorLocation.TravelCost
+                              let pathCost = GetPathCost(path) - actorLocation.Type.TravelCost
                               where path.Count > 0 && pathCost <= speed
                               select cell)
             .Distinct()
@@ -138,11 +143,12 @@ public static class Pathfinder
 
     public static int GetPathCost(IEnumerable<HexCell> path)
     {
-        return path.Where(cell => cell != null).Sum(cell => cell.TravelCost);
+        return path.Where(cell => cell != null).Sum(cell => cell.Type.TravelCost);
     }
 
     public static HexCell GetClosestOpenCell(HexCell origin)
     {
-        return GetReachableCells(origin, 1).FirstOrDefault();
+        return GetReachableCells(origin, 3).FirstOrDefault();
     }
+
 }

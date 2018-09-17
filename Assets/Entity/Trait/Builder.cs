@@ -7,11 +7,14 @@ public class Builder : Trait
     {
         var actions = new List<ActorAction>();
 
-        if (!Owner.Location.Entities.OfType<Structure>().Any() && Owner.ActionPoints > 0)
+        if (Owner.Location != null)
         {
-            foreach (var sturcture in GetBuildableStructures())
+            if (!Owner.Location.Entities.OfType<Structure>().Any() && Owner.ActionPoints > 0)
             {
-                actions.Add(new ActorAction("Build", Owner, Build, sturcture));
+                foreach (var sturcture in GetBuildableStructures())
+                {
+                    actions.Add(new ActorAction("Build", Owner, Build, sturcture));
+                }
             }
         }
 
