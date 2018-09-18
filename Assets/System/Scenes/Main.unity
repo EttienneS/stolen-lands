@@ -171,6 +171,10 @@ PrefabInstance:
       propertyPath: field of view
       value: 15
       objectReference: {fileID: 0}
+    - target: {fileID: 114092647457523822, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+      propertyPath: Speed
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
 --- !u!20 &1085177958 stripped
@@ -228,6 +232,18 @@ PrefabInstance:
     - target: {fileID: 4073008805902176, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Intensity
+      value: 0.8
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Color.g
+      value: 0.99607843
+      objectReference: {fileID: 0}
+    - target: {fileID: 108334208329284988, guid: 6db96cb73447df548b507d99233cfcef, type: 3}
+      propertyPath: m_Color.b
+      value: 0.9490196
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6db96cb73447df548b507d99233cfcef, type: 3}

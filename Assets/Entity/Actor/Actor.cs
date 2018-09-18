@@ -101,16 +101,17 @@ public class Actor : Entity
 
     public void EnableOutline()
     {
-        var outline = Shader.Find("Custom/Outline");
+        Head.material.SetFloat("_OutlineWidth", 1.1f);
+        Body.material.SetFloat("_OutlineWidth", 1.1f);
 
-        Head.material.shader = outline;
-        Head.material.SetFloat("_Outline", 0.05f);
         Head.material.SetColor("_OutlineColor", Faction.Color);
+        Body.material.SetColor("_OutlineColor", Faction.Color);
     }
 
     public void DisableOutline()
     {
-        Head.material.SetFloat("_Outline", 0f);
+        Head.material.SetFloat("_OutlineWidth", 0f);
+        Body.material.SetFloat("_OutlineWidth", 0f);
     }
 
     public override void StartTurn()
