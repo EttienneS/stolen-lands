@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class Tree : MonoBehaviour
+public class Tree : Doodad
 {
     private MeshRenderer _leaves;
     private MeshRenderer _trunk;

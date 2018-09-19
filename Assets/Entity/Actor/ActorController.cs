@@ -64,6 +64,7 @@ public class ActorController : MonoBehaviour
 
         PlayerFaction = GetFaction();
         PlayerFaction.AddMember(GetActor(new Player()));
+        PlayerFaction.AddMember(GetActor(new Player()));
 
         for (var i = 0; i < InitialFactions; i++)
         {

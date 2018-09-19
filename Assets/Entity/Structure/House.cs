@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using UnityEngine;
 
 public class House : Structure
 {
@@ -11,4 +12,15 @@ public class House : Structure
         AddTrait(new Sighted(1));
         RotateOnZ();
     }
+
+    public override void ShowEffect(Entity entity)
+    {
+        HighlightDoodadsThatWillBeDestroyed(entity);
+    }
+
+    public override void RevertEffect()
+    {
+        RevertDestroyDoodadHighlight();
+    }
+
 }

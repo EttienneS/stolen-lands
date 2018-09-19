@@ -26,9 +26,9 @@ public class Builder : Trait
         return StructureController.Instance.AvailableBuildings(Owner.ActionPoints).Cast<object>().ToList();
     }
 
-    private int Build(Entity entity, object target)
+    private static int Build(Entity entity, object target)
     {
-        return StructureController.Instance.Build(entity, target.ToString()).Cost;
+        return StructureController.Instance.Build(entity, target as Structure).Cost;
     }
 
     public override void Start()

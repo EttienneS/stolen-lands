@@ -1,4 +1,6 @@
-﻿using System.Linq;
+﻿using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class HexGrid : MonoBehaviour
@@ -51,5 +53,10 @@ public class HexGrid : MonoBehaviour
         MapGenerator.GenerateMap();
 
         MapGenerator.PopulateWorld();
+    }
+
+    public IEnumerable<HexCell> GetCellsInRadiusAround(HexCell origin, int radius)
+    {
+        return Cells.Where(c => c != null && c.Coordinates.DistanceTo(origin.Coordinates) <= radius);
     }
 }

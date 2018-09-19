@@ -33,7 +33,7 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
     }
 
     private Dropdown Dropdown => transform.Find("Dropdown").GetComponent<Dropdown>();
-    private RevertDelegate Revert { get; set; }
+    public RevertDelegate Revert { get; set; }
     private ActorAction SelectedAction => _actions[SelectedOption];
 
     public void OnPointerClick(PointerEventData eventData)
@@ -88,7 +88,6 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         ActionId = action.ActionName;
 
         _baseColor = Background.color;
-
         _actions.Add(action.Target, action);
 
         var cellTarget = action.Target as HexCell;
@@ -107,10 +106,31 @@ public class ActionDisplay : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             Dropdown.gameObject.SetActive(true);
         }
 
+        if (_nonCellTargets.Count > 0)
+        {
+            OptionChanged();
+        }
+
         transform.Find("Text").GetComponent<Text>().text = DisplayName;
     }
 
-    private delegate void RevertDelegate();
+    public delegate void RevertDelegate();
+
+    public void OptionChanged()
+    {
+        Revert?.Invoke();
+
+        SelectedOption = (Dropdown.options[Dropdown.value] as DataDropDown).Tag;
+
+        var structure = SelectedOption as Structure;
+        if (structure != null)
+        {
+            structure.ShowEffect(SelectedAction.EntityContext);
+            Revert = () => { structure.RevertEffect(); };
+
+            SystemController.Instance.ActiveAction = this;
+        }
+    }
 
     private class DataDropDown : Dropdown.OptionData
     {

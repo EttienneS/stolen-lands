@@ -20,24 +20,23 @@ public class StructureController : MonoBehaviour
         }
     }
 
-    public List<string> AvailableBuildings(int budget)
+    public IEnumerable<Structure> AvailableBuildings(int budget)
     {
-        return StructurePrefabs.Where(b => b.Cost <= budget).Select(b => b.name).ToList();
+        return StructurePrefabs.Where(b => b.Cost <= budget);
     }
 
-    public Structure GetBuilding(string buildingName)
-    {
-        return StructurePrefabs.First(p => p.name == buildingName);
-    }
 
-    public Structure Build(Entity entity, string buildingName)
+    public Structure Build(Entity entity, Structure buildingPrefab)
     {
         var cell = entity.Location;
 
-        var building = Instantiate(GetBuilding(buildingName), cell.transform);
+        var building = Instantiate(buildingPrefab, cell.transform);
+
+        cell.DestroyDoodads();
 
         entity.Faction.AddHolding(building);
         cell.AddEntity(building);
+
 
         return building;
     }
