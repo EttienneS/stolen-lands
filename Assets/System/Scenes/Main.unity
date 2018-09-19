@@ -286,6 +286,10 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114120203770445456, guid: b8398711a3c0a57418820fe92d300092, type: 3}
+      propertyPath: DoodadPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 114863541896044020, guid: d170088ea6f2f954aa2d348d95017c4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8398711a3c0a57418820fe92d300092, type: 3}
 --- !u!1 &1976076477405017 stripped

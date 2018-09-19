@@ -100,6 +100,8 @@ public class SystemController : MonoBehaviour
 
     public void SetSelectedActor(Actor actor)
     {
+        ActiveAction?.Revert?.Invoke();
+
         if (SelectedActor != null)
         {
             SelectedActor.DisableOutline();

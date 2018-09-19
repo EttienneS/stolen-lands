@@ -6,7 +6,7 @@ public class DoodadController : MonoBehaviour
 {
     private static DoodadController _instance;
 
-    public List<GameObject> DoodadPrefabs;
+    public List<Doodad> DoodadPrefabs;
 
     public static DoodadController Instance
     {
@@ -21,7 +21,7 @@ public class DoodadController : MonoBehaviour
         }
     }
 
-    public GameObject CreateDoodadInCell(string doodadName, HexCell location)
+    public Doodad CreateDoodadInCell(string doodadName, HexCell location)
     {
         var doodad = Instantiate(DoodadPrefabs.FirstOrDefault(d => d.name == doodadName), location.transform);
 

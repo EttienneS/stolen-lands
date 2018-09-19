@@ -3,7 +3,7 @@ using System.Linq;
 
 public class Sighted : Trait
 {
-    private readonly int _visionRange;
+    public readonly int VisionRange;
 
     private HexCell _lastViewPoint;
 
@@ -11,7 +11,7 @@ public class Sighted : Trait
 
     public Sighted(int visionRange)
     {
-        _visionRange = visionRange;
+        VisionRange = visionRange;
     }
 
     public List<HexCell> VisibleCells
@@ -31,8 +31,7 @@ public class Sighted : Trait
 
             _lastViewPoint = Owner.Location;
             var center = Owner.Location;
-            _visibleCells = HexGrid.Instance.Cells
-                .Where(c => c != null && c.Coordinates.DistanceTo(center.Coordinates) <= _visionRange).ToList();
+            _visibleCells = HexGrid.Instance.GetCellsInRadiusAround(center, VisionRange).ToList();
             _visibleCells.Add(center);
 
             return _visibleCells;

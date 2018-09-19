@@ -5,7 +5,7 @@ using UnityEngine;
 [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer))]
 public class HexCell : MonoBehaviour
 {
-    public readonly List<GameObject> Doodads = new List<GameObject>();
+    public readonly List<Doodad> Doodads = new List<Doodad>();
     private readonly List<Vector3> _hardpoints = new List<Vector3>();
     public readonly List<Entity> Entities = new List<Entity>();
     private Mesh _hexMesh;
@@ -30,13 +30,26 @@ public class HexCell : MonoBehaviour
         }
     }
 
+    public void DestroyDoodads()
+    {
+        while (Doodads.Any())
+        {
+            var doodad = Doodads[0];
+            Doodads.Remove(doodad);
+
+            Destroy(doodad.gameObject);
+        }
+
+        Doodads.Clear();
+    }
+
     private IEnumerable<GameObject> CellContents
     {
         get
         {
             var contents = new List<GameObject>();
 
-            contents.AddRange(Doodads);
+            Doodads.ForEach(d => contents.Add(d.gameObject));
             Entities.ForEach(e => contents.Add(e.gameObject));
 
             return contents;
@@ -59,11 +72,11 @@ public class HexCell : MonoBehaviour
 
     public int SearchPriority => Distance + SearchHeuristic;
 
-    public void AddDoodad(GameObject doodad)
+    public void AddDoodad(Doodad doodad)
     {
         if (!Doodads.Contains(doodad))
         {
-            MoveGameObjectToCell(doodad, true);
+            MoveGameObjectToCell(doodad.gameObject, true);
             Doodads.Add(doodad);
         }
     }
