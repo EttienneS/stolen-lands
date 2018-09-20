@@ -8,6 +8,10 @@ using UnityEngine;
 public class Tower : Structure
 {
     public int EffectRange = 5;
+    public override void Build()
+    {
+    }
+
     public override void Init()
     {
         AddTrait(new Sighted(EffectRange));
@@ -38,5 +42,13 @@ public class Tower : Structure
         {
             Destroy(_border);
         }
+    }
+
+    public override void TakeTurn()
+    {
+    }
+
+    public override void EndTurn()
+    {
     }
 }

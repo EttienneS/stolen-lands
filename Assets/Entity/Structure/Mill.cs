@@ -9,6 +9,10 @@ public class Mill : Structure
 {
     public int EffectRange = 3;
 
+    public override void Build()
+    {
+    }
+
     public override void Init()
     {
         AddTrait(new Sighted(1));
@@ -46,5 +50,13 @@ public class Mill : Structure
                 }
             }
         }
+    }
+
+    public override void TakeTurn()
+    {
+    }
+
+    public override void EndTurn()
+    {
     }
 }
