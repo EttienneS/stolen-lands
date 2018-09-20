@@ -381,6 +381,10 @@ PrefabInstance:
       propertyPath: UICanvas
       value: 
       objectReference: {fileID: 223448246729276487}
+    - target: {fileID: 712694975440812370, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
+      propertyPath: FloatFloatingPrefab
+      value: 
+      objectReference: {fileID: 7891485574385573982, guid: 63e1d7fb06fffda46b7ca3a1cb05cf93, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
 --- !u!1001 &1672284068467153694

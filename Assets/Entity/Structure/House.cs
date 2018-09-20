@@ -7,6 +7,10 @@ using UnityEngine;
 
 public class House : Structure
 {
+    public override void Build()
+    {
+    }
+
     public override void Init()
     {
         AddTrait(new Sighted(1));
@@ -23,4 +27,11 @@ public class House : Structure
         RevertDestroyDoodadHighlight();
     }
 
+    public override void TakeTurn()
+    {
+    }
+
+    public override void EndTurn()
+    {
+    }
 }

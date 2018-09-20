@@ -3,41 +3,22 @@ using UnityEngine;
 
 public abstract class Structure : Entity
 {
-    private List<Doodad> _destroyedDoodads;
     public int Cost;
+    private List<Doodad> _destroyedDoodads;
+    public abstract void Build();
 
     public abstract void Init();
 
-    private void Start()
-    {
-        Init();
-        StartTurn();
-    }
+    public abstract void RevertEffect();
 
-    public override void StartTurn()
+    public void RotateOnX()
     {
-        foreach (var trait in Traits)
-        {
-            trait.Start();
-        }
-    }
-
-    public override void TakeTurn()
-    {
-    }
-
-    public override void EndTurn()
-    {
+        transform.localEulerAngles += new Vector3(Random.Range(0, 180), 0, 0);
     }
 
     public void RotateOnY()
     {
         transform.localEulerAngles += new Vector3(0, Random.Range(0, 180), 0);
-    }
-
-    public void RotateOnX()
-    {
-        transform.localEulerAngles += new Vector3(Random.Range(0, 180), 0, 0);
     }
 
     public void RotateOnZ()
@@ -47,11 +28,26 @@ public abstract class Structure : Entity
 
     public abstract void ShowEffect(Entity entity);
 
-    public abstract void RevertEffect();
+    public override void StartTurn()
+    {
+        foreach (var trait in Traits)
+        {
+            trait.Start();
+        }
+    }
 
     public override string ToString()
     {
         return name;
+    }
+
+    protected void HighlightDoodadsThatWillBeDestroyed(Entity entity)
+    {
+        _destroyedDoodads = entity.Location.Doodads;
+        foreach (var doodad in _destroyedDoodads)
+        {
+            doodad.HighLight(Color.red);
+        }
     }
 
     protected void RevertDestroyDoodadHighlight()
@@ -65,13 +61,9 @@ public abstract class Structure : Entity
         }
     }
 
-
-    protected void HighlightDoodadsThatWillBeDestroyed(Entity entity)
+    private void Start()
     {
-        _destroyedDoodads = entity.Location.Doodads;
-        foreach (var doodad in _destroyedDoodads)
-        {
-            doodad.HighLight(Color.red);
-        }
+        Init();
+        StartTurn();
     }
 }

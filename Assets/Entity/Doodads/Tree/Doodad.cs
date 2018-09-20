@@ -5,6 +5,8 @@ public abstract class Doodad : MonoBehaviour
     public float DefaultOutlineWidth = 1.05f;
     public Color DefaultOutlineColor = Color.black;
 
+
+
     public void Awake()
     {
         ResetOutline();
