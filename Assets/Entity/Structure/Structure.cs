@@ -5,6 +5,7 @@ public abstract class Structure : Entity
 {
     public int Cost;
     private List<Doodad> _destroyedDoodads;
+
     public abstract void Build();
 
     public abstract void Init();

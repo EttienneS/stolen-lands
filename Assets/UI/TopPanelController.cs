@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class TopPanelController : MonoBehaviour
 {
@@ -22,5 +23,6 @@ public class TopPanelController : MonoBehaviour
 
     private void Update()
     {
+        transform.Find("Gold").GetComponent<Text>().text = "Gold: " + ActorController.Instance.PlayerFaction.Gold;
     }
 }

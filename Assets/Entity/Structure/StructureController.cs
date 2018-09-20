@@ -37,6 +37,7 @@ public class StructureController : MonoBehaviour
         entity.Faction.AddHolding(building);
         cell.AddEntity(building);
 
+        building.Build();
 
         return building;
     }
