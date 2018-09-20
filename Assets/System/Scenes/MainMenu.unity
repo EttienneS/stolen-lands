@@ -470,6 +470,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StructureController
       objectReference: {fileID: 0}
+    - target: {fileID: 2981505919908785426, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
+      propertyPath: StructurePrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 1954574793250287183, guid: a319118baa9c0e04da212c1faf8abcdd, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
 --- !u!1 &580481083
@@ -621,6 +625,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DoodadController
       objectReference: {fileID: 0}
+    - target: {fileID: 114120203770445456, guid: b8398711a3c0a57418820fe92d300092, type: 3}
+      propertyPath: DoodadPrefabs.Array.data[0]
+      value: 
+      objectReference: {fileID: 114863541896044020, guid: d170088ea6f2f954aa2d348d95017c4b, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b8398711a3c0a57418820fe92d300092, type: 3}
 --- !u!1001 &1220587506
