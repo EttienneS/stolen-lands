@@ -164,8 +164,6 @@ public class CameraController : MonoBehaviour
             writer.Write(transform.position.y);
             writer.Write(transform.position.z);
             writer.Write(Camera.fieldOfView);
-
-            writer.Close();
         }
     }
 }
