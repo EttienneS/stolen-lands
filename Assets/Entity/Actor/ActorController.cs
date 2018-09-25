@@ -113,4 +113,12 @@ public class ActorController : MonoBehaviour
         ActivePanel.name = actor.name + " (Info Panel)";
         ActivePanel.SetActor(actor);
     }
+
+    public void Load(string location)
+    {
+    }
+
+    public void Save(string location)
+    {
+    }
 }

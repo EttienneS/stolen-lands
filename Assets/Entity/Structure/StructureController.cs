@@ -41,4 +41,12 @@ public class StructureController : MonoBehaviour
 
         return building;
     }
+
+    public void Load(string location)
+    {
+    }
+
+    public void Save(string location)
+    {
+    }
 }

@@ -7,19 +7,20 @@ public static class MapGenerator
 {
 
 
-    private static void CreateCell(int x, int y, int i)
+    public static HexCell CreateCell(int x, int y, int i, float z, MapData.Type type = MapData.Type.Water, bool load = false)
     {
         float xpos = x;
         float ypos = y;
 
         var position = new Vector3((xpos + y * 0.5f - y / 2) * (HexMetrics.InnerRadius * 2f),
-            ypos * (HexMetrics.OuterRadius * 1.5f), 0);
+            ypos * (HexMetrics.OuterRadius * 1.5f), z);
 
         var cell = HexGrid.Instance.Cells[i] = Object.Instantiate(HexGrid.Instance.CellPrefab);
         cell.transform.SetParent(HexGrid.Instance.transform, false);
         cell.transform.localPosition = position;
         cell.Coordinates = HexCoordinates.FromOffsetCoordinates(x, y);
         cell.name = cell.Coordinates + " Cell";
+        cell.ID = i;
 
         if (x > 0)
         {
@@ -47,7 +48,9 @@ public static class MapGenerator
             }
         }
 
-        cell.Type = MapData.HexTypes[MapData.Type.Water];
+        cell.Type = MapData.HexTypes[type];
+
+        return cell;
     }
 
     private static HexCell GetRandomNeighbourNotInMass(HexCell cell, List<HexCell> mass)
@@ -76,7 +79,7 @@ public static class MapGenerator
         {
             for (var x = 0; x < HexGrid.Instance.Width; x++)
             {
-                CreateCell(x, y, i++);
+                CreateCell(x, y, i++, 0);
             }
         }
 
@@ -95,7 +98,7 @@ public static class MapGenerator
                 }
             }
         }
-        
+
         foreach (var cell in HexGrid.Instance.Cells.Where(c => c.Type.TypeName == MapData.Type.Water))
         {
             // if cell is completely surrounded with water
