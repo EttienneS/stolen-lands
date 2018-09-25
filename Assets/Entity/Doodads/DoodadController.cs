@@ -29,4 +29,12 @@ public class DoodadController : MonoBehaviour
 
         return doodad;
     }
+
+    public void Load(string location)
+    {
+    }
+
+    public void Save(string location)
+    {
+    }
 }

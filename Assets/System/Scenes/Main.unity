@@ -15,7 +15,7 @@ RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
   m_Fog: 0
-  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
+  m_FogColor: {r: 1, g: 0, b: 0, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
   m_LinearFogStart: 0
@@ -803,7 +803,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4010025378306156985, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 285
+      value: 35
       objectReference: {fileID: 0}
     - target: {fileID: 4010025378306156985, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -812,6 +812,34 @@ PrefabInstance:
     - target: {fileID: 3832216289128156355, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: LoadMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 3831535892072388887, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_Text
+      value: Quit
+      objectReference: {fileID: 0}
+    - target: {fileID: 4009703559294581865, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4009703559294581865, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8043144648805858664, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 114245949828430541}
+    - target: {fileID: 8043144648805858664, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Save
+      objectReference: {fileID: 0}
+    - target: {fileID: 1842697364362654396, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 114245949828430541}
+    - target: {fileID: 1842697364362654396, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Load
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}

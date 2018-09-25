@@ -1,17 +1,14 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class SystemController : MonoBehaviour
 {
     private static SystemController _instance;
-
-    public Canvas GridCanvas;
-
+    
     public Actor SelectedActor { get; set; }
-
-    public Canvas UICanvas;
-
+    
     public static SystemController Instance
     {
         get
@@ -114,5 +111,29 @@ public class SystemController : MonoBehaviour
         {
             actor.Mind.Act();
         }
+    }
+
+    public void Load()
+    {
+        var location = Application.persistentDataPath;
+
+        HexGrid.Instance.Load(location);
+        CameraController.Instance.Load(location);
+        ActorController.Instance.Load(location);
+        DoodadController.Instance.Load(location);
+        StructureController.Instance.Load(location);
+    }
+
+    public void Save()
+    {
+        var location = Application.persistentDataPath;
+
+        Directory.CreateDirectory(location);
+
+        HexGrid.Instance.Save(location);
+        CameraController.Instance.Save(location);
+        ActorController.Instance.Save(location);
+        DoodadController.Instance.Save(location);
+        StructureController.Instance.Save(location);
     }
 }

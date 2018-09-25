@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
@@ -71,6 +72,8 @@ public class HexCell : MonoBehaviour
     public int SearchPhase { get; set; }
 
     public int SearchPriority => Distance + SearchHeuristic;
+
+    public int ID { get; set; }
 
     public void AddDoodad(Doodad doodad)
     {
@@ -154,7 +157,7 @@ public class HexCell : MonoBehaviour
         cell.Neighbors[(int)direction.Opposite()] = this;
     }
 
-    private void Triangulate()
+    public void Triangulate()
     {
         _hexMesh.Clear();
         _vertices.Clear();
@@ -296,7 +299,23 @@ public class HexCell : MonoBehaviour
 
                 break;
         }
+    }
 
+    public static void Load(int i, BinaryReader reader)
+    {
+        var x = reader.ReadInt32();
+        var y = reader.ReadInt32();
+        var z = reader.ReadSingle();
+        var type = (MapData.Type)reader.ReadInt32();
 
+        var cell = MapGenerator.CreateCell(x, y, i, z, type);
+    }
+
+    public void Save(BinaryWriter writer)
+    {
+        writer.Write(Coordinates.X + Coordinates.Y / 2);
+        writer.Write(Coordinates.Y);
+        writer.Write(transform.position.z);
+        writer.Write((int)Type.TypeName);
     }
 }

@@ -5,12 +5,12 @@ public static class MapData
 {
     public enum Type
     {
-        Water,
-        DeepWater,
-        Desert,
-        Grassland,
-        Forest,
-        Mountain
+        Water = 0,
+        DeepWater = 1,
+        Desert = 2,
+        Grassland = 3,
+        Forest = 4,
+        Mountain = 5
     }
 
     private const float AlmostNone = 0.01f;

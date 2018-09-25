@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.IO;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -133,5 +134,38 @@ public class CameraController : MonoBehaviour
 
         var zoomPercentage = 1 - Camera.fieldOfView / ZoomMax;
         transform.eulerAngles = new Vector3(-(5 + 50 * zoomPercentage), 0);
+    }
+
+    public void Load(string location)
+    {
+        var path = Path.Combine(location, "camera.data");
+
+        using (var reader = new BinaryReader(File.Open(path, FileMode.Open)))
+        {
+            var x = reader.ReadSingle();
+            var y = reader.ReadSingle();
+            var z = reader.ReadSingle();
+
+            transform.position = new Vector3(x, y, z);
+
+            Camera.fieldOfView = reader.ReadSingle();
+
+            reader.Close();
+        }
+
+    }
+
+    public void Save(string location)
+    {
+        var path = Path.Combine(location, "camera.data");
+        using (var writer = new BinaryWriter(File.Open(path, FileMode.Create)))
+        {
+            writer.Write(transform.position.x);
+            writer.Write(transform.position.y);
+            writer.Write(transform.position.z);
+            writer.Write(Camera.fieldOfView);
+
+            writer.Close();
+        }
     }
 }

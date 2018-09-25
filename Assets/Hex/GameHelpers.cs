@@ -59,7 +59,7 @@ public static class GameHelpers
     public static GameObject DrawBorder(HexCell origin, List<HexCell> borderCells, Color color, float width = 0.2f)
     {
         var border = new GameObject("border");
-        border.transform.SetParent(SystemController.Instance.GridCanvas.transform);
+        border.transform.SetParent(HexGrid.Instance.transform);
         
         var points = new List<KeyValuePair<Vector3, Vector3>>();
 
