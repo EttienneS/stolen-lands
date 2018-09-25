@@ -99,8 +99,6 @@ public class HexGrid : MonoBehaviour
             {
                 cell.Save(writer);
             }
-
-            writer.Close();
         }
     }
 }
