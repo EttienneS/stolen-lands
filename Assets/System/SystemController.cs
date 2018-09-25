@@ -117,11 +117,20 @@ public class SystemController : MonoBehaviour
     {
         var location = Application.persistentDataPath;
 
+        // hex always first
         HexGrid.Instance.Load(location);
-        CameraController.Instance.Load(location);
-        ActorController.Instance.Load(location);
+
+        // doodads depend on world so after hex
         DoodadController.Instance.Load(location);
+
+        // actor depend on world so after hex
+        ActorController.Instance.Load(location);
+
+        // structure depends on faction so after actor
         StructureController.Instance.Load(location);
+
+        // camera can load at any time so load last
+        CameraController.Instance.Load(location);
     }
 
     public void Save()
@@ -130,10 +139,19 @@ public class SystemController : MonoBehaviour
 
         Directory.CreateDirectory(location);
 
+        // hex always first
         HexGrid.Instance.Save(location);
-        CameraController.Instance.Save(location);
-        ActorController.Instance.Save(location);
+
+        // doodads depend on world so after hex
         DoodadController.Instance.Save(location);
+
+        // actor depend on world so after hex
+        ActorController.Instance.Save(location);
+
+        // structure depends on faction so after actor
         StructureController.Instance.Save(location);
+
+        // camera can save at any time so save last
+        CameraController.Instance.Save(location);
     }
 }
