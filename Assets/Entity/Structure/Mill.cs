@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Mill : Structure
 {
-    public int EffectRange = 3;
+    private int _effectRange = 1;
 
     public override void Build()
     {
@@ -35,7 +31,7 @@ public class Mill : Structure
     private List<Tree> GetAffectedTrees(Entity entity)
     {
         var trees = new List<Tree>();
-        foreach (var cell in HexGrid.Instance.GetCellsInRadiusAround(entity.Location, EffectRange))
+        foreach (var cell in HexGrid.Instance.GetCellsInRadiusAround(entity.Location, _effectRange))
         {
             foreach (var doodad in cell.Doodads)
             {
