@@ -116,7 +116,6 @@ public class Actor : Entity
 
     public override void StartTurn()
     {
-        ActionPoints = 3;
         foreach (var trait in Traits)
         {
             trait.Start();
@@ -149,5 +148,7 @@ public class Actor : Entity
         {
             trait.Finish();
         }
+
+        ActionPoints = 3;
     }
 }

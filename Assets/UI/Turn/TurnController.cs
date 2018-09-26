@@ -21,7 +21,7 @@ public class TurnController : MonoBehaviour
         }
     }
 
-    private void Start()
+    public void Init()
     {
         foreach (var member in ActorController.Instance.PlayerFaction.Members)
         {

@@ -21,4 +21,7 @@ public abstract class Mind
     public Faction Faction => Entity.Faction;
 
     public abstract void Act();
+
+    public abstract string Save();
+    public abstract void Load(string data);
 }

@@ -26,11 +26,24 @@ public class StructureController : MonoBehaviour
     }
 
 
+    public Structure LoadBuilding(Faction owner, string buildingName, HexCell cell)
+    {
+        var prefab = StructurePrefabs.First(s => s.name == buildingName);
+        var building = Instantiate(prefab, cell.transform);
+        building.name = prefab.name;
+
+        owner.AddHolding(building);
+        cell.AddEntity(building);
+        
+        return building;
+    }
+
     public Structure Build(Entity entity, Structure buildingPrefab)
     {
         var cell = entity.Location;
 
         var building = Instantiate(buildingPrefab, cell.transform);
+        building.name = buildingPrefab.name;
 
         cell.DestroyDoodads();
 
@@ -40,13 +53,5 @@ public class StructureController : MonoBehaviour
         building.Build();
 
         return building;
-    }
-
-    public void Load(string location)
-    {
-    }
-
-    public void Save(string location)
-    {
     }
 }

@@ -3,11 +3,12 @@ using System.Linq;
 
 public class Sighted : Trait
 {
-    public readonly int VisionRange;
+    public int VisionRange;
 
     private HexCell _lastViewPoint;
 
     private List<HexCell> _visibleCells = new List<HexCell>();
+    public Sighted() { }
 
     public Sighted(int visionRange)
     {
@@ -51,6 +52,30 @@ public class Sighted : Trait
     public override void Finish()
     {
         See();
+    }
+
+    public override string Save()
+    {
+        var data = VisionRange + "|";
+
+        foreach (var cell in VisibleCells)
+        {
+            data += cell.ID + ",";
+        }
+
+        return data.Trim(',');
+    }
+
+    public override void Load(string data)
+    {
+        var parts = data.Split('|');
+
+        VisionRange = int.Parse(parts[0]);
+
+        foreach (var cellId in parts[1].Split(','))
+        {
+            _visibleCells.Add(HexGrid.Instance.Cells[int.Parse(cellId)]);
+        }
     }
 
     public void See()
