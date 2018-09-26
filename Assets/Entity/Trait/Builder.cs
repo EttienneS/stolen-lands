@@ -3,6 +3,8 @@ using System.Linq;
 
 public class Builder : Trait
 {
+    public Builder() { }
+
     public override List<ActorAction> GetActions()
     {
         var actions = new List<ActorAction>();
@@ -36,6 +38,15 @@ public class Builder : Trait
     }
 
     public override void Finish()
+    {
+    }
+
+    public override string Save()
+    {
+        return "0";
+    }
+
+    public override void Load(string data)
     {
     }
 }

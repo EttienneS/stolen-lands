@@ -24,4 +24,13 @@ public class AI : Mind
             actions[Random.Range(0, actions.Count)].Invoke();
         }
     }
+
+    public override string Save()
+    {
+        return string.Empty;
+    }
+
+    public override void Load(string data)
+    {
+    }
 }

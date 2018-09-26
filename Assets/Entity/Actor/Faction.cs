@@ -16,13 +16,7 @@ public class Faction : MonoBehaviour
 
     public List<HexCell> VisibleHexes = new List<HexCell>();
 
-    //public Actor Leader { get; set; }
-
-    public int Gold { get; set; }
-
-    public int Food { get; set; }
-
-    public int Manpower { get; set; }
+    public int Gold = 0;
 
     public override string ToString()
     {
@@ -62,6 +56,8 @@ public class Faction : MonoBehaviour
     {
         Members.Add(person);
         person.Faction = this;
+
+        person.transform.SetParent(transform);
     }
 
     public void EndTurn()
@@ -115,5 +111,6 @@ public class Faction : MonoBehaviour
         building.GetComponent<MeshRenderer>().material.color = Color;
 
         building.Faction = this;
+        building.transform.SetParent(transform);
     }
 }

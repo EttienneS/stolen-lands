@@ -2,8 +2,10 @@
 
 public class Mobile : Trait
 {
+    public Mobile() { }
+
     private int _moved;
-    private readonly int _speed;
+    private int _speed;
 
     public Mobile(int speed)
     {
@@ -52,6 +54,19 @@ public class Mobile : Trait
     public override void Finish()
     {
         _moved = 0;
+    }
+
+    public override string Save()
+    {
+        return _speed + "|" + _moved;
+    }
+
+    public override void Load(string data)
+    {
+        var parts = data.Split('|');
+
+        _speed = int.Parse(parts[0]);
+        _moved = int.Parse(parts[1]);
     }
 
     public int MoveToCell(HexCell target)

@@ -9,4 +9,13 @@ public class Player : Mind
             ControlPanelController.Instance.AddAction(action);
         }
     }
+
+    public override string Save()
+    {
+        return string.Empty;
+    }
+
+    public override void Load(string data)
+    {
+    }
 }

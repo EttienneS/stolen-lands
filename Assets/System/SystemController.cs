@@ -113,6 +113,13 @@ public class SystemController : MonoBehaviour
         }
     }
 
+    public void Start()
+    {
+        ActorController.Instance.Init();
+        HexGrid.Instance.Init();
+        TurnController.Instance.Init();
+    }
+
     public void Load()
     {
         var location = Application.persistentDataPath;
@@ -125,9 +132,6 @@ public class SystemController : MonoBehaviour
 
         // actor depend on world so after hex
         ActorController.Instance.Load(location);
-
-        // structure depends on faction so after actor
-        StructureController.Instance.Load(location);
 
         // camera can load at any time so load last
         CameraController.Instance.Load(location);
@@ -147,9 +151,6 @@ public class SystemController : MonoBehaviour
 
         // actor depend on world so after hex
         ActorController.Instance.Save(location);
-
-        // structure depends on faction so after actor
-        StructureController.Instance.Save(location);
 
         // camera can save at any time so save last
         CameraController.Instance.Save(location);

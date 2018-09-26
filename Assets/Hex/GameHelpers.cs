@@ -26,6 +26,16 @@ public static class GameHelpers
         return objectToCheck.GetComponentsInChildren<Renderer>();
     }
 
+    public static int ToInt(this string str)
+    {
+        return int.Parse(str);
+    }
+
+    public static float ToFloat(this string str)
+    {
+        return float.Parse(str);
+    }
+
     public static void MoveToKnownLayer(this GameObject item)
     {
         MoveToLayer(item, KnownLayer);
@@ -60,7 +70,7 @@ public static class GameHelpers
     {
         var border = new GameObject("border");
         border.transform.SetParent(HexGrid.Instance.transform);
-        
+
         var points = new List<KeyValuePair<Vector3, Vector3>>();
 
         foreach (var cell in borderCells)
@@ -99,5 +109,27 @@ public static class GameHelpers
 
         MoveToVisibleLayer(border);
         return border;
+    }
+
+    public static string ColorToString(Color data)
+    {
+        return data.r + "|" + data.g + "|" + data.b + "|" + data.a;
+    }
+
+    public static Color ColorFromString(string data)
+    {
+        var parts = data.Split('|').Select(float.Parse).ToArray();
+        return new Color(parts[0], parts[1], parts[2], parts[3]);
+    }
+
+    public static string Vector3ToString(Vector3 data)
+    {
+        return data.x + "|" + data.y + "|" + data.z;
+    }
+
+    public static Vector3 Vector3FromString(string data)
+    {
+        var parts = data.Split('|').Select(float.Parse).ToArray();
+        return new Vector3(parts[0], parts[1], parts[2]);
     }
 }

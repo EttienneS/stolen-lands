@@ -48,9 +48,8 @@ public class HexGrid : MonoBehaviour
         return pathableCells[Random.Range(0, pathableCells.Count)];
     }
 
-    private void Awake()
+    public void Init()
     {
-        ActorController.Instance.Init();
         MapGenerator.GenerateMap();
         MapGenerator.PopulateWorld();
     }
