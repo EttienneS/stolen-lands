@@ -175,8 +175,30 @@ PrefabInstance:
       propertyPath: Speed
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 20643877438397294, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+      propertyPath: m_RenderingPath
+      value: -1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+--- !u!1 &666258214 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1350557272031056, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
+  m_PrefabInstance: {fileID: 371984513}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &666258219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 666258214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 983ddcc0ab8fe2248b2b3803bd5cb50a, type: 2}
 --- !u!20 &1085177958 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20643877438397294, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
@@ -308,11 +330,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a25a35c906f4bf349b51d8b1fe2343fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!223 &223169925435845139 stripped
-Canvas:
-  m_CorrespondingSourceObject: {fileID: 1487703427670937009, guid: c56923151dd31ff4e9e62989acdf2d38, type: 3}
-  m_PrefabInstance: {fileID: 1710727666737506210}
-  m_PrefabAsset: {fileID: 0}
 --- !u!223 &223448246729276487 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 4008410187875028191, guid: d9911d8dd1999494d9e32ad58749d4e1, type: 3}
@@ -376,7 +393,7 @@ PrefabInstance:
     - target: {fileID: 712694975440812370, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
       propertyPath: GridCanvas
       value: 
-      objectReference: {fileID: 223169925435845139}
+      objectReference: {fileID: 0}
     - target: {fileID: 712694975440812370, guid: 96f194987944f5a4e9d5913eedec2cb0, type: 3}
       propertyPath: UICanvas
       value: 
