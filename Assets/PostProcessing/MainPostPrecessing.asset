@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8a3bdb2cd68f901469e7cc149151eb49, type: 3}
-  m_Name: New Post-Processing Profile
+  m_Name: MainPostPrecessing
   m_EditorClassIdentifier: 
   debugViews:
     m_Enabled: 1
@@ -318,7 +318,7 @@ MonoBehaviour:
       size: 1
       luminanceContribution: 0.8
   vignette:
-    m_Enabled: 1
+    m_Enabled: 0
     m_Settings:
       mode: 0
       color: {r: 0, g: 0, b: 0, a: 1}
@@ -333,8 +333,8 @@ MonoBehaviour:
     m_Enabled: 1
   monitors:
     currentMonitorID: 0
-    refreshOnPlay: 0
-    histogramMode: 3
+    refreshOnPlay: 1
+    histogramMode: 5
     waveformExposure: 0.12
     waveformY: 0
     waveformR: 1
