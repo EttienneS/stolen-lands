@@ -179,10 +179,8 @@ public class ActorController : MonoBehaviour
             }
         }
 
-        foreach (var faction in Factions)
-        {
-            faction.StartTurn();
-        }
+        PlayerFaction = Factions[0];
+        PlayerFaction.StartTurn();
     }
 
     public void Save(string location)
