@@ -73,10 +73,10 @@ MonoBehaviour:
     m_Enabled: 0
     m_Settings:
       focusDistance: 10
-      aperture: 1.2
+      aperture: 5.6
       focalLength: 50
-      useCameraFov: 1
-      kernelSize: 0
+      useCameraFov: 0
+      kernelSize: 1
   motionBlur:
     m_Enabled: 0
     m_Settings:
@@ -114,7 +114,7 @@ MonoBehaviour:
     m_Settings:
       tonemapping:
         tonemapper: 2
-        neutralBlackIn: 0.006
+        neutralBlackIn: 0.02
         neutralWhiteIn: 10
         neutralBlackOut: 0
         neutralWhiteOut: 10
@@ -133,15 +133,15 @@ MonoBehaviour:
         blue: {x: 0, y: 0, z: 1}
         currentEditingChannel: 0
       colorWheels:
-        mode: 0
+        mode: 1
         log:
-          slope: {r: 1, g: 0, b: 0.26733255, a: 0}
-          power: {r: 0.301228, g: 0.6906184, b: 1, a: 0}
-          offset: {r: 0.21378767, g: 0.51059186, b: 1, a: 0}
+          slope: {r: 0, g: 0, b: 0, a: 0}
+          power: {r: 0, g: 0, b: 0, a: 0}
+          offset: {r: 0, g: 0, b: 0, a: 0}
         linear:
-          lift: {r: 1, g: 1, b: 1, a: 0}
-          gamma: {r: 0, g: 1, b: 0.7984209, a: 0}
-          gain: {r: 1, g: 1, b: 1, a: 0}
+          lift: {r: 0, g: 0, b: 0, a: 0}
+          gamma: {r: 0, g: 0, b: 0, a: 0}
+          gain: {r: 0, g: 0, b: 0, a: 0}
       curves:
         master:
           curve:
