@@ -18,6 +18,31 @@ public class Faction : MonoBehaviour
 
     public int Gold = 0;
 
+    public List<HexCell> Demense = new List<HexCell>();
+
+    public void Claim(HexCell hex)
+    {
+        if (!Demense.Contains(hex) && hex.Owner == null)
+        {
+            hex.Owner = this;
+            Demense.Add(hex);
+        }
+
+        RefreshBorder();
+    }
+
+    public GameObject _border;
+
+    public void RefreshBorder()
+    {
+        if (_border != null)
+        {
+            Destroy(_border);
+        }
+
+        _border = GameHelpers.DrawBorder(Members[0].Location, Demense, Color);
+    }
+
     public override string ToString()
     {
         return name;
@@ -108,7 +133,13 @@ public class Faction : MonoBehaviour
     public void AddHolding(Structure building)
     {
         Holdings.Add(building);
-        building.GetComponent<MeshRenderer>().material.color = Color;
+
+        var renderer = building.GetComponent<MeshRenderer>();
+
+        if (renderer != null)
+        {
+            renderer.material.color = Color;
+        }
 
         building.Faction = this;
         building.transform.SetParent(transform);
