@@ -74,6 +74,7 @@ public class HexCell : MonoBehaviour
     public int SearchPriority => Distance + SearchHeuristic;
 
     public int ID { get; set; }
+    public Faction Owner { get; set; }
 
     public void AddDoodad(Doodad doodad)
     {
@@ -96,7 +97,7 @@ public class HexCell : MonoBehaviour
             Entities.Add(entity);
 
             // actors do not use the hardpoints, they always go to the center
-            MoveGameObjectToCell(entity.gameObject, !(entity is Actor));
+            MoveGameObjectToCell(entity.gameObject, false);
             entity.Location = this;
         }
     }

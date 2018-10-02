@@ -198,7 +198,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 983ddcc0ab8fe2248b2b3803bd5cb50a, type: 2}
 --- !u!20 &1085177958 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 20643877438397294, guid: 346b3ce16722bb64ab05fc13591d868d, type: 3}
@@ -543,7 +542,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2981505919908785426, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
       propertyPath: StructurePrefabs.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2947352446161461178, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
       propertyPath: m_LocalPosition.x
@@ -605,6 +604,10 @@ PrefabInstance:
       propertyPath: StructurePrefabs.Array.data[2]
       value: 
       objectReference: {fileID: 4552516053505910104, guid: 8081da85f3039154bb9c7a6cf8dcd5e8, type: 3}
+    - target: {fileID: 2981505919908785426, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
+      propertyPath: StructurePrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 3383448293464603723, guid: 202fb345b2fcf014da418371e2fc13c4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43217dbfaac19c44fbe42777c772d834, type: 3}
 --- !u!1001 &3799176797160108184
