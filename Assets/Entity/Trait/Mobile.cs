@@ -7,9 +7,12 @@ public class Mobile : Trait
     private int _moved;
     private int _speed;
 
-    public Mobile(int speed)
+    private bool _canBoost;
+
+    public Mobile(int speed, bool canBoost)
     {
         _speed = speed;
+        _canBoost = canBoost;
     }
 
     private int MovesLeft => _speed - _moved;
@@ -26,7 +29,7 @@ public class Mobile : Trait
             }
         }
 
-        if (Owner.ActionPoints > 0)
+        if (_canBoost && Owner.ActionPoints > 0)
         {
             actions.Add(new ActorAction("Move +", Owner, ConvertActionToMoves, Owner.ActionPoints));
         }

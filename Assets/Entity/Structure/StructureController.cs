@@ -20,9 +20,19 @@ public class StructureController : MonoBehaviour
         }
     }
 
-    public IEnumerable<Structure> AvailableBuildings(int budget)
+    public IEnumerable<Structure> AvailableBuildings(Entity builder)
     {
-        return StructurePrefabs.Where(b => b.Cost <= budget);
+        var options = new List<Structure>();
+        if (builder.Location.Owner == builder.Faction)
+        {
+            options.AddRange(StructurePrefabs);
+        }
+        else
+        {
+            options.Add(StructurePrefabs.OfType<CityCenter>().First());
+        }
+
+        return options.Where(b => b.Cost <= builder.ActionPoints);
     }
 
 
@@ -34,7 +44,7 @@ public class StructureController : MonoBehaviour
 
         owner.AddHolding(building);
         cell.AddEntity(building);
-        
+
         return building;
     }
 

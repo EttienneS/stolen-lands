@@ -25,7 +25,7 @@ public class Builder : Trait
 
     private List<object> GetBuildableStructures()
     {
-        return StructureController.Instance.AvailableBuildings(Owner.ActionPoints).Cast<object>().ToList();
+        return StructureController.Instance.AvailableBuildings(Owner).Cast<object>().ToList();
     }
 
     private static int Build(Entity entity, object target)
