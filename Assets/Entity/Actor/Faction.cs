@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Faction : MonoBehaviour
 {
+    public GameObject _border;
     public Color Color;
 
+    public List<HexCell> Demense = new List<HexCell>();
+    public int Gold = 0;
     public List<Structure> Holdings = new List<Structure>();
 
     public List<HexCell> KnownHexes = new List<HexCell>();
@@ -16,9 +19,28 @@ public class Faction : MonoBehaviour
 
     public List<HexCell> VisibleHexes = new List<HexCell>();
 
-    public int Gold = 0;
+    public void AddHolding(Structure building)
+    {
+        Holdings.Add(building);
 
-    public List<HexCell> Demense = new List<HexCell>();
+        var renderer = building.GetComponent<MeshRenderer>();
+
+        if (renderer != null)
+        {
+            renderer.material.color = Color;
+        }
+
+        building.Faction = this;
+        building.transform.SetParent(transform);
+    }
+
+    public void AddMember(Actor person)
+    {
+        Members.Add(person);
+        person.Faction = this;
+
+        person.transform.SetParent(transform);
+    }
 
     public void Claim(HexCell hex)
     {
@@ -30,22 +52,29 @@ public class Faction : MonoBehaviour
 
         RefreshBorder();
     }
-
-    public GameObject _border;
-
-    public void RefreshBorder()
+    public void EndTurn()
     {
-        if (_border != null)
+        foreach (var member in Members)
         {
-            Destroy(_border);
+            member.TakeTurn();
+            member.EndTurn();
         }
 
-        _border = GameHelpers.DrawBorder(Members[0].Location, Demense, Color);
+        foreach (var holding in Holdings)
+        {
+            holding.EndTurn();
+        }
     }
 
-    public override string ToString()
+    public void Instantiate(string name, Color color)
     {
-        return name;
+        this.name = name;
+        Color = color;
+
+        // resolution of sprite
+        var res = 16;
+        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, color),
+            new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
     }
 
     public void LearnHex(HexCell hex)
@@ -66,37 +95,14 @@ public class Faction : MonoBehaviour
         }
     }
 
-    public void Instantiate(string name, Color color)
+    public void RefreshBorder()
     {
-        this.name = name;
-        Color = color;
-
-        // resolution of sprite
-        var res = 16;
-        Sprite = Sprite.Create(TextureCreator.GetTexture(null, res, color),
-            new Rect(new Vector2(), new Vector2(res, res)), new Vector2());
-    }
-
-    public void AddMember(Actor person)
-    {
-        Members.Add(person);
-        person.Faction = this;
-
-        person.transform.SetParent(transform);
-    }
-
-    public void EndTurn()
-    {
-        foreach (var member in Members)
+        if (_border != null)
         {
-            member.TakeTurn();
-            member.EndTurn();
+            Destroy(_border);
         }
 
-        foreach (var holding in Holdings)
-        {
-            holding.EndTurn();
-        }
+        _border = GameHelpers.DrawBorder(Members[0].Location, Demense, Color);
     }
 
     public void ResetFog()
@@ -130,18 +136,8 @@ public class Faction : MonoBehaviour
         }
     }
 
-    public void AddHolding(Structure building)
+    public override string ToString()
     {
-        Holdings.Add(building);
-
-        var renderer = building.GetComponent<MeshRenderer>();
-
-        if (renderer != null)
-        {
-            renderer.material.color = Color;
-        }
-
-        building.Faction = this;
-        building.transform.SetParent(transform);
+        return name;
     }
 }

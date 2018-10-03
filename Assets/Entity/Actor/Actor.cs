@@ -152,4 +152,10 @@ public class Actor : Entity
         }
 
     }
+
+    public void AddMind(Mind mind)
+    {
+        Mind = mind;
+        mind.Entity = this;
+    }
 }

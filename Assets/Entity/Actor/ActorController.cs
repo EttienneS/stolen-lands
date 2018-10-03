@@ -59,26 +59,43 @@ public class ActorController : MonoBehaviour
         }
 
         PlayerFaction = GetFaction(TextureHelper.GetRandomColor());
-        PlayerFaction.AddMember(GetActor(new Player()));
+        PlayerFaction.AddMember(MakeBuilder(GetActor(new Player())));
+        PlayerFaction.AddMember(MakeScout(GetActor(new Player())));
 
         for (var i = 0; i < InitialFactions; i++)
         {
             var faction = GetFaction(TextureHelper.GetRandomColor());
-            faction.AddMember(GetActor(new AI()));
+
+            faction.AddMember(MakeBuilder(GetActor(new AI())));
+            faction.AddMember(MakeScout(GetActor(new AI())));
+        }
+
+        foreach (var faction in Factions)
+        {
+            faction.StartTurn();
         }
     }
 
     private Actor GetActor(Mind mind)
     {
         var actor = GetActorShell();
+        actor.AddMind(mind);
+        return actor;
+    }
 
-        actor.Mind = mind;
-        mind.Entity = actor;
+    public Actor MakeScout(Actor actor)
+    {
+        actor.AddTrait(new Sighted(4));
+        actor.AddTrait(new Mobile(3, true));
 
-        actor.AddTrait(new Sighted(3));
-        actor.AddTrait(new Mobile(3));
+        return actor;
+    }
+
+    public Actor MakeBuilder(Actor actor)
+    {
+        actor.AddTrait(new Sighted(1));
+        actor.AddTrait(new Mobile(2, false));
         actor.AddTrait(new Builder());
-        actor.StartTurn();
 
         return actor;
     }
@@ -147,8 +164,7 @@ public class ActorController : MonoBehaviour
                     HexGrid.Instance.Cells[reader.ReadLine().ToInt()].AddEntity(actor);
 
                     actor.ActionPoints = reader.ReadLine().ToInt();
-                    actor.Mind = MindFactory.Load(reader.ReadLine());
-                    actor.Mind.Entity = actor;
+                    actor.AddMind(MindFactory.Load(reader.ReadLine()));
 
                     var traits = reader.ReadLine().ToInt();
                     for (var t = 0; t < traits; t++)
