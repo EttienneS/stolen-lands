@@ -180,8 +180,6 @@ public static class MapGenerator
                 foreach (var member in faction.Members)
                 {
                     member.GetTrait<Mobile>().MoveToCell(origin);
-                    member.TakeTurn();
-
                     origin = Pathfinder.GetClosestOpenCell(origin);
                     allocatedCells.Add(origin);
                 }
