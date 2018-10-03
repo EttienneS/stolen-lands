@@ -23,13 +23,16 @@ public class StructureController : MonoBehaviour
     public IEnumerable<Structure> AvailableBuildings(Entity builder)
     {
         var options = new List<Structure>();
+
+        var center = StructurePrefabs.OfType<CityCenter>().First();
         if (builder.Location.Owner == builder.Faction)
         {
             options.AddRange(StructurePrefabs);
+            options.Remove(center);
         }
-        else
+        else if (builder.Location.Owner == null)
         {
-            options.Add(StructurePrefabs.OfType<CityCenter>().First());
+            options.Add(center);
         }
 
         return options.Where(b => b.Cost <= builder.ActionPoints);
